@@ -3,9 +3,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Punda Express</title>
+    <title>Bunni Express</title>
     <script type="text/javascript" src="./animator.js"></script>
-    <script type="text/javascript" src="./punda.js"></script>
+    <script type="text/javascript" src="./bunny.js"></script>
+    <script type="text/javascript" src="./boundingbox.js"></script>
+    <script type="text/javascript" src="./background.js"></script>
+    <script type="text/javascript" src="./scenemanager.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./timer.js"></script>
     <script type="text/javascript" src="./gameengine.js"></script>
@@ -13,6 +16,10 @@
     <script type="text/javascript" src="./main.js"></script>
 </head>
 <body>
-    <canvas id="gameWorld" width="1056" height="608" style="background: white; border: 1px solid black"></canvas>
+    <canvas id="gameWorld" width="800" height="800" style="background: white; border: 1px solid black" tabindex ="0" autofocus></canvas></canvas>
+    <div>
+        <br />
+        <input type="checkbox" id="debug" checked> Debug 
+    </div>
 </body>
 </html>
