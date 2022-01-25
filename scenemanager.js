@@ -9,7 +9,6 @@ class SceneManager {
         this.tree = new Tree(gameEngine, 15, 200);
         this.flower = new Flower(gameEngine, 350, 350);
         this.bridge = new Bridge(gameEngine, 233, 635);
-        this.fence = new Fence(gameEngine, 125, 330);
         this.bonfire = new Bonfire(gameEngine, 400, 500);
         this.pig = new Pig(gameEngine, 90, 480);
         this.pond = new Pond(gameEngine, 500, 675);
@@ -22,7 +21,21 @@ class SceneManager {
         this.game.addEntity(this.pavement);
         this.game.addEntity(this.bridge);
         this.game.addEntity(this.pig);
-        this.game.addEntity(this.fence);
+
+
+        // middle piece 
+        // for (var i = 0; i < backGround.fenceLength[1].size; i++) {
+        //     for (var j = 1; j < backGround.fenceLength[1].size; j++) {
+        //         this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation[0].x + PARAMS.TILEWIDTH * PARAMS.SCALE , backGround.fenceLocation[0].y, backGround.fence[1].x, backGround.fence[1].y));
+        //         this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation[j].x - PARAMS.TILEWIDTH * PARAMS.SCALE * i, backGround.fenceLocation[j].y, backGround.fence[1].x, backGround.fence[1].y));  
+        //         this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation[i].x, backGround.fenceLocation[i].y, backGround.fence[1].x, backGround.fence[1].y));  
+                
+        //     }
+        // }
+        // for (var j = 1; j < backGround.fenceLength[1].size; j++) {this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation[j].x + PARAMS.TILEWIDTH * PARAMS.SCALE, backGround.fenceLocation[j].y, backGround.fence[1].x, backGround.fence[1].y));  
+        // }
+       
+        
         this.game.addEntity(this.mailbox);
         this.game.addEntity(this.flower);
         this.game.addEntity(this.tree);

@@ -137,29 +137,25 @@ class MailBox {
     }
 }
 class Fence {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
+    // location where to put them 
+    // width height ? then its easier to add fence individually and add bounding box. 
+    constructor(game, x, y, typeX, typeY) {
+        Object.assign(this, { game, x, y, typeX, typeY});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
+       
     }
     update() {};
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 64, 704, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, this.x, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
-        ctx.drawImage(this.spritesheet, 64, 672, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, this.x + PARAMS.TILEWIDTH * PARAMS.SCALE - 4, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
-        // top mid piece
-        ctx.drawImage(this.spritesheet, 64, 704, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 100, 450, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
-        // top right piece
-        ctx.drawImage(this.spritesheet, 32, 704, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 100 + PARAMS.TILEWIDTH * PARAMS.SCALE - 4, 450, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
-        // right fence 
-        ctx.drawImage(this.spritesheet, 32, 736, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 100 + PARAMS.TILEWIDTH * PARAMS.SCALE - 4, 450 + PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
-        // top left piece
-        ctx.drawImage(this.spritesheet, 32, 704, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 100 - PARAMS.TILEWIDTH * PARAMS.SCALE + 4, 450, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);  
-        // left fence 
-        ctx.drawImage(this.spritesheet, 32, 736, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 100 - PARAMS.TILEWIDTH * PARAMS.SCALE + 4, 450 + PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
-
-        ctx.drawImage(this.spritesheet, 64, 704, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 100, 450 + PARAMS.TILEWIDTH * 3, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
-        ctx.drawImage(this.spritesheet, 32, 704, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 100 + PARAMS.TILEWIDTH * PARAMS.SCALE - 4, 450 + PARAMS.TILEWIDTH * 3, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
-        ctx.drawImage(this.spritesheet, 32, 704, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 100 - PARAMS.TILEWIDTH * PARAMS.SCALE + 4, 450 + PARAMS.TILEWIDTH * 3, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);  
+        ctx.drawImage(this.spritesheet, this.typeX, this.typeY, 
+            PARAMS.TILEWIDTH, PARAMS.TILEWIDTH,
+            this.x, this.y,
+            PARAMS.TILEWIDTH * PARAMS.SCALE, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE);
+            
+        if (PARAMS.DEBUG) {
+          
+        }
         ctx.imageSmoothingEnabled = false;
     }
 
