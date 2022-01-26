@@ -1,6 +1,7 @@
 class Bunny {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
+        this.game.bunny = this;
         this.game.x = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/bunny_spritesheet.png");     
         this.velocity = { x: 0, y: 0};
@@ -8,6 +9,7 @@ class Bunny {
         this.state = 0; // 0 = idle, 1 = walking
         this.animations = [];
         this.loadAnimations();
+        this.updateBB();
     };
 
     loadAnimations() {
@@ -36,11 +38,19 @@ class Bunny {
         this.animations[1][2] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 4, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
         this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
     }
-
+    /* Update the bounding box of the player for collision detection */
+    updateBB() {
+        this.lastBB = this.BB;
+        this.BB = new BoundingBox(this.x + 20, this.y, 64 - 6, 64 + 30); // KD changed the bounding box dimensions to hug the sprite
+    };
         
     draw(ctx) {
         let scale = 1;
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, scale);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
         ctx.imageSmoothingEnabled = false;
     }
 
@@ -67,6 +77,31 @@ class Bunny {
         } else {
             this.state = 0;
         }
+        this.updateBB();
+
+        var that = this; //need this because we are creating
+        this.game.entities.forEach(function (entity) {          // this will look at all entities in relation to chihiro
+            if (entity.BB && that.BB.collide(entity.BB)) {
+                if (entity instanceof House  && (that.lastBB.bottom >= entity.BB.bottom)) {
+                    // do a door BB
+                    that.updateBB();
+                }
+                if (that.velocity.y < 0) { // going up
+                    if (entity instanceof Fence && (that.lastBB.bottom <= entity.BBbot.bottom)) {
+                        that.y = entity.BBbot.bottom - 64 - 30;
+                    }
+                    that.updateBB();
+                } 
+                if (that.velocity.y > 0) { // going down
+                    if (entity instanceof Fence && (that.lastBB.bottom >= entity.BBtop.top)) {
+                        that.y = entity.BBtop.top - 64 - 25;             
+                    }  
+                    that.updateBB();
+                }
+            }
+        });  
+
+
 
         // update direction
         if (this.velocity.x > 0) this.facing = 0; // right

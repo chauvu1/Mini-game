@@ -143,15 +143,17 @@ class MailBox {
         }
     }
 }
-class Fence {
-    // location where to put them 
-    // width height ? then its easier to add fence individually and add bounding box. 
+class Fence { 
     constructor(game, x, y, typeX, typeY) {
         Object.assign(this, { game, x, y, typeX, typeY});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
         this.BB = new BoundingBox(this.x , this.y + backGround.fencePadding, PARAMS.TILEWIDTH * PARAMS.SCALE, 
             PARAMS.TILEWIDTH * PARAMS.SCALE - backGround.fencePadding);
-    }
+        this.BBtop = new BoundingBox(this.x , this.y + backGround.fencePadding, PARAMS.TILEWIDTH * PARAMS.SCALE, 
+            10);
+        this.BBbot = new BoundingBox(this.x , this.y + 64 - 10, PARAMS.TILEWIDTH * PARAMS.SCALE, 
+            10);
+}
     update() {};
 
     draw(ctx) {
@@ -165,6 +167,9 @@ class Fence {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
+            ctx.strokeRect(this.BBbot.x, this.BBbot.y, this.BBbot.width, this.BBbot.height);
         }
         ctx.imageSmoothingEnabled = false;
     }
