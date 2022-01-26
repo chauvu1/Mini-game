@@ -127,13 +127,20 @@ class Pavement {
 class MailBox {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png");
+        this.BB = new BoundingBox(this.x + 15, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE); 
     }
     update() {};
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 0, 736, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, this.x, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
         ctx.imageSmoothingEnabled = false;
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
     }
 }
 class Fence {
@@ -142,7 +149,8 @@ class Fence {
     constructor(game, x, y, typeX, typeY) {
         Object.assign(this, { game, x, y, typeX, typeY});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
-       
+        this.BB = new BoundingBox(this.x , this.y + backGround.fencePadding, PARAMS.TILEWIDTH * PARAMS.SCALE, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE - backGround.fencePadding);
     }
     update() {};
 
@@ -154,7 +162,9 @@ class Fence {
             PARAMS.TILEWIDTH * PARAMS.SCALE);
             
         if (PARAMS.DEBUG) {
-          
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
         }
         ctx.imageSmoothingEnabled = false;
     }
@@ -164,27 +174,39 @@ class Flower {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
+        this.BB = new BoundingBox(this.x , this.y, PARAMS.TILEWIDTH * PARAMS.SCALE + 50, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE - 20);
     }
     update() {};
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 32, 800, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, this.x, this.y, PARAMS.TILEWIDTH * 1.5, PARAMS.TILEWIDTH * 1.5);
         ctx.drawImage(this.spritesheet, 64, 832, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH, this.x + PARAMS.TILEWIDTH * 1.5 - 10, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE * 1.5, PARAMS.TILEWIDTH * 1.5);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
         ctx.imageSmoothingEnabled = false;
     }
 }
-class Bush {
 
-}
 class Tree {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
+        this.BB = new BoundingBox(this.x , this.y, 65 * PARAMS.SCALE, 
+            77 * PARAMS.SCALE);
     }
     update() {};
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 128, 912, 64, 77, this.x, this.y, 65 * PARAMS.SCALE, 77 * PARAMS.SCALE);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
         ctx.imageSmoothingEnabled = false;
     }
 }
@@ -192,11 +214,17 @@ class Bridge {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
+        this.BB = new BoundingBox(this.x, this.y + 10, 65 * 1.8, 128 * 1.8);
     }
     update() {};
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 96, 224, 64, 128, this.x, this.y, 65 * 1.8, 128 * 1.8);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
         ctx.imageSmoothingEnabled = false;
     }
 }
@@ -207,12 +235,27 @@ class Bonfire {
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
         this.firesheet = ASSET_MANAGER.getAsset("./sprites/fire.png"); 
         this.fireAnim = new Animator(this.firesheet, 0, 0, 32, 32, 6, .1, 0, false, true);
+
+        this.fireBB = new BoundingBox(464, 525, PARAMS.TILEWIDTH * PARAMS.SCALE, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE - 30);
+        this.leftLogBB = new BoundingBox(425, 520, PARAMS.TILEWIDTH * PARAMS.SCALE - 40, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE);
+        this.rightLogBB = new BoundingBox(542, 520, PARAMS.TILEWIDTH * PARAMS.SCALE - 40, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE);
     }
     update() {};
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 0, 1537, 96, 64, this.x, this.y, 96 * PARAMS.SCALE, 64 * PARAMS.SCALE);
         this.fireAnim.drawFrame(this.game.clockTick, ctx, 458, 475, 2.5);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.fireBB.x, this.fireBB.y, this.fireBB.width, this.fireBB.height);
+            ctx.strokeRect(this.leftLogBB.x, this.leftLogBB.y, this.leftLogBB.width, this.leftLogBB.height);
+            ctx.strokeRect(this.rightLogBB.x, this.rightLogBB.y, this.rightLogBB.width, this.rightLogBB.height);
+        }
+
         ctx.imageSmoothingEnabled = false;
     }
 }
@@ -222,7 +265,7 @@ class Pond {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
-       
+        this.BB = new BoundingBox(this.x, this.y, 255, 200);
     }
 
     update() {};
@@ -232,7 +275,11 @@ class Pond {
         ctx.drawImage(this.spritesheet, 128, 128, 32, 69, this.x + PARAMS.TILEWIDTH * PARAMS.SCALE, this.y , 32 * 2, 69 * 2);
         ctx.drawImage(this.spritesheet, 128, 128, 32, 69, this.x + PARAMS.TILEWIDTH * 2 * PARAMS.SCALE, this.y , 32 * 2, 69 * 2);
         ctx.drawImage(this.spritesheet, 160, 128, 32, 69, this.x + PARAMS.TILEWIDTH * 3 * PARAMS.SCALE, this.y , 32 * 2, 69 * 2);
-
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
         ctx.imageSmoothingEnabled = false;
     }
 
@@ -242,11 +289,17 @@ class Pig {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/piggy.png"); 
         this.pigAnim = new Animator(this.spritesheet, 0, 0, 108, 108, 4, .18, 0, false, true);
+        this.BB = new BoundingBox(this.x, this.y, 108 * .8, 108 *.8);
     }
     update() {};
 
     draw(ctx) {
         this.pigAnim.drawFrame(this.game.clockTick, ctx, this.x, this.y, .8);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
         ctx.imageSmoothingEnabled = false;
     }
 }

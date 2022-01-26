@@ -21,21 +21,20 @@ class SceneManager {
         this.game.addEntity(this.pavement);
         this.game.addEntity(this.bridge);
         this.game.addEntity(this.pig);
-
-
-        // middle piece 
-        // for (var i = 0; i < backGround.fenceLength[1].size; i++) {
-        //     for (var j = 1; j < backGround.fenceLength[1].size; j++) {
-        //         this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation[0].x + PARAMS.TILEWIDTH * PARAMS.SCALE , backGround.fenceLocation[0].y, backGround.fence[1].x, backGround.fence[1].y));
-        //         this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation[j].x - PARAMS.TILEWIDTH * PARAMS.SCALE * i, backGround.fenceLocation[j].y, backGround.fence[1].x, backGround.fence[1].y));  
-        //         this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation[i].x, backGround.fenceLocation[i].y, backGround.fence[1].x, backGround.fence[1].y));  
-                
-        //     }
-        // }
-        // for (var j = 1; j < backGround.fenceLength[1].size; j++) {this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation[j].x + PARAMS.TILEWIDTH * PARAMS.SCALE, backGround.fenceLocation[j].y, backGround.fence[1].x, backGround.fence[1].y));  
-        // }
-       
         
+        for (var i = 0; i < backGround.fenceLocation.houseFence.length; i++) {
+            this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation.houseFence[i].x, backGround.fenceLocation.houseFence[i].y, backGround.fence[1].x, backGround.fence[1].y));  
+        }
+
+        for (var i = 0; i < backGround.fenceLocation.leftGardenFence.length; i++) {
+            this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation.leftGardenFence[i].x, backGround.fenceLocation.leftGardenFence[i].y, backGround.fence[1].x, backGround.fence[1].y));  
+        }
+        
+        for (var i = 0; i < backGround.fenceLocation.rightGardenFence.length; i++) {
+            this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation.rightGardenFence[i].x, backGround.fenceLocation.rightGardenFence[i].y, backGround.fence[1].x, backGround.fence[1].y));  
+        }
+        
+
         this.game.addEntity(this.mailbox);
         this.game.addEntity(this.flower);
         this.game.addEntity(this.tree);
