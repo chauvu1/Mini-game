@@ -6,7 +6,7 @@ class SceneManager {
         this.house = new House(gameEngine, 100, 100);
         this.pavement = new Pavement(gameEngine, 190, 375);
         this.mailbox = new MailBox(gameEngine, 200, 345);
-        this.tree = new Tree(gameEngine, 500, 200);
+        this.tree = new Tree(gameEngine, 600, 200);
         this.flower = new Flower(gameEngine, 350, 350);
         this.bridge = new Bridge(gameEngine, 233, 635);
         this.bonfire = new Bonfire(gameEngine, 400, 500);
