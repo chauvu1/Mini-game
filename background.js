@@ -35,6 +35,15 @@ class House {
         // make more bounding box for doors
         this.BB = new BoundingBox(this.x + this.padding / PARAMS.SCALE, this.y, this.houseWidth * this.scale - this.padding, 
             this.houseHeight * this.scale - this.padding);
+        this.BBleft = new BoundingBox(this.x + this.padding / PARAMS.SCALE, this.y, 130, 
+            this.houseHeight * this.scale - this.padding);
+        this.BBright = new BoundingBox(this.BB.width + 10, this.y, 130, 
+            this.houseHeight * this.scale - this.padding);
+        this.BBtop = new BoundingBox(this.x + this.padding / PARAMS.SCALE, this.y, this.houseWidth * this.scale - this.padding, 
+            130);
+        this.BBbot = new BoundingBox(this.x + this.padding / PARAMS.SCALE, this.y + 110, this.houseWidth * this.scale - this.padding, 
+            130);    
+
     }
     update() {};
 
@@ -49,6 +58,11 @@ class House {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
+            ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
+            ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
+            ctx.strokeRect(this.BBbot.x, this.BBbot.y, this.BBbot.width, this.BBbot.height);
         }
         ctx.imageSmoothingEnabled = false;
     }
