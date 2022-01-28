@@ -7,6 +7,7 @@ ASSET_MANAGER.queueDownload("./sprites/background_spritesheet.png");
 ASSET_MANAGER.queueDownload("./sprites/chimmey_smoke.png");
 ASSET_MANAGER.queueDownload("./sprites/fire.png");
 ASSET_MANAGER.queueDownload("./sprites/piggy.png");
+ASSET_MANAGER.queueDownload("./sprites/cow_spritesheet.png");
 
 ASSET_MANAGER.downloadAll(function () {
 	var canvas = document.getElementById("gameWorld");

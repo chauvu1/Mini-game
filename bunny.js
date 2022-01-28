@@ -83,7 +83,8 @@ class Bunny {
         this.game.entities.forEach(function (entity) {          // this will look at all entities in relation to chihiro
             if (entity.BB && that.BB.collide(entity.BB)) {   
                 if (that.velocity.y < 0) { // going up
-                    if (entity instanceof Fence || entity instanceof House && that.BB.collide(entity.BB)) {
+                    if (entity instanceof Fence || entity instanceof House || entity instanceof MailBox || entity instanceof Tree || entity instanceof Flower 
+                        && that.BB.collide(entity.BB)) {
                         if (that.BB.collide(entity.BBbot) && that.lastBB.bottom < entity.BBbot.bottom) {
                             if (that.velocity.y < 0) that.velocity.y = 0;
                         } 
@@ -91,14 +92,16 @@ class Bunny {
                     that.updateBB();
                 }
                 if (that.velocity.y > 0) { // going down
-                    if (entity instanceof Fence || entity instanceof House && that.BB.collide(entity.BB)) {
+                    if (entity instanceof Fence || entity instanceof House || entity instanceof MailBox || entity instanceof Tree || entity instanceof Flower 
+                        && that.BB.collide(entity.BB)) {
                         if (that.BB.collide(entity.BBtop) && (that.lastBB.bottom > entity.BBtop.top)) {
                             if (that.velocity.y > 0) that.velocity.y = 0;
                         }  
                     } 
                     that.updateBB();
                 }
-                if (entity instanceof Fence || entity instanceof House && that.BB.collide(entity.BB)) {
+                if (entity instanceof Fence || entity instanceof House || entity instanceof MailBox || entity instanceof Tree || entity instanceof Flower 
+                     && that.BB.collide(entity.BB)) {
                     if (that.BB.collide(entity.BBright) && that.lastBB.left >= entity.BBright.right) {
                         that.x += 3;
                     if (that.velocity.x < 0) that.velocity.x = 0;
@@ -107,8 +110,7 @@ class Bunny {
                     if (that.velocity.x > 0) that.velocity.x = 0;
                     } 
                     that.updateBB();
-                }   
-            
+                }  
             }
         });  
 

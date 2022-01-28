@@ -67,6 +67,8 @@ class House {
         ctx.imageSmoothingEnabled = false;
     }
 }
+
+
 class Pavement {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
@@ -138,12 +140,23 @@ class Pavement {
     }
 
 }
+
+
 class MailBox {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png");
         this.BB = new BoundingBox(this.x + 15, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
             PARAMS.TILEWIDTH * PARAMS.SCALE); 
+        this.BBleft = new BoundingBox(this.x + 15, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30 - 25, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE); 
+        this.BBright = new BoundingBox(this.x + this.BB.width + 6, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30 - 25, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE); 
+        this.BBtop = new BoundingBox(this.x + 15, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
+            10); 
+        this.BBbot = new BoundingBox(this.x + 15, this.y + this.BB.height - 10, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
+            10); 
+       
     }
     update() {};
 
@@ -154,9 +167,16 @@ class MailBox {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
+            ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
+            ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
+            ctx.strokeRect(this.BBbot.x, this.BBbot.y, this.BBbot.width, this.BBbot.height);
         }
     }
 }
+
+
 class Fence { 
     constructor(game, x, y, typeX, typeY) {
         Object.assign(this, { game, x, y, typeX, typeY});
@@ -185,9 +205,9 @@ class Fence {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeStyle = 'red';
             ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
             ctx.strokeRect(this.BBbot.x, this.BBbot.y, this.BBbot.width, this.BBbot.height);
-            ctx.strokeStyle = 'red';
             ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
             ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
       
@@ -196,11 +216,21 @@ class Fence {
     }
 
 }
+
+// TODO: separate them
 class Flower {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
         this.BB = new BoundingBox(this.x , this.y, PARAMS.TILEWIDTH * PARAMS.SCALE + 50, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE - 20);
+        this.BBtop = new BoundingBox(this.x , this.y, PARAMS.TILEWIDTH * PARAMS.SCALE + 50, 
+            10);
+        this.BBbot = new BoundingBox(this.x , this.y + this.BB.height - 10, PARAMS.TILEWIDTH * PARAMS.SCALE + 50, 
+            10);
+        this.BBleft = new BoundingBox(this.x , this.y, 10, 
+            PARAMS.TILEWIDTH * PARAMS.SCALE - 20);
+        this.BBright = new BoundingBox(this.x + this.BB.width - 10 , this.y, 10, 
             PARAMS.TILEWIDTH * PARAMS.SCALE - 20);
     }
     update() {};
@@ -212,16 +242,30 @@ class Flower {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
+            ctx.strokeRect(this.BBbot.x, this.BBbot.y, this.BBbot.width, this.BBbot.height);
+            ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
+            ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
         }
         ctx.imageSmoothingEnabled = false;
     }
 }
 
+// TODO: a type of tree, so that it can be drawn differently
 class Tree {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
         this.BB = new BoundingBox(this.x , this.y, 65 * PARAMS.SCALE, 
+            77 * PARAMS.SCALE);
+        this.BBbot = new BoundingBox(this.x , this.y + this.BB.height - 10, 65 * PARAMS.SCALE, 
+            10);
+        this.BBtop = new BoundingBox(this.x , this.y, 65 * PARAMS.SCALE, 
+            10);
+        this.BBleft = new BoundingBox(this.x , this.y, 10, 
+            77 * PARAMS.SCALE);
+        this.BBright = new BoundingBox(this.x + this.BB.width - 10, this.y, 10, 
             77 * PARAMS.SCALE);
     }
     update() {};
@@ -232,10 +276,17 @@ class Tree {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
+            ctx.strokeRect(this.BBbot.x, this.BBbot.y, this.BBbot.width, this.BBbot.height);
+            ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
+            ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
         }
         ctx.imageSmoothingEnabled = false;
     }
 }
+
+// TODO: make bounding box for this
 class Bridge {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
@@ -255,8 +306,12 @@ class Bridge {
     }
 }
 
+// TODO: separate them , logs and fire
 class Bonfire {
     constructor(game, x, y) {
+        // log size 32 48 x 0 1536 
+        // right side 64 1536
+        // bonfire 32 32 x 32 1536
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png"); 
         this.firesheet = ASSET_MANAGER.getAsset("./sprites/fire.png"); 
@@ -286,7 +341,7 @@ class Bonfire {
     }
 }
 
-
+// TODO: create bounding box
 class Pond {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
@@ -310,6 +365,7 @@ class Pond {
     }
 
 }
+// create animation of them walking around. 
 class Pig {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
@@ -321,6 +377,26 @@ class Pig {
 
     draw(ctx) {
         this.pigAnim.drawFrame(this.game.clockTick, ctx, this.x, this.y, .8);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
+        ctx.imageSmoothingEnabled = false;
+    }
+}
+// TODO: aniamte the cow walking around randomly. 
+class Cow {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/cow_spritesheet.png"); 
+        this.cowAnim = new Animator(this.spritesheet, 0, 0, 32, 32, 5, .1, 0, false, true);
+        this.BB = new BoundingBox(this.x + 10, this.y + 35, 32 * 3 - 15, 32 * 3 - 40);
+    }
+    update() {};
+
+    draw(ctx) {
+        this.cowAnim.drawFrame(this.game.clockTick, ctx, this.x, this.y, 3);
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;

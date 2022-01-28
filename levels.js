@@ -12,6 +12,10 @@ var backGround = {
                      rightGardenFence: [{x: 340, y: 450},  {x: 404, y: 450}, {x: 468, y: 450}, {x: 532, y: 450}, {x: 596, y: 450}, {x: 660, y: 450}, {x: 724, y: 450},  {x: 788, y: 450}]}  
 };
 
+
+
+
+
 const PARAMS = {
         DEBUG: true,
         SCALE: 2,
