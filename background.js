@@ -373,7 +373,6 @@ class Bonfire {
             ctx.strokeRect(this.leftLogBB.x, this.leftLogBB.y, this.leftLogBB.width, this.leftLogBB.height);
             ctx.strokeRect(this.rightLogBB.x, this.rightLogBB.y, this.rightLogBB.width, this.rightLogBB.height);
         }
-
         ctx.imageSmoothingEnabled = false;
     }
 }
@@ -401,6 +400,24 @@ class Pond {
         ctx.imageSmoothingEnabled = false;
     }
 
+}
+class Chick {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/chick_spritesheet.png"); 
+        this.chickAnim = new Animator(this.spritesheet, 0, 0, 32, 32, 4, 0.2, 0, false, true);
+        this.BB = new BoundingBox(this.x + 10, this.y + 15, 32 * 2 - 20, 32 * 2 - 15);
+    }
+    update() {};
+    draw(ctx) {
+        this.chickAnim.drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
+        ctx.imageSmoothingEnabled = false;
+    }
 }
 // create animation of them walking around. 
 class Pig {

@@ -13,6 +13,7 @@ class SceneManager {
         this.pig = new Pig(gameEngine, 90, 480);
         this.pond = new Pond(gameEngine, 500, 675);
         this.cow = new Cow(gameEngine, 50, 540);
+        this.chick = new Chick(gameEngine, 50, 620);
         this.interface = new Interface(gameEngine, 0, PARAMS.CANVAS_HEIGHT - 175);
         this.loadScreen();
     }
@@ -30,6 +31,7 @@ class SceneManager {
         this.game.addEntity(this.bridge);
         this.game.addEntity(this.pig);
         this.game.addEntity(this.cow);
+        this.game.addEntity(this.chick);
         for (var i = 0; i < backGround.fenceLocation.leftGardenFence.length; i++) {
             this.game.addEntity(new Fence(gameEngine, backGround.fenceLocation.leftGardenFence[i].x, backGround.fenceLocation.leftGardenFence[i].y, backGround.fence[1].x, backGround.fence[1].y));  
         }
