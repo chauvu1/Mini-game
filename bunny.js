@@ -41,7 +41,7 @@ class Bunny {
     /* Update the bounding box of the player for collision detection */
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x + 20, this.y, 64 - 6, 64 + 30); // KD changed the bounding box dimensions to hug the sprite
+        this.BB = new BoundingBox(this.x + 30, this.y + 84, 64 - 28, 10); // KD changed the bounding box dimensions to hug the sprite
     };
         
     draw(ctx) {
@@ -87,17 +87,34 @@ class Bunny {
                     that.updateBB();
                 }
                 if (that.velocity.y < 0) { // going up
-                    if (entity instanceof Fence && (that.lastBB.bottom <= entity.BBbot.bottom)) {
-                        that.y = entity.BBbot.bottom - 64 - 30;
-                    }
+                    if (entity instanceof Fence && that.BB.collide(entity.BB)) {
+                        if (that.BB.collide(entity.BBbot) && that.lastBB.bottom < entity.BBbot.bottom) {
+                            if (that.velocity.y < 0) that.velocity.y = 0;
+                        } 
+                        else {
+
+                        }
+                    } 
                     that.updateBB();
                 } 
                 if (that.velocity.y > 0) { // going down
-                    if (entity instanceof Fence && (that.lastBB.bottom >= entity.BBtop.top)) {
-                        that.y = entity.BBtop.top - 64 - 25;             
-                    }  
+                    if (entity instanceof Fence && that.BB.collide(entity.BB)) {
+                        if (that.BB.collide(entity.BBtop) && (that.lastBB.bottom > entity.BBtop.top)) {
+                            if (that.velocity.y > 0) that.velocity.y = 0;
+                        }  
+                    }
                     that.updateBB();
                 }
+                if (entity instanceof Fence && that.BB.collide(entity.BB)) {
+                    if (that.BB.collide(entity.BBright) && that.lastBB.left >= entity.BBright.right) {
+                        that.x += 3;
+                    if (that.velocity.x < 0) that.velocity.x = 0;
+                    } else if (that.BB.collide(entity.BBleft) && that.lastBB.right <= entity.BBleft.left) {
+                        that.x -= 3;
+                    if (that.velocity.x > 0) that.velocity.x = 0;
+                } 
+            }
+               
             }
         });  
 
