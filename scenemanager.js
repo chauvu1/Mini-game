@@ -13,6 +13,7 @@ class SceneManager {
         this.pig = new Pig(gameEngine, 90, 480);
         this.pond = new Pond(gameEngine, 500, 675);
         this.cow = new Cow(gameEngine, 50, 540);
+        this.interface = new Interface(gameEngine, 0, PARAMS.CANVAS_HEIGHT - 175);
         this.loadScreen();
     }
 
@@ -42,6 +43,7 @@ class SceneManager {
         this.game.addEntity(this.bonfire);
         this.game.addEntity(this.pond);
         this.game.addEntity(this.bunny);
+        this.game.addEntity(this.interface);
   
     }
 

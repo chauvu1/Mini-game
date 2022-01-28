@@ -111,6 +111,19 @@ class Bunny {
                     } 
                     that.updateBB();
                 }  
+                // WITHIN RANGE, and if user interact -> change the condition and change the class update method. 
+            }
+            if (entity.BB && that.BB.withinRange(entity.BB)) {          
+                if (entity instanceof MailBox && that.BB.withinRange(entity.BB)) {
+                        entity.outline = true;
+                    if (that.BB.withinRange(entity.BB) && that.game.interact) {
+                        entity.open = true;
+                    } 
+                }
+                that.updateBB();
+            } else {
+                entity.open = false;
+                entity.outline = false;
             }
         });  
 

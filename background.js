@@ -99,12 +99,12 @@ class Pavement {
                 this.x - PARAMS.TILEWIDTH * PARAMS.SCALE * i , this.y + PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE); 
         }
         // connect middle left 
-        for (var i = 2; i < 7; i++) {
+        for (var i = 2; i < 9; i++) {
             ctx.drawImage(this.spritesheet, row1, row3, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 
                 this.x, this.y + PARAMS.TILEWIDTH * PARAMS.SCALE * i, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);   
         }
         // connect blank bottom left
-        for (var i = 2; i < 7; i++) {
+        for (var i = 2; i < 9; i++) {
             for (var j = 1; j < 5; j++)
             ctx.drawImage(this.spritesheet, row5, 0, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 
                 this.x - PARAMS.TILEWIDTH * PARAMS.SCALE * j, this.y + PARAMS.TILEWIDTH * PARAMS.SCALE * i, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE); 
@@ -125,13 +125,13 @@ class Pavement {
         }
 
         // connect middle right 
-        for (var i = 2; i < 7; i++) {
+        for (var i = 2; i < 9; i++) {
             ctx.drawImage(this.spritesheet, row3, row3, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 
                 this.x + PARAMS.TILEWIDTH * PARAMS.SCALE + 75, this.y + PARAMS.TILEWIDTH * PARAMS.SCALE * i , PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);   
         }     
     
         // connect blank middle right 
-        for (var i = 2; i < 7; i++) {
+        for (var i = 2; i < 9; i++) {
             for (var j = 2; j < 9; j++)
             ctx.drawImage(this.spritesheet, row5, 0, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, 
                 this.x + PARAMS.TILEWIDTH * PARAMS.SCALE * j + 75, this.y + PARAMS.TILEWIDTH * PARAMS.SCALE * i , PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
@@ -145,23 +145,61 @@ class Pavement {
 class MailBox {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/background_spritesheet.png");
-        this.BB = new BoundingBox(this.x + 15, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/mailbox_spritesheet.png");
+        this.speechsheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
+        this.animation = [];
+        this.state = 0;
+        this.transition = 0;
+        this.open = false;
+        this.outline = false;
+
+        for (var i = 0; i < 2; i++) {
+            this.animation.push([]);
+            for (var j = 0; j < 2; j++) {
+                this.animation[i].push([]);
+            }
+        }
+        // this.state - this outline
+        this.animation[0][0] = new Animator (this.spritesheet, 34, 34, 34, 34, 1, 1, 0, false, true);  // unopened 
+        this.animation[0][1] = new Animator (this.spritesheet, 0, 34, 34, 34, 1, 1, 0, false, true);  // hightlight unopened
+
+        this.animation[1][0]= new Animator (this.spritesheet, 34, 0, 34, 34, 1, 1, 0, false, true);  // opened
+        this.animation[1][1] = new Animator (this.spritesheet, 0, 0, 34, 34, 1, 1, 0, false, true);   // hightlight opened
+
+        this.speechbubble = new Animator (this.speechsheet, 0, 0, 11, 11, 8, 0.2, 0, false, true);  
+
+        this.BB = new BoundingBox(this.x + 17, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
             PARAMS.TILEWIDTH * PARAMS.SCALE); 
-        this.BBleft = new BoundingBox(this.x + 15, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30 - 25, 
+        this.BBleft = new BoundingBox(this.x + 17, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30 - 23, 
             PARAMS.TILEWIDTH * PARAMS.SCALE); 
-        this.BBright = new BoundingBox(this.x + this.BB.width + 6, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30 - 25, 
+        this.BBright = new BoundingBox(this.x + this.BB.width + 6, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30 - 23, 
             PARAMS.TILEWIDTH * PARAMS.SCALE); 
-        this.BBtop = new BoundingBox(this.x + 15, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
+        this.BBtop = new BoundingBox(this.x + 17, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
             10); 
-        this.BBbot = new BoundingBox(this.x + 15, this.y + this.BB.height - 10, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
+        this.BBbot = new BoundingBox(this.x + 17, this.y + this.BB.height - 10, PARAMS.TILEWIDTH * PARAMS.SCALE - 30, 
             10); 
        
     }
-    update() {};
+    update() {
+        if (this.outline) {
+            this.transition = 1;
+            if (this.open) {
+                this.state = 1; 
+            }
+        }  else {
+            this.state = 0;
+            this.transition = 0;
+        }
+      
+        
+    };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 0, 736, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, this.x, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
+        this.animation[this.state][this.transition].drawFrame(this.game.clockTick, ctx, this.x, this.y, PARAMS.SCALE);
+        if (this.outline && !this.open) {
+            this.speechbubble.drawFrame(this.game.clockTick, ctx, this.x + this.BB.width / 2, this.y - 20, 3);
+        } 
+        //ctx.drawImage(this.spritesheet, 0, 736, PARAMS.TILEWIDTH, PARAMS.TILEWIDTH, this.x, this.y, PARAMS.TILEWIDTH * PARAMS.SCALE, PARAMS.TILEWIDTH * PARAMS.SCALE);
         ctx.imageSmoothingEnabled = false;
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'yellow';
@@ -175,7 +213,6 @@ class MailBox {
         }
     }
 }
-
 
 class Fence { 
     constructor(game, x, y, typeX, typeY) {

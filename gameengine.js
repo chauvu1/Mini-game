@@ -70,6 +70,9 @@ class GameEngine {
                 case "ArrowDown": 
                     that.down = true; 
                     break;
+                case "Space":
+                    that.interact = true;
+                    break;
             }
         }, false);
 
@@ -86,6 +89,9 @@ class GameEngine {
                     break;
                 case "ArrowDown":
                     that.down = false; 
+                    break;
+                case "Space":
+                    that.interact = false;
                     break;
             }
         }, false);

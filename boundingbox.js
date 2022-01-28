@@ -22,4 +22,10 @@
         if (this.right > oth.left && this.left < oth.right && this.top < oth.bottom && this.bottom > oth.top) return true;
         return false;
     };
+
+    withinRange(oth) {
+        if (this.right + 10 > oth.left  && this.left  < oth.right + 10 && this.top + 10 < oth.bottom  && this.bottom + 10 > oth.top) return true;
+        return false;
+      
+    };
 };
