@@ -27,4 +27,10 @@
         if (this.right + 10 > oth.left  && this.left  < oth.right + 10 && this.top - 10 < oth.bottom  && this.bottom + 10 > oth.top) return true;
         return false;     
     };
+    remove() {
+        this.left = 0;
+        this.top = 0;
+        this.right = 0;
+        this.bottom = 0;
+    }
 };

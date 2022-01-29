@@ -3,15 +3,7 @@ var gameEngine = new GameEngine();
 var ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./sprites/bunny_spritesheet.png");
-ASSET_MANAGER.queueDownload("./sprites/background_spritesheet.png");
-ASSET_MANAGER.queueDownload("./sprites/chimmey_smoke.png");
-ASSET_MANAGER.queueDownload("./sprites/fire.png");
-ASSET_MANAGER.queueDownload("./sprites/cow_spritesheet.png");
-ASSET_MANAGER.queueDownload("./sprites/mailbox_spritesheet.png");
 ASSET_MANAGER.queueDownload("./sprites/speech_bubble.png");
-ASSET_MANAGER.queueDownload("./sprites/bun_interface.png");
-ASSET_MANAGER.queueDownload("./sprites/back_interface.png");
-ASSET_MANAGER.queueDownload("./sprites/chick_spritesheet.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Wooden House.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Paths.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/STONE PATH.png");

@@ -79,8 +79,8 @@ class Bunny {
         }
         this.updateBB();
 
-        var that = this; //need this because we are creating
-        this.game.entities.forEach(function (entity) {          // this will look at all entities in relation to chihiro
+        var that = this; 
+        this.game.entities.forEach(function (entity) {         
             if (entity.BB && that.BB.collide(entity.BB)) {   
                 if (entity instanceof House &&  that.BB.collide(entity.BB)) {
                     if (that.BB.collide(entity.BBbottomLeft)  && that.lastBB.bottom < entity.BBbottomLeft.bottom) {
@@ -92,13 +92,16 @@ class Bunny {
                     if (that.BB.collide(entity.BBtop) && that.lastBB.bottom > entity.BBtop.top) {
                         if (that.velocity.y > 0) that.velocity.y = 0;
                     }
-                    if (that.BB.collide(entity.BBleft) && that.lastBB.right <= entity.BBleft.left) {
+                    if (that.BB.collide(entity.BBleft) && that.lastBB.right >= entity.BBleft.left) {
                         that.x -= 3;
                         if (that.velocity.x > 0) that.velocity.x = 0;
                     }
                     if (that.BB.collide(entity.BBright) && that.lastBB.left <= entity.BBright.right) {
                         that.x += 3;
                         if (that.velocity.x < 0) that.velocity.x = 0;
+                    }
+                    if (that.BB.collide(entity.BBdoor) && that.lastBB.bottom < entity.BBdoor.bottom) {
+                        if (that.velocity.y < 0) that.velocity.y = 0;
                     }
                 }
             }

@@ -125,7 +125,6 @@ class House {
         this.animation[0] = new Animator(this.spritesheet, 60, 0, 60, 49, 1, 0.2, 0, false, true); // roof 
         this.animation[1] = new Animator(this.spritesheet, 0, 49, 60, 49, 1, 0.2, 0, false, true);  // no roof
         this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.2, 0, false, false); // no roof animation 
-        
         this.createBB();
         this.updateBB();
     }
@@ -138,8 +137,11 @@ class House {
             this.state = 1;
             if (this.door) {
                 this.state = 2;
+                this.BBdoor.remove();
             }
+         
         } else {
+            this.createBB();
             this.updateBB();
             this.state = 0; 
         }
