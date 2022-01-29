@@ -142,9 +142,8 @@ class House {
                 this.BBdoor.remove();
             }
         } else {
-            this.createBB();
-            this.updateBB();
             this.state = 0; 
+            this.updateBB();  
         }
        
         
@@ -182,7 +181,7 @@ class House {
 
         this.animation[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
         
-        if (this.visible && ! this.open) {
+        if (this.visible && ! this.door) {
             this.bubble.drawFrame(this.game.clockTick, ctx, 460, 280, 3);
         } else {
 
