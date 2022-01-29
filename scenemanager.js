@@ -31,9 +31,6 @@ class SceneManager {
         this.game.addEntity(new Tree(gameEngine, 700, 200));
         this.game.addEntity(new Tree(gameEngine, 120, 500));
         this.game.addEntity(this.bunny);
-       
-    
-  
     }
 
 

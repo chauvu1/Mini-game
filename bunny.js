@@ -81,7 +81,42 @@ class Bunny {
 
         var that = this; //need this because we are creating
         this.game.entities.forEach(function (entity) {          // this will look at all entities in relation to chihiro
-            // if (entity.BB && that.BB.collide(entity.BB)) {   
+            if (entity.BB && that.BB.collide(entity.BB)) {   
+                if (entity instanceof House &&  that.BB.collide(entity.BB)) {
+                    if (that.BB.collide(entity.BBbottomLeft)  && that.lastBB.bottom < entity.BBbottomLeft.bottom) {
+                        if (that.velocity.y < 0) that.velocity.y = 0;
+                    }
+                    if (that.BB.collide(entity.BBbottomRight) && that.lastBB.bottom < entity.BBbottomRight.bottom) {
+                        if (that.velocity.y < 0) that.velocity.y = 0;
+                    }
+                    if (that.BB.collide(entity.BBtop) && that.lastBB.bottom > entity.BBtop.top) {
+                        if (that.velocity.y > 0) that.velocity.y = 0;
+                    }
+                    if (that.BB.collide(entity.BBleft) && that.lastBB.right <= entity.BBleft.left) {
+                        that.x -= 3;
+                        if (that.velocity.x > 0) that.velocity.x = 0;
+                    }
+                    if (that.BB.collide(entity.BBright) && that.lastBB.left <= entity.BBright.right) {
+                        that.x += 3;
+                        if (that.velocity.x < 0) that.velocity.x = 0;
+                    }
+                }
+            }
+            if (entity.BB && that.BB.withinRange(entity.BB)) {
+                if (entity instanceof House && that.BB.withinRange(entity.BBdoor)) {
+                    entity.visible = true;
+                    if (that.BB.withinRange(entity.BBdoor) && that.game.interact)
+                        entity.door = true;
+                    } 
+                    that.updateBB();
+                }  else {
+                    entity.visible = false;
+                    entity.door = false;
+                }
+        });          
+
+
+
             //     if (that.velocity.y < 0) { // going up
             //         if (entity instanceof Fence || entity instanceof House
             //             && that.BB.collide(entity.BB)) {
@@ -125,7 +160,7 @@ class Bunny {
             //     entity.open = false;
             //     entity.outline = false;
             // }
-        });  
+       
 
 
 

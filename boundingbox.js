@@ -24,8 +24,7 @@
     };
 
     withinRange(oth) {
-        if (this.right + 10 > oth.left  && this.left  < oth.right + 10 && this.top + 10 < oth.bottom  && this.bottom + 10 > oth.top) return true;
-        return false;
-      
+        if (this.right + 10 > oth.left  && this.left  < oth.right + 10 && this.top - 10 < oth.bottom  && this.bottom + 10 > oth.top) return true;
+        return false;     
     };
 };
