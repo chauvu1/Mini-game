@@ -21,14 +21,12 @@ class Grass {
                     BACKGROUND.GRASS.LEFT_PIECE.SIZE * BACKGROUND.GRASS.LEFT_PIECE.SCALE,
                     BACKGROUND.GRASS.LEFT_PIECE.SIZE * BACKGROUND.GRASS.LEFT_PIECE.SCALE);
 
-
         ctx.drawImage(this.spritesheet, BACKGROUND.GRASS.RIGHT_PIECE.START.X, BACKGROUND.GRASS.RIGHT_PIECE.START.Y,
                     BACKGROUND.GRASS.RIGHT_PIECE.SIZE,  BACKGROUND.GRASS.RIGHT_PIECE.SIZE,
                     BACKGROUND.GRASS.RIGHT_PIECE.LOCATION_START.X,
                     BACKGROUND.GRASS.RIGHT_PIECE.LOCATION_START.Y,
                     BACKGROUND.GRASS.RIGHT_PIECE.SIZE * BACKGROUND.GRASS.RIGHT_PIECE.SCALE,
                     BACKGROUND.GRASS.RIGHT_PIECE.SIZE * BACKGROUND.GRASS.RIGHT_PIECE.SCALE);
-
 
         for (var i = BACKGROUND.GRASS.WIDTH_SIZE.START; i < BACKGROUND.GRASS.WIDTH_SIZE.END; i++) {
             for (var j = BACKGROUND.GRASS.HEIGHT_SIZE.START; j < BACKGROUND.GRASS.HEIGHT_SIZE.END; j++) {
@@ -115,6 +113,7 @@ class House {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
+        this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
         this.door = false;
         this.visible = false;
         this.state = 0;
@@ -124,7 +123,10 @@ class House {
         }
         this.animation[0] = new Animator(this.spritesheet, 60, 0, 60, 49, 1, 0.2, 0, false, true); // roof 
         this.animation[1] = new Animator(this.spritesheet, 0, 49, 60, 49, 1, 0.2, 0, false, true);  // no roof
-        this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.2, 0, false, false); // no roof animation 
+        this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.2, 0, false, false); // no roof animation
+
+        this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
+
         this.createBB();
         this.updateBB();
     }
@@ -139,7 +141,6 @@ class House {
                 this.state = 2;
                 this.BBdoor.remove();
             }
-         
         } else {
             this.createBB();
             this.updateBB();
@@ -180,7 +181,12 @@ class House {
             49 * 4);
 
         this.animation[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
-       
+        
+        if (this.visible && ! this.open) {
+            this.bubble.drawFrame(this.game.clockTick, ctx, 460, 280, 3);
+        } else {
+
+        }
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'yellow';

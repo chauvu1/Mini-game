@@ -83,13 +83,13 @@ class Bunny {
         this.game.entities.forEach(function (entity) {         
             if (entity.BB && that.BB.collide(entity.BB)) {   
                 if (entity instanceof House &&  that.BB.collide(entity.BB)) {
-                    if (that.BB.collide(entity.BBbottomLeft)  && that.lastBB.bottom < entity.BBbottomLeft.bottom) {
+                    if (that.BB.collide(entity.BBbottomLeft)  && that.lastBB.bottom <= entity.BBbottomLeft.bottom) {
                         if (that.velocity.y < 0) that.velocity.y = 0;
                     }
-                    if (that.BB.collide(entity.BBbottomRight) && that.lastBB.bottom < entity.BBbottomRight.bottom) {
+                    if (that.BB.collide(entity.BBbottomRight) && that.lastBB.bottom <= entity.BBbottomRight.bottom) {
                         if (that.velocity.y < 0) that.velocity.y = 0;
                     }
-                    if (that.BB.collide(entity.BBtop) && that.lastBB.bottom > entity.BBtop.top) {
+                    if (that.BB.collide(entity.BBtop) && that.lastBB.bottom >= entity.BBtop.top) {
                         if (that.velocity.y > 0) that.velocity.y = 0;
                     }
                     if (that.BB.collide(entity.BBleft) && that.lastBB.right >= entity.BBleft.left) {
@@ -100,7 +100,7 @@ class Bunny {
                         that.x += 3;
                         if (that.velocity.x < 0) that.velocity.x = 0;
                     }
-                    if (that.BB.collide(entity.BBdoor) && that.lastBB.bottom < entity.BBdoor.bottom) {
+                    if (that.BB.collide(entity.BBdoor) && that.lastBB.bottom <= entity.BBdoor.bottom) {
                         if (that.velocity.y < 0) that.velocity.y = 0;
                     }
                 }
@@ -110,6 +110,8 @@ class Bunny {
                     entity.visible = true;
                     if (that.BB.withinRange(entity.BBdoor) && that.game.interact)
                         entity.door = true;
+                        console.log(entity.door);
+                        //entity.speechBubble.removeFromWorld = true;
                     } 
                     that.updateBB();
                 }  else {
