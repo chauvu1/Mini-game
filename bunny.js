@@ -41,12 +41,12 @@ class Bunny {
     /* Update the bounding box of the player for collision detection */
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x + 30, this.y + 84, 64 - 28, 10); // KD changed the bounding box dimensions to hug the sprite
+        this.BB = new BoundingBox(this.x + 20, this.y + 60, 64 - 38, 5); 
     };
         
     draw(ctx) {
         let scale = 1;
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, scale);
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.7);
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -81,50 +81,50 @@ class Bunny {
 
         var that = this; //need this because we are creating
         this.game.entities.forEach(function (entity) {          // this will look at all entities in relation to chihiro
-            if (entity.BB && that.BB.collide(entity.BB)) {   
-                if (that.velocity.y < 0) { // going up
-                    if (entity instanceof Fence || entity instanceof House || entity instanceof MailBox || entity instanceof Tree || entity instanceof Flower 
-                        && that.BB.collide(entity.BB)) {
-                        if (that.BB.collide(entity.BBbot) && that.lastBB.bottom < entity.BBbot.bottom) {
-                            if (that.velocity.y < 0) that.velocity.y = 0;
-                        } 
-                    }  
-                    that.updateBB();
-                }
-                if (that.velocity.y > 0) { // going down
-                    if (entity instanceof Fence || entity instanceof House || entity instanceof MailBox || entity instanceof Tree || entity instanceof Flower 
-                        && that.BB.collide(entity.BB)) {
-                        if (that.BB.collide(entity.BBtop) && (that.lastBB.bottom > entity.BBtop.top)) {
-                            if (that.velocity.y > 0) that.velocity.y = 0;
-                        }  
-                    } 
-                    that.updateBB();
-                }
-                if (entity instanceof Fence || entity instanceof House || entity instanceof MailBox || entity instanceof Tree || entity instanceof Flower 
-                     && that.BB.collide(entity.BB)) {
-                    if (that.BB.collide(entity.BBright) && that.lastBB.left >= entity.BBright.right) {
-                        that.x += 3;
-                    if (that.velocity.x < 0) that.velocity.x = 0;
-                    } else if (that.BB.collide(entity.BBleft) && that.lastBB.right <= entity.BBleft.left) {
-                        that.x -= 3;
-                    if (that.velocity.x > 0) that.velocity.x = 0;
-                    } 
-                    that.updateBB();
-                }  
-                // WITHIN RANGE, and if user interact -> change the condition and change the class update method. 
-            }
-            if (entity.BB && that.BB.withinRange(entity.BB)) {          
-                if (entity instanceof MailBox && that.BB.withinRange(entity.BB)) {
-                        entity.outline = true;
-                    if (that.BB.withinRange(entity.BB) && that.game.interact) {
-                        entity.open = true;
-                    } 
-                }
-                that.updateBB();
-            } else {
-                entity.open = false;
-                entity.outline = false;
-            }
+            // if (entity.BB && that.BB.collide(entity.BB)) {   
+            //     if (that.velocity.y < 0) { // going up
+            //         if (entity instanceof Fence || entity instanceof House
+            //             && that.BB.collide(entity.BB)) {
+            //             if (that.BB.collide(entity.BBbot) && that.lastBB.bottom < entity.BBbot.bottom) {
+            //                 if (that.velocity.y < 0) that.velocity.y = 0;
+            //             } 
+            //         }  
+            //         that.updateBB();
+            //     }
+            //     if (that.velocity.y > 0) { // going down
+            //         if (entity instanceof Fence || entity instanceof House 
+            //             && that.BB.collide(entity.BB)) {
+            //             if (that.BB.collide(entity.BBtop) && (that.lastBB.bottom > entity.BBtop.top)) {
+            //                 if (that.velocity.y > 0) that.velocity.y = 0;
+            //             }  
+            //         } 
+            //         that.updateBB();
+            //     }
+            //     if (entity instanceof Fence || entity instanceof House
+            //          && that.BB.collide(entity.BB)) {
+            //         if (that.BB.collide(entity.BBright) && that.lastBB.left >= entity.BBright.right) {
+            //             that.x += 3;
+            //         if (that.velocity.x < 0) that.velocity.x = 0;
+            //         } else if (that.BB.collide(entity.BBleft) && that.lastBB.right <= entity.BBleft.left) {
+            //             that.x -= 3;
+            //         if (that.velocity.x > 0) that.velocity.x = 0;
+            //         } 
+            //         that.updateBB();
+            //     }  
+            //     // WITHIN RANGE, and if user interact -> change the condition and change the class update method. 
+            // }
+            // if (entity.BB && that.BB.withinRange(entity.BB)) {          
+            //     if (entity instanceof MailBox && that.BB.withinRange(entity.BB)) {
+            //             entity.outline = true;
+            //         if (that.BB.withinRange(entity.BB) && that.game.interact) {
+            //             entity.open = true;
+            //         } 
+            //     }
+            //     that.updateBB();
+            // } else {
+            //     entity.open = false;
+            //     entity.outline = false;
+            // }
         });  
 
 

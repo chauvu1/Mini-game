@@ -20,30 +20,26 @@ var BACKGROUND = {
                  BB:          {START: {X:64, Y:64, PADDING: 10},
                                 WIDTH: 832, HEIGHT: 640, PADDING: 20},
 
-        WATER:  {X: 0, Y: 0, SIZE: 16, SCALE: 4}
+        WATER:  { X: 0, Y: 0, SIZE: 16, SCALE: 4, FRAME: 4, SPEED: 0.5, FRAME_PAD: 0, REVERSE: false, LOOP: true},
+        HOUSE:  { X: 60, Y: 0, WIDTH: 60, HEIGHT: 48, SCALE: 4},
+        PAVEMENT: { X: 0, Y: 0, WIDTH: 16, HEIGHT: 48, SCALE: 4},
+               // 0) Top Left 1) Mid piece 2) Top right
+        FENCE_TYPE: [{X: 16, Y: 0}, {X: 32, Y: 48}, {X: 48, Y: 0},
+                // 3) Middle piece Vertical
+               {X: 0, Y: 16},
+               // 4) Bottom Left 5) Bottom Right
+               {X: 16, Y: 32}, {X: 48, Y: 32}],
+        FENCE: {SIZE: 16, SCALE: 3},
 
-
-
-
-
-
-//     fencePadding: 10,
-//     // 0) Top Left 1) Mid piece 2) Top right
-//     fence: [{x: 32, y: 704}, {x: 64, y: 704}, {x: 96, y: 704},
-//     // 3) Middle piece Vertical
-//             {x: 32, y: 736},
-//     // 4) Bottom Left 5) Bottom Right
-//             {x: 32, y: 768},{x: 96, y: 768}],
-//     // 6) house fence 7) animal fence
-//     fenceLocation: { houseFence: [{x: 125, y: 330}, {x: 189, y: 330}],
-//                      leftGardenFence: [{x: -20, y: 450},  {x: 44,  y: 450}, {x: 108, y: 450}, {x: 172, y: 450}], 
-//                      rightGardenFence: [{x: 340, y: 450},  {x: 404, y: 450}, {x: 468, y: 450}, {x: 532, y: 450}, {x: 596, y: 450}, {x: 660, y: 450}, {x: 724, y: 450},  {x: 788, y: 450}]}  
-};
+               
+        
+}
 
 
 
 const PARAMS = {
         DEBUG: true,
-        SCALE: 2,
+        SCALE: 1,
+        BITWIDTH: 100,
         TILEWIDTH: 32
 };
