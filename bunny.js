@@ -3,11 +3,15 @@ class Bunny {
         Object.assign(this, { game, x, y});
         this.game.bunny = this;
         this.game.x = this;
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/bunny_spritesheet.png");     
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/bunny_spritesheet.png"); 
+        this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
+            
         this.velocity = { x: 0, y: 0};
         this.facing = 2; // 0 = right; 1 = left; 2 = down; 3 = up
         this.state = 0; // 0 = idle, 1 = walking
         this.animations = [];
+        this.sleep = false;
+        this.bedVisible = false;
         this.loadAnimations();
         this.updateBB();
     };
@@ -16,7 +20,7 @@ class Bunny {
            // array with [state] [face] of the same animator.
            for (var i = 0; i < 2; i++) {
             this.animations.push([]);
-            for (var j = 0; j < 4; j++) {
+            for (var j = 0; j < 5; j++) {
                 this.animations[i].push([]);
             }
         }
@@ -37,6 +41,11 @@ class Bunny {
         this.animations[1][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 7, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
         this.animations[1][2] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 4, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
         this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
+        // bed animation
+        this.animations[1][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 3, 0.2, 0, false, true);
+        // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
+
+        this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
     }
     /* Update the bounding box of the player for collision detection */
     updateBB() {
@@ -46,7 +55,17 @@ class Bunny {
         
     draw(ctx) {
         let scale = 1;
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.7);
+       
+        if (this.sleep) {
+            this.animations[1][4].drawFrame(this.game.clockTick, ctx, 380, 173, 0.665);
+            this.bedVisible = false;
+        } else {
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.7);
+        }
+        if (this.bedVisible) {
+            this.bubble.drawFrame(this.game.clockTick, ctx, 404, 160, 3);
+            this.bedVisible = false;
+        } 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -154,6 +173,7 @@ class Bunny {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
             }
+  
 
             if (entity instanceof Grass && that.BB.collide(entity.BB)) {
                 if (that.BB.collide(entity.BB) && that.lastBB.left <= entity.BB.left) {
@@ -189,7 +209,21 @@ class Bunny {
             } else {
                 entity.under = false;
             }
+            if (entity.BB && that.BB.withinRange(entity.BB)) {
 
+                if (entity instanceof House && that.BB.withinRange(entity.BBbed)) {
+                    that.bedVisible = true;
+                    if (that.BB.withinRange(entity.BBbed) && that.game.interact) {
+                         that.sleep = true;
+                    } 
+                    if (that.velocity.y > 0 || that.velocity.x < 0 || that.velocity.y < 0 || that.velocity.x > 0){
+                        that.sleep = false;
+                    }
+                } 
+            }   
+
+
+            
             if (entity.BB && that.BB.withinRange(entity.BB)) {
                 if ((entity instanceof House || entity instanceof Fence) && that.BB.withinRange(entity.BBdoor)) {
                     entity.visible = true;
@@ -204,8 +238,6 @@ class Bunny {
             }
         
         );          
-
-
 
         // update direction
         if (this.velocity.x > 0) this.facing = 0; // right
