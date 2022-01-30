@@ -50,7 +50,7 @@ class House {
     loadAnimations() {
         this.animation[0] = new Animator(this.spritesheet, 60, 0, 60, 49, 1, 0.2, 0, false, true); // roof 
         this.animation[1] = new Animator(this.spritesheet, 0, 49, 60, 49, 1, 0.2, 0, false, true);  // no roof
-        this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.3, 0, false, false); // no roof animation
+        this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.1, 0, false, false); // no roof animation
     }
 
     updateBB() {
