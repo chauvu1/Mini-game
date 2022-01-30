@@ -47,12 +47,12 @@ class House {
         this.BBinterior = new BoundingBox(this.x + 27, this.y + 65, 185, 115);
         this.BBinteriorLeft = new BoundingBox(this.x + 10, this.y + 10, 16, 170);
         this.BBinteriorRight = new BoundingBox(this.x + 10 + 208 - 6, this.y + 10, 16, 170);
-        this.BBinteriorBottomLeft = new BoundingBox(this.x + 10, this.y + 168 + 12, 90, 12);
-        this.BBinteriorBottomRight = new BoundingBox(this.x + 10 + 130, this.y + 168 + 12, 90, 12);
+        this.BBinteriorBottomLeft = new BoundingBox(this.x + 10, this.y + 168 + 12, 90, 8);
+        this.BBinteriorBottomRight = new BoundingBox(this.x + 10 + 130, this.y + 168 + 12, 90, 8);
         this.BBinteriorTop = new BoundingBox(this.x + 10, this.y + 10, 220, 55);
 
         this.BBbed = new BoundingBox(385, 184, 54, 85);
-        this.BBbedRight = new BoundingBox(385 + 54 - 10, 184, 10, 85);
+        this.BBbedRight = new BoundingBox(385 + 54 - 10, 184, 10, 75);
         this.BBbedBottom = new BoundingBox(385, 184 + 85 - 10, 54, 10);
 
     };

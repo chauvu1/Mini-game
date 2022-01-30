@@ -103,12 +103,26 @@ class Bunny {
                     }
                 }
             }
-            if (entity instanceof House || entity instanceof Fence && that.BB.collide(entity.BBinterior)) {
-                if (entity instanceof House && that.BB.collide(entity.BBinterior)) {
-                    entity.visible = true;
-                } else {
-                    entity.visible = false
+            if (entity instanceof House && that.BB.collide(entity.BBinterior)) {
+                if (that.BB.collide(entity.BBinteriorBottomLeft) && that.lastBB.bottom >= entity.BBinteriorBottomLeft.top) {
+                    if (that.velocity.y > 0) that.velocity.y = 0;
                 }
+                if (that.BB.collide(entity.BBinteriorBottomRight) && that.lastBB.bottom >= entity.BBinteriorBottomRight.top) {
+                    if (that.velocity.y > 0) that.velocity.y = 0;
+                }
+                if (that.BB.collide(entity.BBinteriorLeft) && that.lastBB.left <= entity.BBinteriorLeft.right) {
+                    if (that.velocity.x < 0) that.velocity.x = 0;
+                }
+                if (that.BB.collide(entity.BBinteriorRight) && that.lastBB.right >= entity.BBinteriorRight.left) {
+                    if (that.velocity.x > 0) that.velocity.x = 0;
+                }
+                if (that.BB.collide(entity.BBinteriorTop) && that.lastBB.top <= entity.BBinteriorTop.bottom) {
+                    if (that.velocity.y < 0) that.velocity.y = 0;
+                } 
+            }   
+
+            if (entity instanceof Fence || entity instanceof House && that.BB.collide(entity.BBinterior)) {
+                
                 if (that.BB.collide(entity.BBinteriorBottomLeft) && that.lastBB.bottom >= entity.BBinteriorBottomLeft.top) {
                     if (that.velocity.y > 0) that.velocity.y = 0;
                 }
@@ -125,7 +139,13 @@ class Bunny {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 } 
             } 
-        
+
+            if (entity instanceof Fence || entity instanceof House && that.BB.collide(entity.BBinterior)) {
+                entity.inside = true; 
+            } else {
+                entity.inside = false;
+            }
+
             if (entity instanceof House && that.BB.collide(entity.BBbed)) {
                 if (that.BB.collide(entity.BBbedRight) && that.lastBB.left <= entity.BBbedRight.right) {
                     if (that.velocity.x < 0) that.velocity.x = 0;
@@ -161,7 +181,8 @@ class Bunny {
                     entity.visible = false;
                     entity.door = false;
                 }
-        });          
+        }
+        );          
 
 
 
