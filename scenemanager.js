@@ -31,13 +31,16 @@ class SceneManager {
         this.game.addEntity(new Tree(gameEngine, 700, 200));
         this.game.addEntity(new Tree(gameEngine, 120, 500));
         this.game.addEntity(this.bunny);
+     
     }
 
 
     update() {
         PARAMS.DEBUG = document.getElementById("debug").checked;
-        // remove the entities and draw on top
-        // if the bunny pass this point draw on top of the bunny.
+        if (this.house.inside) {
+            this.houseInside = new HouseInterior(gameEngine, 360, 160);
+            this.game.addEntity(this.houseInside);
+        }
     }
 
     draw(ctx) {
