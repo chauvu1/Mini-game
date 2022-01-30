@@ -111,7 +111,7 @@ class Water {
 class HouseInterior {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
-        this.game.house = this;
+        this.house = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
     
     }
@@ -120,11 +120,8 @@ class HouseInterior {
 
 
     draw(ctx) {
-        // if (this.game.house.inside) {
-        //     // draw this on top.
-        //     ctx.drawImage(this.spritesheet, 0, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
-        // }
-
+        ctx.drawImage(this.spritesheet, 0, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
+    
     };
 
 

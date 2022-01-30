@@ -37,10 +37,22 @@ class SceneManager {
 
     update() {
         PARAMS.DEBUG = document.getElementById("debug").checked;
+        
         if (this.house.inside) {
             this.houseInside = new HouseInterior(gameEngine, 360, 160);
             this.game.addEntity(this.houseInside);
+        } else {
+
         }
+        var that = this;
+        this.game.entities.forEach(function (entity) { 
+            if (entity instanceof HouseInterior) {
+                if (!that.house.inside) {
+                    entity.removeFromWorld = true;
+                }
+            }
+        });
+        
     }
 
     draw(ctx) {
