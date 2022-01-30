@@ -127,31 +127,103 @@ class Pavement {
             BACKGROUND.PAVEMENT.HEIGHT * BACKGROUND.PAVEMENT.SCALE);
     };
 }
+
 class Fence {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         // 0 0 16 48
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Fences.png");
+        this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
+        this.door = false;
+        this.visible = false;
+        this.inside = false;
+        this.state = 0;
+        this.animation = [];
+        for (var i = 0; i < 2; i++) {
+            this.animation.push([]);
+        }
+        this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
+        this.loadAnimations();
+        this.createBB();
+        this.updateBB();
+    }
+
+    loadAnimations() {
+        this.animation[0] = new Animator(this.spritesheet, 0, 0, 64, 64, 1, 0.2, 0, false, true);
+        this.animation[1] = new Animator(this.spritesheet, 0, 0, 64, 64, 5, 0.2, 0, false, false);
+    };
+
+    createBB() {
         this.BB = new BoundingBox(this.x + 16, this.y + 9, 
             64 * 3 - 29,
             64 * 3 - 18);
-    }
-    update() {
+        this.BBleft = new BoundingBox(this.x + 16, this.y + 9 + 10, 10, 64 * 3 - 18 - 20);
+        this.BBright = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 10, this.y + 9 + 10, 10, 64 * 3 - 18 - 20);
+        this.BBtop = new BoundingBox(this.x + 16, this.y + 9 , 64 * 3 - 29, 10);
+        this.BBbottomLeft = new BoundingBox(this.x + 16, this.y + 9 + 64 * 3 - 18 - 10 + 5, 32, 5);
+        this.BBbottomRight = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 30, this.y + 9 + 64 * 3 - 18 - 10 + 5, 30, 5);
+    };
 
+    updateBB() {
+        this.BBdoor = new BoundingBox(this.x + 16 + 33, this.y + 9 + 64 * 3 - 18 - 35, 100, 35);
+        this.BBinterior = new BoundingBox(this.x + 26 + 10, this.y + 19 + 20, 126, 135);
+        this.BBinteriorLeft = new BoundingBox(this.x + 26 + 10 - 10, this.y + 19 + 20, 10, 135);
+        this.BBinteriorRight = new BoundingBox(this.x + 26 + 10 + 126, this.y + 19 + 20, 10, 135);
+        this.BBinteriorTop = new BoundingBox(this.x + 26 + 10, this.y + 19 + 20 - 10, 126, 10);
+        this.BBinteriorBottomLeft = new BoundingBox(this.x + 16 + 20, this.y + 9 + 64 * 3 - 18 - 10, 13, 10);
+        this.BBinteriorBottomRight = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 30, this.y + 9 + 64 * 3 - 18 - 10, 13, 10);
+    };
+
+    update() {
+        if (this.door) {
+            this.state = 1;
+            this.BBdoor.remove();
+        } else {
+            this.state = 0; 
+            this.updateBB();
+        }
     };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 0, 0, 
+        ctx.drawImage(this.spritesheet, 320, 0, 
                         64, 64,
                         this.x, this.y,
                         64 * 3, 
                         64 * 3);
-        if (PARAMS.DEBUG) {
-            ctx.strokeStyle = 'yellow';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        this.animation[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 3);
+       
+        if (this.visible && !this.door) {
+            this.bubble.drawFrame(this.game.clockTick, ctx, 200, 270, 3);
+        } 
+        if (PARAMS.DEBUG) {   
+            if (this.door) {
+                ctx.strokeStyle = 'pink';
+                ctx.strokeRect(this.BBinteriorLeft.x, this.BBinteriorLeft.y, this.BBinteriorLeft.width, this.BBinteriorLeft.height);
+                ctx.strokeRect(this.BBinteriorRight.x, this.BBinteriorRight.y, this.BBinteriorRight.width, this.BBinteriorRight.height);
+                ctx.strokeRect(this.BBinteriorTop.x, this.BBinteriorTop.y, this.BBinteriorTop.width, this.BBinteriorTop.height);
+                ctx.strokeRect(this.BBinteriorBottomLeft.x, this.BBinteriorBottomLeft.y, this.BBinteriorBottomLeft.width, this.BBinteriorBottomLeft.height);
+                ctx.strokeRect(this.BBinteriorBottomRight.x, this.BBinteriorBottomRight.y, this.BBinteriorBottomRight.width, this.BBinteriorBottomRight.height);
+                ctx.strokeStyle = 'red';
+                ctx.strokeRect(this.BBinterior.x, this.BBinterior.y, this.BBinterior.width, this.BBinterior.height);
+                
+            }
+            
+            if (!this.door) {
+                ctx.strokeStyle = 'yellow';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+                ctx.strokeStyle = 'red';
+                ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
+                ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
+                ctx.strokeStyle = 'yellow';
+                ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
+                ctx.strokeRect(this.BBbottomLeft.x, this.BBbottomLeft.y, this.BBbottomLeft.width, this.BBbottomLeft.height);
+                ctx.strokeRect(this. BBbottomRight.x, this. BBbottomRight.y, this. BBbottomRight.width, this. BBbottomRight.height);  
+                ctx.strokeStyle = 'pink';
+                ctx.strokeRect(this.BBdoor.x, this.BBdoor.y, this.BBdoor.width, this.BBdoor.height);
+            }
         }
-
+        ctx.imageSmoothingEnabled = false;
     }
 }
 class Boat {
