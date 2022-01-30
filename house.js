@@ -4,6 +4,7 @@ class HouseInterior {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png"); 
         this.animation = new Animator(this.spritesheet, 60, 147, 60, 49, 5, 0.2, 0, true, false);  
+        this.night = new Animator(this.spritesheet, 0, 196, 60, 49, 1, 0.2, 0, false, true);
         this.timer = 0;
        
     }
@@ -12,7 +13,9 @@ class HouseInterior {
     };
 
     draw(ctx) {
-       
+        if (this.game.bunny.sleep) {
+            this.night.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+        }
         if (this.game.house.inside) {
             this.timer += this.game.clockTick;
             if (this.timer > 0.8)
@@ -47,7 +50,7 @@ class House {
     loadAnimations() {
         this.animation[0] = new Animator(this.spritesheet, 60, 0, 60, 49, 1, 0.2, 0, false, true); // roof 
         this.animation[1] = new Animator(this.spritesheet, 0, 49, 60, 49, 1, 0.2, 0, false, true);  // no roof
-        this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.2, 0, false, false); // no roof animation
+        this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.3, 0, false, false); // no roof animation
     }
 
     updateBB() {
@@ -67,13 +70,10 @@ class House {
 
     update() {
         if (this.visible) {
-            this.state = 1;
             if (this.door) {
-                this.state = 2;
                 this.BBdoor.remove();
             }
         } else {
-            this.state = 0; 
             this.updateBB();  
         }
        
@@ -103,7 +103,7 @@ class House {
     }
 
     draw(ctx) {
-           // base image of the house, with no roof & doors
+           //base image of the house, with no roof & doors
         ctx.drawImage(this.spritesheet, 0, 0,
             60,  49,
             this.x,
@@ -111,11 +111,14 @@ class House {
             60 * 4,
             49 * 4);
 
-        this.animation[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
-
         if (this.visible && ! this.door) {
+            this.animation[1].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
             this.bubble.drawFrame(this.game.clockTick, ctx, 460, 280, 3);
-        } 
+        } else if (this.visible && this.door) {
+            this.animation[2].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+        }  else {
+            this.animation[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+        }
 
         if (PARAMS.DEBUG) {
             if (this.door) {
