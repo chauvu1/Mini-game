@@ -115,7 +115,7 @@ class HouseInterior {
         Object.assign(this, { game, x, y});
         this.house = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
-    
+        
     }
 
     update() {};
@@ -123,7 +123,7 @@ class HouseInterior {
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 0, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
-    
+        
     };
 
 
@@ -162,8 +162,6 @@ class House {
         this.BBinteriorBottomLeft = new BoundingBox(this.x + 10, this.y + 168 + 12, 90, 12);
         this.BBinteriorBottomRight = new BoundingBox(this.x + 10 + 130, this.y + 168 + 12, 90, 12);
         this.BBinteriorTop = new BoundingBox(this.x + 10, this.y + 10, 220, 55);
-
-        //this.BBdrawBottomLeft = new BoundingBox(this.x + 10, this.y + 168, 90, 12);
     };
 
     update() {
