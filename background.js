@@ -13,7 +13,6 @@ class Grass {
     };
 
     draw(ctx) {
-
         ctx.drawImage(this.spritesheet, BACKGROUND.GRASS.LEFT_PIECE.START.X, BACKGROUND.GRASS.LEFT_PIECE.START.Y,
                     BACKGROUND.GRASS.LEFT_PIECE.SIZE,  BACKGROUND.GRASS.LEFT_PIECE.SIZE,
                     BACKGROUND.GRASS.LEFT_PIECE.LOCATION_START.X,

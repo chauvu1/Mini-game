@@ -132,6 +132,20 @@ class Bunny {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
             }
+            if (entity instanceof Grass && that.BB.collide(entity.BB)) {
+                if (that.BB.collide(entity.BB) && that.lastBB.left <= entity.BB.left) {
+                    if (that.velocity.x < 0) that.velocity.x = 0;
+                }
+                if (that.BB.collide(entity.BB) && that.lastBB.right >= entity.BB.right) {
+                    if (that.velocity.x > 0) that.velocity.x = 0;
+                }
+                if (that.BB.collide(entity.BB) && that.lastBB.bottom >= entity.BB.bottom) {
+                    if (that.velocity.y > 0) that.velocity.y = 0;
+                }
+                if (that.BB.collide(entity.BB) && that.lastBB.top <= entity.BB.top) {
+                    if (that.velocity.y < 0) that.velocity.y = 0;
+                }
+            }
 
             if (entity.BB && that.BB.withinRange(entity.BB)) {
                 if (entity instanceof House && that.BB.withinRange(entity.BBdoor)) {
