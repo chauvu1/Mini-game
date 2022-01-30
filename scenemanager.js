@@ -7,6 +7,7 @@ class SceneManager {
         this.fence = new Fence(gameEngine, 120, 150);
         this.boat = new Boat(gameEngine, 675, 660);
         this.bunny = new Bunny(gameEngine, 300, 300);
+       
         this.loadScreen();
 
     }
@@ -31,17 +32,19 @@ class SceneManager {
         this.game.addEntity(this.boat);
         this.game.addEntity(new Tree(gameEngine, 700, 200));
         this.game.addEntity(new Tree(gameEngine, 120, 500));
+
         this.game.addEntity(this.bunny);
     }
     addThingsOnTop() { 
         var that = this;
         var exists = false;
         this.game.entities.forEach(function(entity) { // check if there is already a house interior 
-            if(entity instanceof HouseInterior) exists = true;
+            if (entity instanceof HouseInterior) exists = true;
         });
         // only add it once if its true
         if (!exists) {
             this.game.addEntity(this.houseInside);
+
         }
     }
 

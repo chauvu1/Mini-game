@@ -123,6 +123,16 @@ class Bunny {
             } else {
                 entity.inside = false;
             }
+
+            if (entity instanceof House && that.BB.collide(entity.BBbed)) {
+                if (that.BB.collide(entity.BBbedRight) && that.lastBB.left <= entity.BBbedRight.right) {
+                    if (that.velocity.x < 0) that.velocity.x = 0;
+                }
+                if (that.BB.collide(entity.BBbedBottom) && that.lastBB.top <= entity.BBbedBottom.bottom) {
+                    if (that.velocity.y < 0) that.velocity.y = 0;
+                }
+            }
+
             if (entity.BB && that.BB.withinRange(entity.BB)) {
                 if (entity instanceof House && that.BB.withinRange(entity.BBdoor)) {
                     entity.visible = true;
