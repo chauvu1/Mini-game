@@ -128,6 +128,28 @@ class Pavement {
     };
 }
 
+class FenceInterior {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Fences.png");
+    }
+
+    update() {
+
+    };
+
+    draw(ctx) {
+        ctx.drawImage(this.spritesheet, 0, 64,
+            64,  64,
+            this.x,
+            this.y,
+            64 * 3,
+            64 * 3);
+    }
+}
+
+
+
 class Fence {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});

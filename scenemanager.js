@@ -7,7 +7,6 @@ class SceneManager {
         this.fence = new Fence(gameEngine, 120, 150);
         this.boat = new Boat(gameEngine, 675, 660);
         this.bunny = new Bunny(gameEngine, 300, 300);
-       
         this.loadScreen();
 
     }
@@ -32,36 +31,41 @@ class SceneManager {
         this.game.addEntity(this.boat);
         this.game.addEntity(new Tree(gameEngine, 700, 200));
         this.game.addEntity(new Tree(gameEngine, 120, 500));
-
         this.game.addEntity(this.bunny);
     }
-    addThingsOnTop() { 
+
+    addThingsOnTop(entityName, entityClass) { 
         var that = this;
         var exists = false;
         this.game.entities.forEach(function(entity) { // check if there is already a house interior 
-            if (entity instanceof HouseInterior) exists = true;
+            if(entity instanceof entityClass) exists = true;
         });
         // only add it once if its true
         if (!exists) {
-            this.game.addEntity(this.houseInside);
-
+            this.game.addEntity(entityName);
         }
     }
-
 
     update() {
         PARAMS.DEBUG = document.getElementById("debug").checked;
         
         if (this.house.inside) {
             this.houseInside = new HouseInterior(gameEngine, 360, 160);
-            this.addThingsOnTop();
-        } else {
-
-        }
+            this.addThingsOnTop(this.houseInside, HouseInterior);
+        } 
+        if (this.fence.inside) {
+            this.fenceInside = new FenceInterior(gameEngine, 120, 150);
+            this.addThingsOnTop(this.fenceInside, FenceInterior);
+        } 
         var that = this;
         this.game.entities.forEach(function (entity) { 
             if (entity instanceof HouseInterior) {
                 if (!that.house.inside) {
+                    entity.removeFromWorld = true;
+                }
+            }
+            if (entity instanceof FenceInterior) {
+                if (!that.fence.inside) {
                     entity.removeFromWorld = true;
                 }
             }

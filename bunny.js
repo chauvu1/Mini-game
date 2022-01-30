@@ -82,7 +82,7 @@ class Bunny {
         var that = this; 
         this.game.entities.forEach(function (entity) {         
             if (entity.BB && that.BB.collide(entity.BB)) { // if the bunny collide with the box  
-                if (entity instanceof House || entity instanceof Fence && that.BB.collide(entity.BB)) {
+                if ((entity instanceof House || entity instanceof Fence) && that.BB.collide(entity.BB)) {
                     if (that.BB.collide(entity.BBbottomLeft)  && that.lastBB.bottom <= entity.BBbottomLeft.bottom) {
                         if (that.velocity.y < 0) that.velocity.y = 0;
                     }
@@ -121,7 +121,7 @@ class Bunny {
                 } 
             }   
 
-            if (entity instanceof Fence || entity instanceof House && that.BB.collide(entity.BBinterior)) {
+            if ((entity instanceof Fence || entity instanceof House) && that.BB.collide(entity.BBinterior)) {
                 
                 if (that.BB.collide(entity.BBinteriorBottomLeft) && that.lastBB.bottom >= entity.BBinteriorBottomLeft.top) {
                     if (that.velocity.y > 0) that.velocity.y = 0;
@@ -140,12 +140,29 @@ class Bunny {
                 } 
             } 
 
-            if (entity instanceof Fence || entity instanceof House && that.BB.collide(entity.BBinterior)) {
-                entity.inside = true; 
-            } else {
-                entity.inside = false;
+            if ((entity instanceof House)) {
+                if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
+                    && that.lastBB.right - 3 < entity.BBinteriorRight.left
+                    && that.lastBB.bottom - 3< entity.BBinteriorBottomLeft.top
+                    && that.lastBB.bottom - 3< entity.BBinteriorBottomRight.top 
+                    && that.lastBB.top + 3 > entity.BBinteriorTop.bottom) {
+                    entity.inside = true;
+                } else {
+                    entity.inside = false;
+                }
             }
-
+            if ((entity instanceof Fence)) {
+                if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
+                    && that.lastBB.right - 3 < entity.BBinteriorRight.left
+                    && that.lastBB.bottom - 3< entity.BBinteriorBottomLeft.top
+                    && that.lastBB.bottom - 3< entity.BBinteriorBottomRight.top 
+                    && that.lastBB.top + 3 > entity.BBinteriorTop.bottom) {
+                    entity.inside = true;
+                } else {
+                    entity.inside = false;
+                }
+            }
+           
             if (entity instanceof House && that.BB.collide(entity.BBbed)) {
                 if (that.BB.collide(entity.BBbedRight) && that.lastBB.left <= entity.BBbedRight.right) {
                     if (that.velocity.x < 0) that.velocity.x = 0;
@@ -171,7 +188,7 @@ class Bunny {
             }
 
             if (entity.BB && that.BB.withinRange(entity.BB)) {
-                if (entity instanceof House || entity instanceof Fence && that.BB.withinRange(entity.BBdoor)) {
+                if ((entity instanceof House || entity instanceof Fence) && that.BB.withinRange(entity.BBdoor)) {
                     entity.visible = true;
                     if (that.BB.withinRange(entity.BBdoor) && that.game.interact)
                         entity.door = true;
