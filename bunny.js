@@ -103,23 +103,6 @@ class Bunny {
                     }
                 }
             }
-            if (entity instanceof House && that.BB.collide(entity.BBinterior)) {
-                if (that.BB.collide(entity.BBinteriorBottomLeft) && that.lastBB.bottom >= entity.BBinteriorBottomLeft.top) {
-                    if (that.velocity.y > 0) that.velocity.y = 0;
-                }
-                if (that.BB.collide(entity.BBinteriorBottomRight) && that.lastBB.bottom >= entity.BBinteriorBottomRight.top) {
-                    if (that.velocity.y > 0) that.velocity.y = 0;
-                }
-                if (that.BB.collide(entity.BBinteriorLeft) && that.lastBB.left <= entity.BBinteriorLeft.right) {
-                    if (that.velocity.x < 0) that.velocity.x = 0;
-                }
-                if (that.BB.collide(entity.BBinteriorRight) && that.lastBB.right >= entity.BBinteriorRight.left) {
-                    if (that.velocity.x > 0) that.velocity.x = 0;
-                }
-                if (that.BB.collide(entity.BBinteriorTop) && that.lastBB.top <= entity.BBinteriorTop.bottom) {
-                    if (that.velocity.y < 0) that.velocity.y = 0;
-                } 
-            }   
 
             if ((entity instanceof Fence || entity instanceof House) && that.BB.collide(entity.BBinterior)) {
                 
@@ -143,8 +126,8 @@ class Bunny {
             if ((entity instanceof House)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
                     && that.lastBB.right - 3 < entity.BBinteriorRight.left
-                    && that.lastBB.bottom - 3< entity.BBinteriorBottomLeft.top
-                    && that.lastBB.bottom - 3< entity.BBinteriorBottomRight.top 
+                    && that.lastBB.bottom - 3 < entity.BBinteriorBottomLeft.top
+                    && that.lastBB.bottom - 3 < entity.BBinteriorBottomRight.top 
                     && that.lastBB.top + 3 > entity.BBinteriorTop.bottom) {
                     entity.inside = true;
                 } else {
@@ -154,8 +137,8 @@ class Bunny {
             if ((entity instanceof Fence)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
                     && that.lastBB.right - 3 < entity.BBinteriorRight.left
-                    && that.lastBB.bottom - 3< entity.BBinteriorBottomLeft.top
-                    && that.lastBB.bottom - 3< entity.BBinteriorBottomRight.top 
+                    && that.lastBB.bottom - 3 < entity.BBinteriorBottomLeft.top
+                    && that.lastBB.bottom - 3 < entity.BBinteriorBottomRight.top 
                     && that.lastBB.top + 3 > entity.BBinteriorTop.bottom) {
                     entity.inside = true;
                 } else {
@@ -186,6 +169,32 @@ class Bunny {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
             }
+                
+            if (entity instanceof Tree && that.BB.collide(entity.BB)) {
+                if (that.BB.collide(entity.BBbottom) && that.lastBB.bottom <= entity.BBbottom.bottom) {
+                    if (that.velocity.y < 0) that.velocity.y = 0;
+                }
+                if (that.BB.collide(entity.BBbottomLeft) && that.lastBB.bottom >= entity.BBbottomLeft.left) {
+                    if (that.velocity.x > 0) that.velocity.x = 0;
+                }
+                if (that.BB.collide(entity.BBbottomRight) && that.lastBB.bottom <= entity.BBbottomRight.right) {
+                    if (that.velocity.x > 0) that.velocity.x = 0;
+                }
+                if (that.BB.collide(entity.BBbottomTop) && that.lastBB.bottom >= entity.BBbottomTop.top) {
+                    if (that.velocity.y > 0) that.velocity.y = 0;
+                }
+                if (that.BB.collide(entity.BBtop) && that.lastBB.bottom >= entity.BBtop.top) {
+                    entity.under = true;
+                } 
+                if (that.BB.collide(entity.BBleft) && that.lastBB.right >= entity.BBleft.left) {
+                    entity.under = true;
+                }
+                if (that.BB.collide(entity.BBright) && that.lastBB.left <= entity.BBright.right) {
+                    entity.under = true;
+                } 
+            } else {
+                entity.under = false;
+            }
 
             if (entity.BB && that.BB.withinRange(entity.BB)) {
                 if ((entity instanceof House || entity instanceof Fence) && that.BB.withinRange(entity.BBdoor)) {
@@ -198,55 +207,9 @@ class Bunny {
                     entity.visible = false;
                     entity.door = false;
                 }
-        }
+            }
+        
         );          
-
-
-
-            //     if (that.velocity.y < 0) { // going up
-            //         if (entity instanceof Fence || entity instanceof House
-            //             && that.BB.collide(entity.BB)) {
-            //             if (that.BB.collide(entity.BBbot) && that.lastBB.bottom < entity.BBbot.bottom) {
-            //                 if (that.velocity.y < 0) that.velocity.y = 0;
-            //             } 
-            //         }  
-            //         that.updateBB();
-            //     }
-            //     if (that.velocity.y > 0) { // going down
-            //         if (entity instanceof Fence || entity instanceof House 
-            //             && that.BB.collide(entity.BB)) {
-            //             if (that.BB.collide(entity.BBtop) && (that.lastBB.bottom > entity.BBtop.top)) {
-            //                 if (that.velocity.y > 0) that.velocity.y = 0;
-            //             }  
-            //         } 
-            //         that.updateBB();
-            //     }
-            //     if (entity instanceof Fence || entity instanceof House
-            //          && that.BB.collide(entity.BB)) {
-            //         if (that.BB.collide(entity.BBright) && that.lastBB.left >= entity.BBright.right) {
-            //             that.x += 3;
-            //         if (that.velocity.x < 0) that.velocity.x = 0;
-            //         } else if (that.BB.collide(entity.BBleft) && that.lastBB.right <= entity.BBleft.left) {
-            //             that.x -= 3;
-            //         if (that.velocity.x > 0) that.velocity.x = 0;
-            //         } 
-            //         that.updateBB();
-            //     }  
-            //     // WITHIN RANGE, and if user interact -> change the condition and change the class update method. 
-            // }
-            // if (entity.BB && that.BB.withinRange(entity.BB)) {          
-            //     if (entity instanceof MailBox && that.BB.withinRange(entity.BB)) {
-            //             entity.outline = true;
-            //         if (that.BB.withinRange(entity.BB) && that.game.interact) {
-            //             entity.open = true;
-            //         } 
-            //     }
-            //     that.updateBB();
-            // } else {
-            //     entity.open = false;
-            //     entity.outline = false;
-            // }
-       
 
 
 

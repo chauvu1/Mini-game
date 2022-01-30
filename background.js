@@ -80,6 +80,7 @@ class Grass {
                     BACKGROUND.GRASS.RIGHT_PIECE.LOCATION_END.Y,
                     BACKGROUND.GRASS.RIGHT_PIECE.SIZE * BACKGROUND.GRASS.RIGHT_PIECE.SCALE,
                     BACKGROUND.GRASS.RIGHT_PIECE.SIZE * BACKGROUND.GRASS.RIGHT_PIECE.SCALE);
+
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
@@ -147,8 +148,6 @@ class FenceInterior {
             64 * 3);
     }
 }
-
-
 
 class Fence {
     constructor(game, x, y) {
@@ -265,11 +264,41 @@ class Boat {
 
 }
 
+class TreeOverlay {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+    }
+
+    update() {};
+
+    draw(ctx) {
+        ctx.drawImage(this.spritesheet, 16, 0,
+            32,  32,
+            this.x,
+            this.y,
+            32 * 3,
+            32 * 3); 
+    }
+}
 class Tree {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
-        this.BB = new BoundingBox(this.x + 10, this.y, 32 * 3 - 20, 32 * 3 - 10);
+        this.under = false;
+        this.createBB();
+    }
+    createBB() {
+        this.BB = new BoundingBox(this.x + 10, this.y, 32 * 3 - 20, 32 * 3 - 12);
+        this.BBleft = new BoundingBox(this.x + 10, this.y + 10, 10, 32*3 - 40);
+
+        this.BBright = new BoundingBox(this.x + 10 + 32*3 - 30, this.y + 10, 10, 32*3 - 40);
+        this.BBtop = new BoundingBox(this.x + 10 + 10, this.y, 32*3-20 - 20, 80);
+        this.BBbottom = new BoundingBox(this.x + 10, this.y + 32 * 3 - 17, 32 * 3 - 20, 7);
+
+        this.BBbottomTop = new BoundingBox(this.x + 10 + 25, this.y + 32 * 3 - 22, 25, 5);
+        this.BBbottomLeft = new BoundingBox(this.x + 10 + 25, this.y + 32 * 3 - 22 + 5, 10, 7);
+        this.BBbottomRight = new BoundingBox(this.x + 10 + 25 + 14, this.y + 32 * 3 - 22 + 5, 10, 7);
         
     }
 
@@ -288,6 +317,17 @@ class Tree {
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
+            ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
+            ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
+         
+            ctx.strokeRect(this.BBbottomTop.x, this.BBbottomTop.y, this.BBbottomTop.width, this.BBbottomTop.height);
+            ctx.strokeStyle = 'pink';
+            ctx.strokeRect(this.BBbottomLeft.x, this.BBbottomLeft.y, this.BBbottomLeft.width, this.BBbottomLeft.height);
+            ctx.strokeRect(this.BBbottomRight.x, this.BBbottomRight.y, this.BBbottomRight.width, this.BBbottomRight.height);
+          
         }
     }
 
