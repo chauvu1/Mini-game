@@ -108,6 +108,8 @@ class Water {
         ctx.imageSmoothingEnabled = false;
     }
 }
+
+// draw the stuff inside of the house.
 class HouseInterior {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
@@ -126,9 +128,6 @@ class HouseInterior {
 
 
 }
-
-
-
 
 class House {
     constructor(game, x, y) {
@@ -157,11 +156,11 @@ class House {
 
     updateBB() {
         this.BBdoor = new BoundingBox(this.x + this.BB.width / 2 - 20, this.y + this.BB.height - 50, 40, 50);
-        this.BBinterior = new BoundingBox(this.x + 22, this.y + 65, 196, 103);
-        this.BBinteriorLeft = new BoundingBox(this.x + 10, this.y + 10, 12, 170);
-        this.BBinteriorRight = new BoundingBox(this.x + 10 + 208, this.y + 10, 12, 170);
-        this.BBinteriorBottomLeft = new BoundingBox(this.x + 10, this.y + 168, 90, 12);
-        this.BBinteriorBottomRight = new BoundingBox(this.x + 10 + 130, this.y + 168, 90, 12);
+        this.BBinterior = new BoundingBox(this.x + 27, this.y + 65, 185, 115);
+        this.BBinteriorLeft = new BoundingBox(this.x + 10, this.y + 10, 16, 170);
+        this.BBinteriorRight = new BoundingBox(this.x + 10 + 208 - 6, this.y + 10, 16, 170);
+        this.BBinteriorBottomLeft = new BoundingBox(this.x + 10, this.y + 168 + 12, 90, 12);
+        this.BBinteriorBottomRight = new BoundingBox(this.x + 10 + 130, this.y + 168 + 12, 90, 12);
         this.BBinteriorTop = new BoundingBox(this.x + 10, this.y + 10, 220, 55);
 
         //this.BBdrawBottomLeft = new BoundingBox(this.x + 10, this.y + 168, 90, 12);

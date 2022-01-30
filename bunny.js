@@ -41,7 +41,7 @@ class Bunny {
     /* Update the bounding box of the player for collision detection */
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x + 20, this.y + 60, 64 - 38, 5); 
+        this.BB = new BoundingBox(this.x + 20, this.y + 60, 64 - 36, 5); 
     };
         
     draw(ctx) {
@@ -93,11 +93,9 @@ class Bunny {
                         if (that.velocity.y > 0) that.velocity.y = 0;
                     }
                     if (that.BB.collide(entity.BBleft) && that.lastBB.right >= entity.BBleft.left) {
-                        that.x -= 3;
                         if (that.velocity.x > 0) that.velocity.x = 0;
                     }
                     if (that.BB.collide(entity.BBright) && that.lastBB.left <= entity.BBright.right) {
-                        that.x += 3;
                         if (that.velocity.x < 0) that.velocity.x = 0;
                     }
                     if (that.BB.collide(entity.BBdoor) && that.lastBB.bottom <= entity.BBdoor.bottom) {
@@ -130,8 +128,6 @@ class Bunny {
                     entity.visible = true;
                     if (that.BB.withinRange(entity.BBdoor) && that.game.interact)
                         entity.door = true;
-                        console.log(entity.door);
-                        //entity.speechBubble.removeFromWorld = true;
                     } 
                     that.updateBB();
                 }  else {
