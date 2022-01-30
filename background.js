@@ -294,12 +294,10 @@ class Tree {
 
         this.BBright = new BoundingBox(this.x + 10 + 32*3 - 30, this.y + 10, 10, 32*3 - 40);
         this.BBtop = new BoundingBox(this.x + 10 + 10, this.y, 32*3-20 - 20, 80);
-        this.BBbottom = new BoundingBox(this.x + 10, this.y + 32 * 3 - 17, 32 * 3 - 20, 7);
+        this.BBbottom = new BoundingBox(this.x + 10, this.y + 32 * 3 - 15, 32 * 3 - 20, 7);
 
-        this.BBbottomTop = new BoundingBox(this.x + 10 + 25, this.y + 32 * 3 - 22, 25, 5);
-        this.BBbottomLeft = new BoundingBox(this.x + 10 + 25, this.y + 32 * 3 - 22 + 5, 10, 7);
-        this.BBbottomRight = new BoundingBox(this.x + 10 + 25 + 14, this.y + 32 * 3 - 22 + 5, 10, 7);
-        
+        this.BBbottomTop = new BoundingBox(this.x + 10, this.y + 32 * 3 - 22 + 2, 32 *3 - 20, 3);
+
     }
 
     update() {
@@ -322,11 +320,8 @@ class Tree {
             ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
             ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
             ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
-         
             ctx.strokeRect(this.BBbottomTop.x, this.BBbottomTop.y, this.BBbottomTop.width, this.BBbottomTop.height);
             ctx.strokeStyle = 'pink';
-            ctx.strokeRect(this.BBbottomLeft.x, this.BBbottomLeft.y, this.BBbottomLeft.width, this.BBbottomLeft.height);
-            ctx.strokeRect(this.BBbottomRight.x, this.BBbottomRight.y, this.BBbottomRight.width, this.BBbottomRight.height);
           
         }
     }

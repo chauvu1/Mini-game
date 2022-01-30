@@ -174,12 +174,6 @@ class Bunny {
                 if (that.BB.collide(entity.BBbottom) && that.lastBB.bottom <= entity.BBbottom.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
-                if (that.BB.collide(entity.BBbottomLeft) && that.lastBB.bottom >= entity.BBbottomLeft.left) {
-                    if (that.velocity.x > 0) that.velocity.x = 0;
-                }
-                if (that.BB.collide(entity.BBbottomRight) && that.lastBB.bottom <= entity.BBbottomRight.right) {
-                    if (that.velocity.x > 0) that.velocity.x = 0;
-                }
                 if (that.BB.collide(entity.BBbottomTop) && that.lastBB.bottom >= entity.BBbottomTop.top) {
                     if (that.velocity.y > 0) that.velocity.y = 0;
                 }
