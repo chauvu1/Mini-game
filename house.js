@@ -2,24 +2,32 @@
 class HouseInterior {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
-        
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png"); 
+        this.animation = new Animator(this.spritesheet, 60, 147, 60, 49, 5, 0.2, 0, true, false);  
+        this.timer = 0;
+       
     }
-
-    update() {};
-
-
-    draw(ctx) {
-        ctx.drawImage(this.spritesheet, 0, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
+    update() {
         
     };
 
-
+    draw(ctx) {
+       
+        if (this.game.house.inside) {
+            this.timer += this.game.clockTick;
+            if (this.timer > 0.8)
+            ctx.drawImage(this.spritesheet, 60, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
+        } else {
+            ctx.drawImage(this.spritesheet, 0, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
+        }
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+    };
 }
 
 class House {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
+        this.game.house = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
         this.door = false;
