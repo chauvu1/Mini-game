@@ -42,7 +42,7 @@ class Bunny {
         this.animations[1][2] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 4, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
         this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
         // bed animation
-        this.animations[1][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 3, 0.2, 0, false, true);
+        this.animations[1][4] = new Animator (this.spritesheet, 332, 632, 56, 88, 1, 0.2, 0, false, true);
         // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
 
         this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
@@ -50,17 +50,17 @@ class Bunny {
     /* Update the bounding box of the player for collision detection */
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x + 20, this.y + 60, 64 - 36, 5); 
+        this.BB = new BoundingBox(this.x + 25, this.y + 74, 64 - 36, 5); 
     };
         
     draw(ctx) {
         let scale = 1;
        
         if (this.sleep) {
-            this.animations[1][4].drawFrame(this.game.clockTick, ctx, 380, 173, 0.665);
+            this.animations[1][4].drawFrame(this.game.clockTick, ctx, 385, 182, 1);
             this.bedVisible = false;
         } else {
-            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.7);
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
         }
         if (this.bedVisible) {
             this.bubble.drawFrame(this.game.clockTick, ctx, 404, 160, 3);
@@ -121,6 +121,7 @@ class Bunny {
                         if (that.velocity.y < 0) that.velocity.y = 0;
                     }
                 }
+                that.updateBB();
             }
 
             if ((entity instanceof Fence || entity instanceof House) && that.BB.collide(entity.BBinterior)) {
@@ -140,6 +141,7 @@ class Bunny {
                 if (that.BB.collide(entity.BBinteriorTop) && that.lastBB.top <= entity.BBinteriorTop.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 } 
+                that.updateBB();
             } 
 
             if ((entity instanceof House)) {
@@ -152,6 +154,7 @@ class Bunny {
                 } else {
                     entity.inside = false;
                 }
+                that.updateBB();
             }
             if ((entity instanceof Fence)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
@@ -163,6 +166,7 @@ class Bunny {
                 } else {
                     entity.inside = false;
                 }
+                that.updateBB();
             }
            
             if (entity instanceof House && that.BB.collide(entity.BBbed)) {
@@ -172,6 +176,7 @@ class Bunny {
                 if (that.BB.collide(entity.BBbedBottom) && that.lastBB.top <= entity.BBbedBottom.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
+                that.updateBB();
             }
   
 
@@ -188,6 +193,7 @@ class Bunny {
                 if (that.BB.collide(entity.BB) && that.lastBB.top <= entity.BB.top) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
+                that.updateBB();
             }
                 
             if (entity instanceof Tree && that.BB.collide(entity.BB)) {
@@ -205,7 +211,8 @@ class Bunny {
                 }
                 if (that.BB.collide(entity.BBright) && that.lastBB.left <= entity.BBright.right) {
                     entity.under = true;
-                } 
+                }   
+                that.updateBB();
             } else {
                 entity.under = false;
             }
@@ -220,6 +227,7 @@ class Bunny {
                         that.sleep = false;
                     }
                 } 
+                that.updateBB();
             }   
 
 
