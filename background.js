@@ -181,18 +181,18 @@ class Fence {
         this.BBleft = new BoundingBox(this.x + 16, this.y + 9 + 10, 10, 64 * 3 - 18 - 20);
         this.BBright = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 10, this.y + 9 + 10, 10, 64 * 3 - 18 - 20);
         this.BBtop = new BoundingBox(this.x + 16, this.y + 9 , 64 * 3 - 29, 10);
-        this.BBbottomLeft = new BoundingBox(this.x + 16, this.y + 9 + 64 * 3 - 18 - 10 + 5, 32, 5);
-        this.BBbottomRight = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 30, this.y + 9 + 64 * 3 - 18 - 10 + 5, 30, 5);
+        this.BBbottomLeft = new BoundingBox(this.x + 16, this.y + 9 + 64 * 3 - 18 - 10 + 5, 47, 5);
+        this.BBbottomRight = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 42, this.y + 9 + 64 * 3 - 18 - 10 + 5, 42, 5);
     };
 
     updateBB() {
-        this.BBdoor = new BoundingBox(this.x + 16 + 33, this.y + 9 + 64 * 3 - 18 - 35, 100, 35);
+        this.BBdoor = new BoundingBox(this.x + 16 + 33 + 15, this.y + 9 + 64 * 3 - 18 - 35, 73, 35);
         this.BBinterior = new BoundingBox(this.x + 26 + 10, this.y + 19 + 20, 126, 135);
         this.BBinteriorLeft = new BoundingBox(this.x + 26 + 10 - 10, this.y + 19 + 20, 10, 135);
         this.BBinteriorRight = new BoundingBox(this.x + 26 + 10 + 126, this.y + 19 + 20, 10, 135);
         this.BBinteriorTop = new BoundingBox(this.x + 26 + 10, this.y + 19 + 20 - 10, 126, 10);
-        this.BBinteriorBottomLeft = new BoundingBox(this.x + 16 + 20, this.y + 9 + 64 * 3 - 18 - 10, 13, 10);
-        this.BBinteriorBottomRight = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 30, this.y + 9 + 64 * 3 - 18 - 10, 13, 10);
+        this.BBinteriorBottomLeft = new BoundingBox(this.x + 16 + 20, this.y + 9 + 64 * 3 - 18 - 10, 25, 10);
+        this.BBinteriorBottomRight = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 42, this.y + 9 + 64 * 3 - 18 - 10, 25, 10);
     };
 
     update() {

@@ -7,8 +7,8 @@ class Bunny {
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
             
         this.velocity = { x: 0, y: 0};
-        this.facing = 2; // 0 = right; 1 = left; 2 = down; 3 = up
-        this.state = 0; // 0 = idle, 1 = walking
+        this.facing = 2; // 0 = right; 1 = left; 2 = down; 3 = up; 4 = bed
+        this.state = 0; // 0 = idle, 1 = walking, 2 = crouch
         this.animations = [];
         this.sleep = false;
         this.bedVisible = false;
@@ -18,7 +18,7 @@ class Bunny {
 
     loadAnimations() {
            // array with [state] [face] of the same animator.
-           for (var i = 0; i < 2; i++) {
+           for (var i = 0; i < 3; i++) {
             this.animations.push([]);
             for (var j = 0; j < 5; j++) {
                 this.animations[i].push([]);
@@ -43,6 +43,17 @@ class Bunny {
         this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
         // bed animation
         this.animations[1][4] = new Animator (this.spritesheet, 332, 632, 56, 88, 1, 0.2, 0, false, true);
+
+        // 0 640 80 80 right crouch
+        // 80 640 80 80 left crouch
+        // 160 640 down 
+        // 240 640 up
+
+        this.animations[2][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
+        this.animations[2][1] = new Animator (this.spritesheet, 80, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
+        this.animations[2][2] = new Animator (this.spritesheet, 160, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
+        this.animations[2][3] = new Animator (this.spritesheet, 240, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
+
         // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
 
         this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
@@ -87,15 +98,20 @@ class Bunny {
             this.velocity.y += MIN_WALK;
         } else if (this.game.up) {
             this.velocity.y -= MIN_WALK;
+        } else if (this.game.crouch) {
+            this.state = 2;
         }
-
-        if (Math.abs(this.velocity.x) > 0) {
-            this.state = 1;
-        } else if (Math.abs(this.velocity.y) > 0) {
-            this.state = 1;
-        } else {
-            this.state = 0;
+        console.log(this.game.crouch);
+        if (!this.game.crouch) {
+            if (Math.abs(this.velocity.x) > 0) {
+                this.state = 1;
+            } else if (Math.abs(this.velocity.y) > 0) {
+                this.state = 1;
+            } else {
+                this.state = 0;
+            }
         }
+       
         this.updateBB();
 
         var that = this; 

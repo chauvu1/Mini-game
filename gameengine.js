@@ -73,6 +73,9 @@ class GameEngine {
                 case "Space":
                     that.interact = true;
                     break;
+                case "ControlLeft":
+                    that.crouch = true;
+                    break;
             }
         }, false);
 
@@ -92,6 +95,9 @@ class GameEngine {
                     break;
                 case "Space":
                     that.interact = false;
+                    break;
+                case "ControlLeft":
+                    that.crouch = false;
                     break;
             }
         }, false);
