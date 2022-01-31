@@ -3,6 +3,7 @@ var gameEngine = new GameEngine();
 var ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./sprites/bunny_spritesheet.png");
+ASSET_MANAGER.queueDownload("./sprites/emotes.png");
 ASSET_MANAGER.queueDownload("./sprites/speech_bubble.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Wooden House.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Paths.png");
@@ -21,6 +22,7 @@ ASSET_MANAGER.queueDownload("./sprites/objects/Trees, stumps and bushes.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Mushrooms, Flowers, Stones.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/baby cow/baby pink cow animations sprites.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Pink cow animation sprites.png");
+
 
 ASSET_MANAGER.downloadAll(function () {
 	var canvas = document.getElementById("gameWorld");

@@ -5,17 +5,17 @@ class HouseInterior {
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png"); 
         this.animation = new Animator(this.spritesheet, 60, 147, 60, 49, 5, 0.2, 0, true, false);  
         this.night = new Animator(this.spritesheet, 0, 196, 60, 49, 1, 0.2, 0, false, true);
+        
         this.timer = 0;
-       
+
     }
     update() {
         
     };
 
     draw(ctx) {
-        if (this.game.bunny.sleep) {
-            this.night.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
-        }
+      
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
         if (this.game.house.inside) {
             this.timer += this.game.clockTick;
             if (this.timer > 0.8)
@@ -23,7 +23,9 @@ class HouseInterior {
         } else {
             ctx.drawImage(this.spritesheet, 0, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
         }
-        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+        if (this.game.bunny.sleep) {
+            this.night.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+        }
     };
 }
 
@@ -33,12 +35,14 @@ class House {
         this.game.house = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
+        this.nightLight = new Animator(this.spritesheet, 60, 196, 60, 49, 4, 0.2, 0, false, true);
+        this.light = false;
         this.door = false;
         this.visible = false;
         this.inside = false;
         this.state = 0;
         this.animation = [];
-        for (var i = 0; i < 2; i++) {
+        for (var i = 0; i < 4; i++) {
             this.animation.push([]);
         }
         this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
@@ -51,6 +55,7 @@ class House {
         this.animation[0] = new Animator(this.spritesheet, 60, 0, 60, 49, 1, 0.2, 0, false, true); // roof 
         this.animation[1] = new Animator(this.spritesheet, 0, 49, 60, 49, 1, 0.2, 0, false, true);  // no roof
         this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.1, 0, false, false); // no roof animation
+        this.animation[3] = new Animator(this.spritesheet, 0, 0, 60, 49, 1, 0.1, 0, false, true); // no roof no doors
     }
 
     updateBB() {
@@ -61,23 +66,26 @@ class House {
         this.BBinteriorBottomLeft = new BoundingBox(this.x + 10, this.y + 168 + 12, 90, 8);
         this.BBinteriorBottomRight = new BoundingBox(this.x + 10 + 130, this.y + 168 + 12, 90, 8);
         this.BBinteriorTop = new BoundingBox(this.x + 10, this.y + 10, 220, 55);
+        //this.BBinteriorDoor = new BoundingBox(this.x + this.BB.width / 2 - 20, this.y + this.BB.height - 20, 40, 10);
+
 
         this.BBbed = new BoundingBox(385, 184, 54, 85);
         this.BBbedRight = new BoundingBox(385 + 54 - 10, 184, 10, 75);
         this.BBbedBottom = new BoundingBox(385, 184 + 85 - 10, 54, 10);
-
+        this.BBtable = new BoundingBox(447, 206, 44, 40);
+        this.BBtableRight = new BoundingBox(447 + 34, 206, 10, 30);
+        this.BBtableBottom = new BoundingBox(447, 206 + 30, 44, 10);
     };
 
     update() {
         if (this.visible) {
             if (this.door) {
                 this.BBdoor.remove();
-            }
-        } else {
-            this.updateBB();  
-        }
-       
-        
+            } 
+       } else {
+        this.updateBB(); 
+    }
+
     };
 
     createBB() {
@@ -103,8 +111,8 @@ class House {
     }
 
     draw(ctx) {
-           //base image of the house, with no roof & doors
-        ctx.drawImage(this.spritesheet, 0, 0,
+           // base image of the house, with no roof & doors
+            ctx.drawImage(this.spritesheet, 0, 0,
             60,  49,
             this.x,
             this.y,
@@ -119,7 +127,9 @@ class House {
         }  else {
             this.animation[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
         }
-
+        if (this.light) {
+            this.nightLight.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+        }
         if (PARAMS.DEBUG) {
             if (this.door) {
                 ctx.strokeStyle = 'pink';
@@ -135,6 +145,11 @@ class House {
                 ctx.strokeStyle = 'red';
                 ctx.strokeRect(this.BBinterior.x, this.BBinterior.y, this.BBinterior.width, this.BBinterior.height);
                 ctx.strokeRect(this.BBbed.x, this.BBbed.y, this.BBbed.width, this.BBbed.height);
+
+                ctx.strokeRect(this.BBtable.x, this.BBtable.y, this.BBtable.width, this.BBtable.height);
+                ctx.strokeRect(this.BBtableRight.x, this.BBtableRight.y, this.BBtableRight.width, this.BBtableRight.height);
+                ctx.strokeRect(this.BBtableBottom.x, this.BBtableBottom.y, this.BBtableBottom.width, this.BBtableBottom.height);
+                //ctx.strokeRect(this.BBinteriorDoor.x, this.BBinteriorDoor.y, this.BBinteriorDoor.width, this.BBinteriorDoor.height);
             }
             if (!this.door) {
                 ctx.strokeStyle = 'yellow';
@@ -149,8 +164,11 @@ class House {
                 ctx.strokeRect(this. BBbottomRight.x, this. BBbottomRight.y, this. BBbottomRight.width, this. BBbottomRight.height);  
                 ctx.strokeStyle = 'pink';
                 ctx.strokeRect(this.BBdoor.x, this.BBdoor.y, this.BBdoor.width, this.BBdoor.height);
+                
             }        
         }
+       
+        
         ctx.imageSmoothingEnabled = false;
     }
 }

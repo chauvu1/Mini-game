@@ -5,7 +5,10 @@ class Bunny {
         this.game.x = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/bunny_spritesheet.png"); 
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
-            
+
+        this.emotesheet = ASSET_MANAGER.getAsset("./sprites/emotes.png");
+        this.emoteAnim = [];
+
         this.velocity = { x: 0, y: 0};
         this.facing = 2; // 0 = right; 1 = left; 2 = down; 3 = up; 4 = bed
         this.state = 0; // 0 = idle, 1 = walking, 2 = crouch
@@ -55,7 +58,7 @@ class Bunny {
         this.animations[2][3] = new Animator (this.spritesheet, 240, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
 
         // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
-
+        this.emoteAnim = new Animator (this.emotesheet, 0,0, 32, 32, 4, 0.2, 0, false, true);
         this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
     }
     /* Update the bounding box of the player for collision detection */
@@ -69,6 +72,7 @@ class Bunny {
        
         if (this.sleep) {
             this.animations[1][4].drawFrame(this.game.clockTick, ctx, 385, 182, 1);
+            this.emoteAnim.drawFrame(this.game.clockTick, ctx, 400, 175, 1);
             this.bedVisible = false;
         } else {
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
@@ -101,7 +105,6 @@ class Bunny {
         } else if (this.game.crouch) {
             this.state = 2;
         }
-        console.log(this.game.crouch);
         if (!this.game.crouch) {
             if (Math.abs(this.velocity.x) > 0) {
                 this.state = 1;
@@ -156,10 +159,10 @@ class Bunny {
                 }
                 if (that.BB.collide(entity.BBinteriorTop) && that.lastBB.top <= entity.BBinteriorTop.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
-                } 
+                }    
                 that.updateBB();
             } 
-
+            // walk out - door disappears.
             if ((entity instanceof House)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
                     && that.lastBB.right - 3 < entity.BBinteriorRight.left
@@ -169,6 +172,7 @@ class Bunny {
                     entity.inside = true;
                 } else {
                     entity.inside = false;
+                   
                 }
                 that.updateBB();
             }
@@ -184,7 +188,7 @@ class Bunny {
                 }
                 that.updateBB();
             }
-           
+        
             if (entity instanceof House && that.BB.collide(entity.BBbed)) {
                 if (that.BB.collide(entity.BBbedRight) && that.lastBB.left <= entity.BBbedRight.right) {
                     if (that.velocity.x < 0) that.velocity.x = 0;
@@ -193,6 +197,22 @@ class Bunny {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
                 that.updateBB();
+            }
+
+            if (entity instanceof House && that.BB.collide(entity.BBtable)) {
+                if (that.BB.collide(entity.BBtableRight) && that.lastBB.left <= entity.BBtableRight.right) {
+                    if (that.velocity.x < 0) that.velocity.x = 0;
+                }
+                if (that.BB.collide(entity.BBtableBottom) && that.lastBB.top <= entity.BBtableBottom.bottom) {
+                    if (that.velocity.y < 0) that.velocity.y = 0;
+                }
+                console.log(entity.light);
+                if ((that.BB.collide(entity.BBtableBottom) || that.BB.collide(entity.BBtableRight)) && that.game.interact) {
+                    entity.light = true;
+                } 
+                that.updateBB();
+            } else {
+                entity.light = false;
             }
   
 
@@ -254,6 +274,7 @@ class Bunny {
                     if (that.BB.withinRange(entity.BBdoor) && that.game.interact)
                         entity.door = true;
                     } 
+
                     that.updateBB();
                 }  else {
                     entity.visible = false;
