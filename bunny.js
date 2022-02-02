@@ -8,7 +8,7 @@ class Bunny {
 
         this.emotesheet = ASSET_MANAGER.getAsset("./sprites/emotes.png");
         this.emoteAnim = [];
-
+        this.crouch = false;
         this.velocity = { x: 0, y: 0};
         this.facing = 2; // 0 = right; 1 = left; 2 = down; 3 = up; 4 = bed
         this.state = 0; // 0 = idle, 1 = walking, 2 = crouch
@@ -104,17 +104,20 @@ class Bunny {
             this.velocity.y -= MIN_WALK;
         } else if (this.game.crouch) {
             this.state = 2;
+            this.crouch = true;
         }
-        if (!this.game.crouch) {
-            if (Math.abs(this.velocity.x) > 0) {
-                this.state = 1;
-            } else if (Math.abs(this.velocity.y) > 0) {
-                this.state = 1;
-            } else {
-                this.state = 0;
-            }
+
+        if (Math.abs(this.velocity.x) > 0) {
+            this.crouch = false;
+            this.state = 1;
+        } else if (Math.abs(this.velocity.y) > 0) {
+            this.crouch = false;
+            this.state = 1;
+        } else {
+            if (!this.crouch)
+           this.state = 0;
         }
-       
+        
         this.updateBB();
 
         var that = this; 
