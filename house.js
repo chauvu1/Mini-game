@@ -40,6 +40,7 @@ class House {
         this.door = false;
         this.visible = false;
         this.inside = false;
+        this.nightLampInteract = false;
         this.state = 0;
         this.animation = [];
         for (var i = 0; i < 4; i++) {
@@ -127,8 +128,13 @@ class House {
         }  else {
             this.animation[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
         }
+        console.log(this.nightLampInteract);
+        if (this.nightLampInteract && !this.light) {
+            this.bubble.drawFrame(this.game.clockTick, ctx, this.x + 100, this.y, 3);
+        }
         if (this.light) {
             this.nightLight.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+            
         }
         if (PARAMS.DEBUG) {
             if (this.door) {

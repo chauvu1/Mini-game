@@ -2,10 +2,12 @@ class Grass {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Grass.png");   
-        this.BB = new BoundingBox(BACKGROUND.BB.START.X + BACKGROUND.BB.START.PADDING,
-            BACKGROUND.BB.START.Y + BACKGROUND.BB.START.PADDING,
-            BACKGROUND.BB.WIDTH - BACKGROUND.BB.PADDING,
-            BACKGROUND.BB.HEIGHT - BACKGROUND.BB.PADDING);
+        this.BB = new BoundingBox(BACKGROUND.BB.START.X + BACKGROUND.BB.START.PADDING + 5, 
+            BACKGROUND.BB.START.Y + BACKGROUND.BB.START.PADDING + 5,
+            BACKGROUND.BB.WIDTH - BACKGROUND.BB.PADDING - 10,
+            BACKGROUND.BB.HEIGHT - BACKGROUND.BB.PADDING - 10);
+
+        
     }
 
     update() {

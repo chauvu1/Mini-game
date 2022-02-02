@@ -206,7 +206,7 @@ class Bunny {
                 if (that.BB.collide(entity.BBtableBottom) && that.lastBB.top <= entity.BBtableBottom.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
-                console.log(entity.light);
+                
                 if ((that.BB.collide(entity.BBtableBottom) || that.BB.collide(entity.BBtableRight)) && that.game.interact) {
                     entity.light = true;
                 } 
@@ -214,8 +214,13 @@ class Bunny {
             } else {
                 entity.light = false;
             }
-  
 
+            if ((entity instanceof House && that.BB.withinRange(entity.BBtableBottom))){
+                entity.nightLampInteract = true; 
+            } else {
+                entity.nightLampInteract = false;
+            }
+  
             if (entity instanceof Grass && that.BB.collide(entity.BB)) {
                 if (that.BB.collide(entity.BB) && that.lastBB.left <= entity.BB.left) {
                     if (that.velocity.x < 0) that.velocity.x = 0;
