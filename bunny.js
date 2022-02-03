@@ -291,7 +291,7 @@ class Bunny {
             }
         
         );          
-
+        this.updateBB();
         // update direction
         if (this.velocity.x > 0) this.facing = 0; // right
         if (this.velocity.x < 0) this.facing = 1; // left

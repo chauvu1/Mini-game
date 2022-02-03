@@ -9,6 +9,7 @@ class SceneManager {
         this.bunny = new Bunny(gameEngine, 300, 300);
         this.tree = new Tree(gameEngine, 700, 200);
         this.tree1 = new Tree(gameEngine, 120, 500);
+        this.waterObj = new WaterObjects(gameEngine, 0, 0);
         this.loadScreen();
 
     }
@@ -33,6 +34,7 @@ class SceneManager {
         this.game.addEntity(this.boat);
         this.game.addEntity(this.tree);
         this.game.addEntity(this.tree1);
+        this.game.addEntity(this.waterObj);
         this.game.addEntity(this.bunny);
     }
     removeOverlay() {
