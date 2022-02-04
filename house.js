@@ -1,34 +1,3 @@
-
-class HouseInterior {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png"); 
-        this.animation = new Animator(this.spritesheet, 60, 147, 60, 49, 5, 0.2, 0, true, false);  
-        this.night = new Animator(this.spritesheet, 0, 196, 60, 49, 1, 0.2, 0, false, true);
-        
-        this.timer = 0;
-
-    }
-    update() {
-        
-    };
-
-    draw(ctx) {
-      
-        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
-        if (this.game.house.inside) {
-            this.timer += this.game.clockTick;
-            if (this.timer > 0.8)
-            ctx.drawImage(this.spritesheet, 60, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
-        } else {
-            ctx.drawImage(this.spritesheet, 0, 147, 60, 49, this.x, this.y, 60 * 4, 49 * 4);
-        }
-        if (this.game.bunny.sleep) {
-            this.night.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
-        }
-    };
-}
-
 class House {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
@@ -92,20 +61,20 @@ class House {
     createBB() {
         this.BB = new BoundingBox(this.x, this.y, 
             BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE,
-            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE);
+            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE + 5);
         this.BBleft = new BoundingBox(this.x, this.y + 10, 
             10,
-            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 20);
+            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 15);
         this.BBright = new BoundingBox(this.x + this.BB.width - 10, this.y + 10, 
             10,
-            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 20);
+            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 15);
         this.BBtop= new BoundingBox(this.x, this.y, 
             BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE,
             10);
-        this.BBbottomLeft = new BoundingBox(this.x, this.y + this.BB.height - 10, 
+        this.BBbottomLeft = new BoundingBox(this.x, this.y + this.BB.height - 5 - 5, 
             BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE / 2 - 20,
             10);
-        this.BBbottomRight = new BoundingBox(this.x + this.BB.width - BACKGROUND.HOUSE.WIDTH * 2 + 20, this.y + this.BB.height - 10, 
+        this.BBbottomRight = new BoundingBox(this.x + this.BB.width - BACKGROUND.HOUSE.WIDTH * 2 + 20, this.y + this.BB.height - 5 - 5, 
             BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE / 2 - 20,
             10);
        
@@ -128,7 +97,6 @@ class House {
         }  else {
             this.animation[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
         }
-        console.log(this.nightLampInteract);
         if (this.nightLampInteract && !this.light) {
             this.bubble.drawFrame(this.game.clockTick, ctx, this.x + 100, this.y, 3);
         }

@@ -93,7 +93,6 @@ class Grass {
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'yellow';
-            ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
         }
         ctx.imageSmoothingEnabled = false;
@@ -192,32 +191,13 @@ class Pavement {
     };
 }
 
-class FenceInterior {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Fences.png");
-    }
-
-    update() {
-
-    };
-
-    draw(ctx) {
-        ctx.drawImage(this.spritesheet, 0, 64,
-            64,  64,
-            this.x,
-            this.y,
-            64 * 3,
-            64 * 3);
-    }
-}
-
 class Fence {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         // 0 0 16 48
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Fences.png");
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
+        this.game.fence = this;
         this.door = false;
         this.visible = false;
         this.inside = false;
@@ -241,11 +221,11 @@ class Fence {
         this.BB = new BoundingBox(this.x + 16, this.y + 9, 
             64 * 3 - 29,
             64 * 3 - 18);
-        this.BBleft = new BoundingBox(this.x + 16, this.y + 9 + 10, 10, 64 * 3 - 18 - 20);
-        this.BBright = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 10, this.y + 9 + 10, 10, 64 * 3 - 18 - 20);
+        this.BBleft = new BoundingBox(this.x + 16, this.y + 9 + 5, 10, 64 * 3 - 18 - 8);
+        this.BBright = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 10, this.y + 9 + 5, 10, 64 * 3 - 18 - 8);
         this.BBtop = new BoundingBox(this.x + 16, this.y + 9 , 64 * 3 - 29, 10);
-        this.BBbottomLeft = new BoundingBox(this.x + 16, this.y + 9 + 64 * 3 - 18 - 10 + 5, 47, 5);
-        this.BBbottomRight = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 42, this.y + 9 + 64 * 3 - 18 - 10 + 5, 42, 5);
+        this.BBbottomLeft = new BoundingBox(this.x + 16, this.y + 9 + 64 * 3 - 18 - 10 + 10, 47, 5);
+        this.BBbottomRight = new BoundingBox(this.x + 16 + 64 * 3 - 29 - 42, this.y + 9 + 64 * 3 - 18 - 10 + 10, 42, 5);
     };
 
     updateBB() {
@@ -294,7 +274,6 @@ class Fence {
             
             if (!this.door) {
                 ctx.strokeStyle = 'yellow';
-                ctx.lineWidth = 2;
                 ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
                 ctx.strokeStyle = 'red';
                 ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
@@ -327,40 +306,17 @@ class Boat {
 
 }
 
-class TreeOverlay {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
-    }
-
-    update() {};
-
-    draw(ctx) {
-        ctx.drawImage(this.spritesheet, 16, 0,
-            32,  32,
-            this.x,
-            this.y,
-            32 * 3,
-            32 * 3); 
-    }
-}
 class Tree {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+        this.game.tree = this;
         this.under = false;
         this.createBB();
     }
     createBB() {
         this.BB = new BoundingBox(this.x + 10, this.y, 32 * 3 - 20, 32 * 3 - 12);
-        this.BBleft = new BoundingBox(this.x + 10, this.y + 10, 10, 32*3 - 40);
-
-        this.BBright = new BoundingBox(this.x + 10 + 32*3 - 30, this.y + 10, 10, 32*3 - 40);
-        this.BBtop = new BoundingBox(this.x + 10 + 10, this.y, 32*3-20 - 20, 80);
-        this.BBbottom = new BoundingBox(this.x + 10, this.y + 32 * 3 - 15, 32 * 3 - 20, 7);
-
-        this.BBbottomTop = new BoundingBox(this.x + 10, this.y + 32 * 3 - 22 + 2, 32 *3 - 20, 3);
-
+        this.BBbottom = new BoundingBox(this.x + 10, this.y + 32 * 3 - 22, 32 * 3 - 20, 10);
     }
 
     update() {
@@ -376,14 +332,9 @@ class Tree {
             32 * 3); 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'yellow';
-            ctx.lineWidth = 2;
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
-            ctx.strokeStyle = 'red';
-            ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
-            ctx.strokeRect(this.BBright.x, this.BBright.y, this.BBright.width, this.BBright.height);
-            ctx.strokeRect(this.BBtop.x, this.BBtop.y, this.BBtop.width, this.BBtop.height);
+            ctx.strokeStyle = 'red';  
             ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
-            ctx.strokeRect(this.BBbottomTop.x, this.BBbottomTop.y, this.BBbottomTop.width, this.BBbottomTop.height);
             ctx.strokeStyle = 'pink';
           
         }
