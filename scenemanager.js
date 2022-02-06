@@ -17,6 +17,7 @@ class SceneManager {
         this.tree1 = new Tree(gameEngine, OVERLAY.TREE[1].X, OVERLAY.TREE[1].Y);
         this.waterObj = new WaterObjects(gameEngine, 0, 0);
         this.overlay = new Overlay(this.game, 0, 0);
+        this.cow = new Cow(this.game, 200, 200);
         this.loadScreen();
     }
     
@@ -41,6 +42,7 @@ class SceneManager {
         this.game.addEntity(this.tree1);
         this.game.addEntity(this.waterObj);
         this.game.addEntity(this.bunny);
+        this.game.addEntity(this.cow);
         this.game.addEntity(this.overlay);
     }
 
