@@ -2,7 +2,7 @@
 
 class Overlay {    
     constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
+        Object.assign(this, {game, x, y});
         this.spritesheetTree = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
         this.spritesheetFence = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Fences.png");
         this.spritesheetHouse = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png"); 
@@ -12,23 +12,31 @@ class Overlay {
     }
 
     update(){
+        
     };
 
-    draw(ctx) {
-        if (this.game.tree.under) {
-            ctx.drawImage(this.spritesheetTree, 16, 0,
-                32,  32,
-                OVERLAY.TREE[0].X,
-                OVERLAY.TREE[0].Y,
-                32 * 3,
-                32 * 3); 
-            ctx.drawImage(this.spritesheetTree, 16, 0,
-                32,  32,
-                OVERLAY.TREE[1].X,
-                OVERLAY.TREE[1].Y,
-                32 * 3,
-                32 * 3); 
-        }
+    draw(ctx) {   
+        // // they are not checking all the cows.
+        // if (this.game.cow.under) {
+        //     for (var i = 0; i < BACKGROUND.COW.length; i++) {
+        //         let cow = BACKGROUND.COW[i];
+        //         this.game.addEntity(new Cow(gameEngine, cow.X, cow.Y, cow.TYPE, cow.FACING, cow.COLOR)); 
+        //     }
+        // }
+        // if (this.game.tree.under) {
+        //     ctx.drawImage(this.spritesheetTree, 16, 0,
+        //         32,  32,
+        //         OVERLAY.TREE[0].X,
+        //         OVERLAY.TREE[0].Y,
+        //         32 * 3,
+        //         32 * 3); 
+        //     ctx.drawImage(this.spritesheetTree, 16, 0,
+        //         32,  32,
+        //         OVERLAY.TREE[1].X,
+        //         OVERLAY.TREE[1].Y,
+        //         32 * 3,
+        //         32 * 3); 
+        // }
         if (this.game.fence.inside) {
             ctx.drawImage(this.spritesheetFence, 0, 64,
                 64,  64,
@@ -36,7 +44,7 @@ class Overlay {
                 OVERLAY.FENCE.Y,
                 64 * 3,
                 64 * 3);
-        }
+        } 
         if (this.game.house.inside) {
             ctx.drawImage(this.spritesheetHouse, 60, 147, 60, 49, OVERLAY.HOUSE.X, OVERLAY.HOUSE.Y, 60 * 4, 49 * 4);
             if (this.game.bunny.sleep) {

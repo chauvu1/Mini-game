@@ -22,6 +22,9 @@ ASSET_MANAGER.queueDownload("./sprites/objects/Trees, stumps and bushes.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Mushrooms, Flowers, Stones.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/baby cow/baby pink cow animations sprites.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Pink cow animation sprites.png");
+ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Light cow animation sprites.png");
+ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Brown cow animation sprites.png");
+ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Purple cow animation sprites.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/background.png");  
 
 

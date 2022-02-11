@@ -1,6 +1,6 @@
 class House {
     constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
+        Object.assign(this, {game, x, y});
         this.game.house = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");

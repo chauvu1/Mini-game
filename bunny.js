@@ -2,10 +2,9 @@ class Bunny {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.game.bunny = this;
-        this.game.x = this;
+        // this.game.x = this.x;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/bunny_spritesheet.png"); 
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
-
         this.emotesheet = ASSET_MANAGER.getAsset("./sprites/emotes.png");
         this.emoteAnim = [];
         this.crouch = false;
@@ -113,7 +112,6 @@ class Bunny {
             this.state = 2;
             this.crouch = true;
         }
-        console.log(this.BB.bottom);
         if (Math.abs(this.velocity.x) > 0) {
             this.crouch = false;
             this.state = 1;
@@ -207,18 +205,18 @@ class Bunny {
                 }
                 that.updateBB();
             }
-                if (entity instanceof Tree ) {
-                    if (that.BB.collide(entity.BBbottom) && that.lastBB.bottom >= entity.BBbottom.top)
-                        if (that.velocity.y > 0) that.velocity.y = 0;
-                    if (that.topBB.collide(entity.BBbottom) && that.topBB.top <= entity.BBbottom.bottom)
-                        if (that.velocity.y < 0) that.velocity.y = 0;
-                    if (that.leftBB.collide(entity.BBbottom) && that.leftBB.left <= entity.BBbottom.right)
-                        if (that.velocity.x < 0) that.velocity.x = 0;
-                    if (that.rightBB.collide(entity.BBbottom) && that.rightBB.right >= entity.BBbottom.left)
-                        if (that.velocity.x > 0) that.velocity.x = 0;
-                }
 
-               
+            if ((entity instanceof Tree || entity instanceof Cow)) {
+                if (that.BB.collide(entity.BBbottom) && that.lastBB.bottom >= entity.BBbottom.top)
+                    if (that.velocity.y > 0) that.velocity.y = 0;
+                if (that.topBB.collide(entity.BBbottom) && that.topBB.top <= entity.BBbottom.bottom)
+                    if (that.velocity.y < 0) that.velocity.y = 0;
+                if (that.leftBB.collide(entity.BBbottom) && that.leftBB.left <= entity.BBbottom.right)
+                    if (that.velocity.x < 0) that.velocity.x = 0;
+                if (that.rightBB.collide(entity.BBbottom) && that.rightBB.right >= entity.BBbottom.left)
+                    if (that.velocity.x > 0) that.velocity.x = 0;
+            }
+
             if (entity instanceof House && that.BB.collide(entity.BBtable)) {
                 if (that.BB.collide(entity.BBtableRight) && that.lastBB.left <= entity.BBtableRight.right) {
                     if (that.velocity.x < 0) that.velocity.x = 0;
@@ -240,13 +238,15 @@ class Bunny {
             } else {
                 entity.nightLampInteract = false;
             }
-  
-            if (entity instanceof Tree && that.BB.collide(entity.BB)) {
-                entity.under = true;
-            } else {
-                entity.under = false;
-            }
             
+            // make a list??? that is a group and go through each to check for them. not sure
+            // fix this
+            // if ((entity instanceof Tree) && that.BB.collide(entity.BB)) {
+            //     entity.under = true;
+            // } else {
+            //     entity.under = false;
+            // }
+
             if (entity instanceof Grass && that.BB.collide(entity.BB)) {
                 if (that.BB.collide(entity.BB) && that.lastBB.left <= entity.BB.left) {
                     if (that.velocity.x < 0) that.velocity.x = 0;
@@ -261,8 +261,8 @@ class Bunny {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
                 that.updateBB();
-            }       
-          
+            }    
+
             if (entity.BB && that.BB.withinRange(entity.BB)) {
 
                 if (entity instanceof House && that.BB.withinRange(entity.BBbed)) {
@@ -276,8 +276,6 @@ class Bunny {
                 } 
                 that.updateBB();
             }   
-
-
             
             if (entity.BB && that.BB.withinRange(entity.BB)) {
                 if ((entity instanceof House || entity instanceof Fence) && that.BB.withinRange(entity.BBdoor)) {
