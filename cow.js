@@ -3,18 +3,22 @@ class Cow {
         Object.assign(this, { game, x, y, type, direction, color});  
         this.facing = this.direction; // 0 = right; 1 = left
         this.state = this.type; // 0 = idle, 1 = walking, 2 = sit 3 = sleep 4 = sniff 5 = eat 6 = love
+        this.milkspritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Milk animation.png");
+        this.milkAnimations = []; 
         this.animations = [];
         this.velocity = { x: 0, y: 0};
         this.collidedRight = false;
         this.collidedLeft = false;
         this.loadAnimations();
         this.updateBB();
+       
     }
 
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x + 10, this.y + 30, 45, 27);
         this.BBbottom = new BoundingBox(this.x + 10, this.y+ 40, 45, 10); 
+        this.milkBB = new BoundingBox(this.x + 10, this.y + 5, 16 * 2 - 8, 16 * 2 - 3);
     }
 
     loadAnimations() {
@@ -25,6 +29,14 @@ class Cow {
                 this.animations[i].push([]);
             }
         }
+        for (var i = 0; i < 4; i++) {
+            this.milkAnimations.push([]);
+        }
+        this.milkAnimations[0] = new Animator(this.milkspritesheet, 0, 0,  20, 20, 3, 0.5, 0, false, true);
+        this.milkAnimations[1] = new Animator(this.milkspritesheet, 0, 20, 20, 20, 3, 0.5, 0, false, true);
+        this.milkAnimations[2] = new Animator(this.milkspritesheet, 0, 40, 20, 20, 3, 0.5, 0, false, true);
+        this.milkAnimations[3] = new Animator(this.milkspritesheet, 0, 60, 20, 20, 3, 0.5, 0, false, true);
+
         // color 0 pink 1 light 2 brown 3 purple different spritesheet?
         if (this.color == 0) {
             this.spritesheet = ASSET_MANAGER.getAsset("./sprites/characters/Animal SpriteSheets/cow/Pink cow animation sprites.png");
@@ -68,8 +80,8 @@ class Cow {
             }
         }
         this.updateBB();
-       var that = this;
-       this.game.entities.forEach(function(entity) {
+        var that = this;
+        this.game.entities.forEach(function(entity) {
            if (entity.BB && that.BB.collide(entity.BB)) {
                if (entity instanceof Fence && that.BB.collide(entity.BBinterior)) {
                     if (that.BB.collide(entity.BBinteriorRight)) {
@@ -101,6 +113,15 @@ class Cow {
 
     draw(ctx) {
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract) {
+            this.milkAnimations[this.game.bunny.cowInteract].drawFrame(this.game.clockTick, ctx, this.x + 45, this.y + 20, 2);
+            if (PARAMS.DEBUG) {
+                ctx.strokeStyle = 'Red';
+                ctx.strokeRect(this.milkBB.x + 45, this.milkBB.y + 20, this.milkBB.width, this.milkBB.height);
+              
+            }
+        }
+       
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

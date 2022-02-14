@@ -17,6 +17,7 @@ ASSET_MANAGER.queueDownload("./sprites/objects/Farming Plants.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Boats.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Milk and grass item Simple.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Milk and grass item.png");
+ASSET_MANAGER.queueDownload("./sprites/objects/Milk animation.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Water Objects.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Trees, stumps and bushes.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Mushrooms, Flowers, Stones.png");

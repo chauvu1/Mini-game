@@ -7,7 +7,6 @@ class Bunny {
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
         this.emotesheet = ASSET_MANAGER.getAsset("./sprites/emotes.png");
         this.emoteAnim = [];
-        this.inside = false;
         this.under = false;
         this.crouch = false;
         this.velocity = { x: 0, y: 0};
@@ -16,6 +15,8 @@ class Bunny {
         this.animations = [];
         this.sleep = false;
         this.bedVisible = false;
+        this.milkInteract = false;
+        this.cowInteract = 0;
         this.loadAnimations();
         this.updateBB();
     };
@@ -220,15 +221,19 @@ class Bunny {
                     if (that.velocity.x > 0) that.velocity.x = 0;
                 
                 if (that.BB.collide(entity.BB)) {
-                    console.log(that.under);
                     if (that.BB.left > entity.BB.left - 20 && that.BB.right < entity.BB.right + 20 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
                         that.under = true;
                     } else {
                         that.under = false;
                     }
                 } 
-                
-               
+                if (that.BB.withinRange(entity.BB) && that.game.interact) {  
+                    that.cowInteract = entity.color;
+                    that.milkInteract = true;
+                } else {
+                    
+                }
+
                 that.updateBB(); 
             }
 

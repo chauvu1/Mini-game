@@ -79,7 +79,9 @@ class SceneManager {
         for (var i = 0; i < BACKGROUND.COW.length; i++) {
             let cow = BACKGROUND.COW[i];
             this.game.addEntity(new Cow(this.game, cow.X, cow.Y, cow.TYPE, cow.FACING, cow.COLOR)); 
+           
         }
+
         this.game.addEntity(this.waterObj); 
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
