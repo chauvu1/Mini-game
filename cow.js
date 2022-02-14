@@ -98,6 +98,7 @@ class Cow {
                if (entity instanceof Bunny && that.BB.collide(entity.BB)) {
                     that.velocity.x = 0;
                 } else {
+
                 }
            }
        })
@@ -117,8 +118,7 @@ class Cow {
             this.milkAnimations[this.game.bunny.cowInteract].drawFrame(this.game.clockTick, ctx, this.x + 45, this.y + 20, 2);
             if (PARAMS.DEBUG) {
                 ctx.strokeStyle = 'Red';
-                ctx.strokeRect(this.milkBB.x + 45, this.milkBB.y + 20, this.milkBB.width, this.milkBB.height);
-              
+                ctx.strokeRect(this.milkBB.x + 45, this.milkBB.y + 20, this.milkBB.width, this.milkBB.height);  
             }
         }
        

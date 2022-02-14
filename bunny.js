@@ -227,13 +227,14 @@ class Bunny {
                         that.under = false;
                     }
                 } 
+                // problem right now, if walk away
                 if (that.BB.withinRange(entity.BB) && that.game.interact) {  
                     that.cowInteract = entity.color;
                     that.milkInteract = true;
                 } else {
                     
                 }
-
+               
                 that.updateBB(); 
             }
 
