@@ -305,7 +305,6 @@ class Tree {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
-        this.game.tree = this;
         this.under = false;
         this.createBB();
     }
@@ -315,7 +314,6 @@ class Tree {
     }
 
     update() {
-
     };
 
     draw(ctx) {
@@ -326,12 +324,12 @@ class Tree {
             32 * 3,
             32 * 3); 
         if (PARAMS.DEBUG) {
-            ctx.strokeStyle = 'yellow';
-            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+           
             ctx.strokeStyle = 'red';  
             ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
             ctx.strokeStyle = 'pink';
-          
+            ctx.strokeStyle = 'yellow';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
         }
     }
 

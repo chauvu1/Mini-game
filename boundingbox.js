@@ -28,10 +28,6 @@
         return false;     
     };
 
-    inside(oth) {
-        if (this.left > oth.right && this.right < oth.left && this.bottom < oth.top && this.top > oth.bottom) return true;
-        return false;
-    }
     remove() {
         this.left = 0;
         this.top = 0;

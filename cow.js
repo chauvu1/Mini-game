@@ -3,7 +3,6 @@ class Cow {
         Object.assign(this, { game, x, y, type, direction, color});  
         this.facing = this.direction; // 0 = right; 1 = left
         this.state = this.type; // 0 = idle, 1 = walking, 2 = sit 3 = sleep 4 = sniff 5 = eat 6 = love
-        this.under = false;
         this.animations = [];
         this.velocity = { x: 0, y: 0};
         this.collidedRight = false;
@@ -15,7 +14,7 @@ class Cow {
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x + 10, this.y + 30, 45, 27);
-        this.BBbottom = new BoundingBox(this.x + 10, this.y+50, 45, 10); 
+        this.BBbottom = new BoundingBox(this.x + 10, this.y+ 40, 45, 10); 
     }
 
     loadAnimations() {
@@ -91,7 +90,6 @@ class Cow {
            }
        })
        this.updateBB();
-       console.log(this.under);
        if (this.velocity.x > 0) this.facing = 0; // right
        if (this.velocity.x < 0) this.facing = 1; // left
        if (this.velocity.x == 0 && this.type == 1) {

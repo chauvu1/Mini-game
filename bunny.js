@@ -7,6 +7,8 @@ class Bunny {
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
         this.emotesheet = ASSET_MANAGER.getAsset("./sprites/emotes.png");
         this.emoteAnim = [];
+        this.inside = false;
+        this.under = false;
         this.crouch = false;
         this.velocity = { x: 0, y: 0};
         this.facing = 2; // 0 = right; 1 = left; 2 = down; 3 = up; 4 = bed
@@ -207,6 +209,7 @@ class Bunny {
             }
 
             if ((entity instanceof Tree || entity instanceof Cow)) {
+              
                 if (that.BB.collide(entity.BBbottom) && that.lastBB.bottom >= entity.BBbottom.top)
                     if (that.velocity.y > 0) that.velocity.y = 0;
                 if (that.topBB.collide(entity.BBbottom) && that.topBB.top <= entity.BBbottom.bottom)
@@ -215,6 +218,18 @@ class Bunny {
                     if (that.velocity.x < 0) that.velocity.x = 0;
                 if (that.rightBB.collide(entity.BBbottom) && that.rightBB.right >= entity.BBbottom.left)
                     if (that.velocity.x > 0) that.velocity.x = 0;
+                
+                if (that.BB.collide(entity.BB)) {
+                    console.log(that.under);
+                    if (that.BB.left > entity.BB.left - 20 && that.BB.right < entity.BB.right + 20 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
+                        that.under = true;
+                    } else {
+                        that.under = false;
+                    }
+                } 
+                
+               
+                that.updateBB(); 
             }
 
             if (entity instanceof House && that.BB.collide(entity.BBtable)) {
@@ -223,8 +238,7 @@ class Bunny {
                 }
                 if (that.BB.collide(entity.BBtableBottom) && that.lastBB.top <= entity.BBtableBottom.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
-                }
-                
+                }    
                 if ((that.BB.collide(entity.BBtableBottom) || that.BB.collide(entity.BBtableRight)) && that.game.interact) {
                     entity.light = true;
                 } 
@@ -239,12 +253,25 @@ class Bunny {
                 entity.nightLampInteract = false;
             }
             
-            // make a list??? that is a group and go through each to check for them. not sure
-            // fix this
-            // if ((entity instanceof Tree) && that.BB.collide(entity.BB)) {
-            //     entity.under = true;
+            // // this only works for one entities, how to do it for multiple of the same type??
+            // if ((entity instanceof Tree)) {
+            //     console.log(entity.length);
+            //     for (var i = 0; i <entity.length; i++) {
+            //         if (that.BB.collide(entity.BB)) {
+            //             that.under = true;
+            //         }
+            //     } 
+                
+            //     console.log(that.under);
+            //     // if (that.BB.collide(entity.BB)) {
+            //     //     that.under = true;
+            //     // } 
+            //     // else if (!that.BB.collide(entity.BB)) {
+            //     //     that.under = false;
+            //     // }
+            //     // that.updateBB();
             // } else {
-            //     entity.under = false;
+            //     that.under = false;
             // }
 
             if (entity instanceof Grass && that.BB.collide(entity.BB)) {
