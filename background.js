@@ -224,7 +224,7 @@ class Fence {
     };
 
     updateBB() {
-        this.BBdoor = new BoundingBox(this.x + 16 + 33 + 15, this.y + 9 + 64 * 3 - 18 - 35, 73, 35);
+        this.BBdoor = new BoundingBox(this.x + 16 + 33 + 15, this.y + 9 + 64 * 3 - 18 - 35 + 5, 73, 35);
         this.BBinterior = new BoundingBox(this.x + 26 + 10, this.y + 19 + 20, 126, 135);
         this.BBinteriorLeft = new BoundingBox(this.x + 26 + 10 - 10, this.y + 19 + 20, 10, 135);
         this.BBinteriorRight = new BoundingBox(this.x + 26 + 10 + 126, this.y + 19 + 20, 10, 135);

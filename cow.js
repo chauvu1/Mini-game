@@ -1,6 +1,6 @@
 class Milk {
-    constructor(game, x, y, type, direction, color) {
-        Object.assign(this, { game, x, y, type, direction, color});  
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y});  
         this.milkspritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Milk animation.png");
         this.removeFromWorld = false;
         this.loadAnimations();
@@ -42,7 +42,13 @@ class Cow {
         this.collidedRight = false;
         this.collidedLeft = false;
         this.elapsedTime = 0;
-     
+        this.milkGenerated = false;
+        if (this.type == 1) {
+            this.game.cow = this;
+            this.game.addEntity(new TimerBar(this.game, this.x, this.y + 60, 20, 3.5, true));
+        } else {
+            this.game.addEntity(new TimerBar(this.game, this.x + 20, this.y + 60, 20, 3.5, false));
+        }
         this.loadAnimations();
         this.updateBB();
        
@@ -135,22 +141,24 @@ class Cow {
        if (this.velocity.x == 0 && this.type == 1) {
            this.state = 0;
        }
+       
        this.x += this.velocity.x * TICK * 2;
        this.y += this.velocity.y * TICK * 2;
+
     };
 
     draw(ctx) {
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+
         if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract) {
             this.elapsedTime += this.game.clockTick;
             if (this.elapsedTime > 1 && this.game.bunny.milkInteract) {  // generate the milk upon interact
                 this.elapsedTime = 0;
-                this.game.addEntity(new Milk(this.game, this.x, this.y, this.color));
+                this.game.addEntity(new Milk(this.game, this.x, this.y));
                 this.game.bunny.milkInteract = false;
                 this.game.bunny.milkGenerated = true; 
             }
         }
-       
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

@@ -225,6 +225,7 @@ class Bunny {
                 } 
                 if (that.BB.withinRange(entity.BB) && that.game.interact) {  
                     that.cowInteract = entity.color;
+                    that.milkInteract = true;
                     that.milkInteract = true;    
                 } else {
                     
@@ -235,6 +236,7 @@ class Bunny {
             if (entity instanceof Milk) {
                 if (that.BB.collide(entity.BB)) {
                     entity.removeFromWorld = true;
+                    entity.milkGenerated = false;
                 }
             }
 

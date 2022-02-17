@@ -67,6 +67,8 @@ class SceneManager {
                 this.game.addEntity(new Water(this.game, 16 * 4 * i + 0, 16 * 4 * j + 0)); 
             }
         }
+        this.game.addEntity(new Plant(this.game, 400, 400)); 
+
         this.game.addEntity(this.grass);   
         this.game.addEntity(this.house);
         this.game.addEntity(this.pavement);
@@ -89,11 +91,10 @@ class SceneManager {
 
     update() {
         PARAMS.DEBUG = document.getElementById("debug").checked;
-        
     }
 
     draw(ctx) {
-        ctx.font = 25 + 'px "Press Start 2P"';
+    
     }
 }
 
