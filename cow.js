@@ -3,6 +3,7 @@ class Milk {
         Object.assign(this, { game, x, y});  
         this.milkspritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Milk animation.png");
         this.removeFromWorld = false;
+
         this.loadAnimations();
         this.updateBB();
     }
@@ -19,10 +20,13 @@ class Milk {
         this.milkAnimations[3] = new Animator(this.milkspritesheet, 0, 60, 20, 20, 3, 0.5, 0, false, true);
     }
     update(){
-
+        if (this.removeFromWorld) {
+            this.game.bunny.milkGenerated = false;
+        }
     };
 
     draw(ctx){
+
         this.milkAnimations[this.game.bunny.cowInteract].drawFrame(this.game.clockTick, ctx, this.x + 45, this.y + 20, 2);
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
@@ -42,12 +46,17 @@ class Cow {
         this.collidedRight = false;
         this.collidedLeft = false;
         this.elapsedTime = 0;
+        this.width = 20;
+        this.height = 3.5;
+        this.maxHealth = 20;
+ 
         if (this.type == 1) {
             this.game.cow = this;
-            this.game.addEntity(new TimerBar(this.game, this.x, this.y + 60, 20, 3.5, true));
+            this.timerbar = new TimerBar(this, this.game);
         } else {
-            this.game.addEntity(new TimerBar(this.game, this.x + 20, this.y + 60, 20, 3.5, false));
+            this.timerbar = new TimerBar(this, this.game);
         }
+        
         this.loadAnimations();
         this.updateBB();
        
@@ -97,6 +106,15 @@ class Cow {
     }
 
     update() {
+        this.elapsed += this.game.clockTick;
+        if (this.width > 0) {
+            this.width -= 0.005; // original
+            this.width = (this.width / this.maxHealth) * this.maxHealth;
+           
+        } else{
+          
+        }
+        
         const MIN_WALK = 10;
         const TICK = this.game.clockTick;
         this.velocity.x = 0;
@@ -144,23 +162,31 @@ class Cow {
        this.x += this.velocity.x * TICK * 2;
        this.y += this.velocity.y * TICK * 2;
 
+      
     };
 
     draw(ctx) {
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
-
-        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract) { // match the color with the cow
+        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract && this.width <= 0) { // match the color with the cow
             this.elapsedTime += this.game.clockTick;
-            if (this.elapsedTime > 1 && this.game.bunny.milkInteract) {  // generate the milk upon interact
+            if (this.elapsedTime > 1 && this.game.bunny.milkInteract && !this.game.bunny.milkGenerated) {  // generate the milk upon interact
                 this.elapsedTime = 0;
                 this.game.addEntity(new Milk(this.game, this.x, this.y));
                 this.game.bunny.milkInteract = false;
+                this.game.bunny.milkGenerated = true;
+            } 
+            if (this.game.bunny.milkGenerated) {
+                this.width = this.width + 20; // regen
             }
         }
+       
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
             ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
         }
+
+        this.timerbar.draw(ctx);
+  
     };
 }
