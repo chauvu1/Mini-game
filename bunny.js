@@ -16,6 +16,7 @@ class Bunny {
         this.sleep = false;
         this.bedVisible = false;
         this.milkInteract = false;
+        this.milkGenerated = false;
         this.cowInteract = 0;
         this.loadAnimations();
         this.updateBB();
@@ -151,7 +152,6 @@ class Bunny {
                         if (that.velocity.y < 0) that.velocity.y = 0;
                     }
                 }
-                that.updateBB();
             }
 
             if ((entity instanceof Fence || entity instanceof House) && that.BB.collide(entity.BBinterior)) {           
@@ -170,7 +170,6 @@ class Bunny {
                 if (that.BB.collide(entity.BBinteriorTop) && that.lastBB.top <= entity.BBinteriorTop.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }    
-                that.updateBB();
             } 
             if ((entity instanceof House)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
@@ -183,7 +182,6 @@ class Bunny {
                     entity.inside = false;
                    
                 }
-                that.updateBB();
             }
             if ((entity instanceof Fence)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
@@ -195,7 +193,6 @@ class Bunny {
                 } else {
                     entity.inside = false;
                 }
-                that.updateBB();
             }
         
             if (entity instanceof House && that.BB.collide(entity.BBbed)) {
@@ -206,7 +203,6 @@ class Bunny {
                 if (that.BB.collide(entity.BBbedBottom) && that.lastBB.top <= entity.BBbedBottom.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
-                that.updateBB();
             }
 
             if ((entity instanceof Tree || entity instanceof Cow)) {
@@ -227,15 +223,19 @@ class Bunny {
                         that.under = false;
                     }
                 } 
-                // problem right now, if walk away
                 if (that.BB.withinRange(entity.BB) && that.game.interact) {  
                     that.cowInteract = entity.color;
-                    that.milkInteract = true;
+                    that.milkInteract = true;    
                 } else {
                     
+                }  
+                
+            }
+
+            if (entity instanceof Milk) {
+                if (that.BB.collide(entity.BB)) {
+                    entity.removeFromWorld = true;
                 }
-               
-                that.updateBB(); 
             }
 
             if (entity instanceof House && that.BB.collide(entity.BBtable)) {
@@ -248,7 +248,6 @@ class Bunny {
                 if ((that.BB.collide(entity.BBtableBottom) || that.BB.collide(entity.BBtableRight)) && that.game.interact) {
                     entity.light = true;
                 } 
-                that.updateBB();
             } else {
                 entity.light = false;
             }
@@ -258,27 +257,6 @@ class Bunny {
             } else {
                 entity.nightLampInteract = false;
             }
-            
-            // // this only works for one entities, how to do it for multiple of the same type??
-            // if ((entity instanceof Tree)) {
-            //     console.log(entity.length);
-            //     for (var i = 0; i <entity.length; i++) {
-            //         if (that.BB.collide(entity.BB)) {
-            //             that.under = true;
-            //         }
-            //     } 
-                
-            //     console.log(that.under);
-            //     // if (that.BB.collide(entity.BB)) {
-            //     //     that.under = true;
-            //     // } 
-            //     // else if (!that.BB.collide(entity.BB)) {
-            //     //     that.under = false;
-            //     // }
-            //     // that.updateBB();
-            // } else {
-            //     that.under = false;
-            // }
 
             if (entity instanceof Grass && that.BB.collide(entity.BB)) {
                 if (that.BB.collide(entity.BB) && that.lastBB.left <= entity.BB.left) {
@@ -293,7 +271,6 @@ class Bunny {
                 if (that.BB.collide(entity.BB) && that.lastBB.top <= entity.BB.top) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
-                that.updateBB();
             }    
 
             if (entity.BB && that.BB.withinRange(entity.BB)) {
@@ -307,7 +284,6 @@ class Bunny {
                         that.sleep = false;
                     }
                 } 
-                that.updateBB();
             }   
             
             if (entity.BB && that.BB.withinRange(entity.BB)) {
@@ -316,8 +292,6 @@ class Bunny {
                     if (that.BB.withinRange(entity.BBdoor) && that.game.interact)
                         entity.door = true;
                     } 
-
-                    that.updateBB();
                 }  else {
                     entity.visible = false;
                     entity.door = false;
