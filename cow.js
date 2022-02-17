@@ -42,7 +42,6 @@ class Cow {
         this.collidedRight = false;
         this.collidedLeft = false;
         this.elapsedTime = 0;
-        this.milkGenerated = false;
         if (this.type == 1) {
             this.game.cow = this;
             this.game.addEntity(new TimerBar(this.game, this.x, this.y + 60, 20, 3.5, true));
@@ -150,13 +149,12 @@ class Cow {
     draw(ctx) {
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
 
-        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract) {
+        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract) { // match the color with the cow
             this.elapsedTime += this.game.clockTick;
             if (this.elapsedTime > 1 && this.game.bunny.milkInteract) {  // generate the milk upon interact
                 this.elapsedTime = 0;
                 this.game.addEntity(new Milk(this.game, this.x, this.y));
                 this.game.bunny.milkInteract = false;
-                this.game.bunny.milkGenerated = true; 
             }
         }
         if (PARAMS.DEBUG) {

@@ -67,7 +67,7 @@ class SceneManager {
                 this.game.addEntity(new Water(this.game, 16 * 4 * i + 0, 16 * 4 * j + 0)); 
             }
         }
-        this.game.addEntity(new Plant(this.game, 400, 400)); 
+
 
         this.game.addEntity(this.grass);   
         this.game.addEntity(this.house);
@@ -83,6 +83,12 @@ class SceneManager {
             this.game.addEntity(new Cow(this.game, cow.X, cow.Y, cow.TYPE, cow.FACING, cow.COLOR)); 
            
         }
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < 2; j++) {
+                this.game.addEntity(new Plant(this.game, i * (28 * 2 + 5) + 550, j * (28 * 2 + 5) + 400)); 
+            }
+        }
+       
 
         this.game.addEntity(this.waterObj); 
         this.game.addEntity(this.bunny);

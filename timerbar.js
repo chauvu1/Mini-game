@@ -10,7 +10,7 @@ class TimerBar {
     update() {
         this.elapsed += this.game.clockTick;
             if (this.width > 0) {
-                this.width -= 0.005; // original
+                this.width -= 0.001; // original
                 this.width = (this.width / this.maxHealth) * this.maxHealth;
             } else {
             }
