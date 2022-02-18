@@ -1,5 +1,3 @@
-
-
 class Overlay {    
     constructor(game, x, y) {
         Object.assign(this, {game, x, y});
@@ -63,8 +61,7 @@ class Overlay {
                 32 * 3);
 
         this.animations[this.game.cow.state][this.game.cow.facing].drawFrame(this.game.clockTick, ctx, this.game.cow.x, this.game.cow.y, 2);
-       
-        }
+    }
         if (this.game.fence.inside) {
             ctx.drawImage(this.spritesheetFence, 0, 64,
                 64,  64,

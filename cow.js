@@ -5,7 +5,6 @@ class Milk {
         this.removeFromWorld = false;
         this.elapsedTime = 0;
         // where to draw the milk
-        this.x = this.cow.x + 45;
         this.y = this.cow.y + 20;
         this.milkCreated = false;
         this.width = 0;
@@ -29,7 +28,7 @@ class Milk {
     update(){
         this.barX = this.cow.x + 20;
         this.barY = this.cow.y + 60;
- 
+        this.x = this.cow.x + 35;
         this.elapsed += this.game.clockTick;
 
         if (this.width <= this.maxHealth) {
@@ -72,6 +71,7 @@ class Cow {
         if (this.type == 1) {
             this.game.cow = this;
         }
+  
         this.collidedRight = false;
         this.collidedLeft = false;    
         this.loadAnimations();
@@ -176,12 +176,9 @@ class Cow {
     draw(ctx) {
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
         if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract && !this.milkGenerated) {
-            this.elapsedTime += this.game.clockTick;         
-            if (this.elapsedTime > 2) {
-                this.game.addEntity(new Milk(this.game, this));  
-                this.milkGenerated = true;
-                this.game.bunny.milkInteract = false;
-            }
+            this.game.addEntity(new Milk(this.game, this));  
+            this.milkGenerated = true;
+            this.game.bunny.milkInteract = false;
         }
        
         if (PARAMS.DEBUG) {

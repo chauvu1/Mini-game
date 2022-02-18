@@ -24,6 +24,7 @@ class Dirt {
             this.elapsedTime += this.game.clockTick;         
             if (this.elapsedTime > 2) {
                 this.game.addEntity(new Plant(this.game, this));  
+                this.elapsedTime = 0;
                 this.dirtTaken = true;
                 this.game.bunny.plowing = false;
             }
@@ -61,6 +62,9 @@ class Plant {
             this.width = (this.width / this.maxHealth) * this.maxHealth;
         } else {
             
+        }
+        if (this.removeFromWorld) {
+            this.dirt.dirtTaken = false;
         }
 
     }

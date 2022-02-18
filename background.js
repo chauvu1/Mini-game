@@ -107,9 +107,12 @@ class Water {
 
     draw(ctx) {
         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, BACKGROUND.WATER.SCALE);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'yellow';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
+       
         ctx.imageSmoothingEnabled = false;
-        ctx.strokeStyle = 'yellow';
-        ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     }
 }
 

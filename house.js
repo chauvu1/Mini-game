@@ -127,7 +127,6 @@ class House {
             }
             if (!this.door) {
                 ctx.strokeStyle = 'yellow';
-                ctx.lineWidth = 2;
                 ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
                 ctx.strokeStyle = 'red';
                 ctx.strokeRect(this.BBleft.x, this.BBleft.y, this.BBleft.width, this.BBleft.height);
@@ -141,8 +140,6 @@ class House {
                 
             }        
         }
-       
-        
         ctx.imageSmoothingEnabled = false;
     }
 }

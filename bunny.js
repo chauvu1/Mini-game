@@ -61,10 +61,10 @@ class Bunny {
         this.animations[2][3] = new Animator (this.spritesheet, 0, 1344, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
 
         // plowing dirt right left down up
-        this.animations[3][0] = new Animator (this.spritesheet, 0, 720, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, true, true);
-        this.animations[3][1] = new Animator (this.spritesheet, 0, 672, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[3][2] = new Animator (this.spritesheet, 0, 576, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[3][3] = new Animator (this.spritesheet, 0, 624, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[3][0] = new Animator (this.spritesheet, 0, 720, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, true, true);
+        this.animations[3][1] = new Animator (this.spritesheet, 0, 672, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[3][2] = new Animator (this.spritesheet, 0, 576, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[3][3] = new Animator (this.spritesheet, 0, 624, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
 
 
 
