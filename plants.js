@@ -3,6 +3,7 @@ class Dirt {
         Object.assign(this, {game, x, y, type});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Tilled Dirt.png");
         this.BB = new BoundingBox(this.x, this.y, 28*2, 28*2)
+        this.dirtTaken = false;
         this.elapsedTime = 0;
         this.animators = [];
     }
@@ -19,10 +20,11 @@ class Dirt {
             28 * 2,
             28 * 2);
          
-        if (this.game.bunny.plowing && this.type == this.game.bunny.dirtTypeInteract) {
+        if (this.game.bunny.plowing && this.type == this.game.bunny.dirtTypeInteract && !this.dirtTaken) {
             this.elapsedTime += this.game.clockTick;         
             if (this.elapsedTime > 2) {
                 this.game.addEntity(new Plant(this.game, this));  
+                this.dirtTaken = true;
                 this.game.bunny.plowing = false;
             }
         }
@@ -73,12 +75,6 @@ class Plant {
                 16 * 2,
                 16 * 2);
         }
-        if (this.game.bunny.plowing) {
-            // draw animations for plants
-            // include health bar 
-            // when health bar reaches 100 
-            // pop out a plant
-        }
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'pink';
             ctx.lineWidth = 2;
@@ -113,7 +109,9 @@ class PlantItems {
         } else {
             
         }
-
+        if (this.removeFromWorld) {
+            this.dirt.dirtTaken = false;
+        }
     }
 
     draw(ctx) {
@@ -125,12 +123,6 @@ class PlantItems {
                 this.y,
                 16 * 2,
                 16 * 2);
-        }
-        if (this.game.bunny.plowing) {
-            // draw animations for plants
-            // include health bar 
-            // when health bar reaches 100 
-            // pop out a plant
         }
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'pink';

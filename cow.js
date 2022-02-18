@@ -3,11 +3,18 @@ class Milk {
         Object.assign(this, {game, cow, x, y});  
         this.milkspritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Milk animation.png");
         this.removeFromWorld = false;
-
+        this.elapsedTime = 0;
+        // where to draw the milk
+        this.x = this.cow.x + 45;
+        this.y = this.cow.y + 20;
+        this.milkCreated = false;
+        this.width = 0;
+        this.height = 3.5;
+        this.maxHealth = 20;
+        this.timerbar = new TimerBar(this, this.game);
         this.loadAnimations();
-        this.updateBB();
     }
-    updateBB() {this.BB = new BoundingBox(this.x + 55, this.y + 30, 16 * 2 - 8, 16 * 2 - 3);}
+
 
     loadAnimations() {
         this.milkAnimations = []; 
@@ -20,18 +27,35 @@ class Milk {
         this.milkAnimations[3] = new Animator(this.milkspritesheet, 0, 60, 20, 20, 3, 0.5, 0, false, true);
     }
     update(){
+        this.barX = this.cow.x + 20;
+        this.barY = this.cow.y + 60;
+ 
+        this.elapsed += this.game.clockTick;
+
+        if (this.width <= this.maxHealth) {
+            this.width += 0.05; // original
+            this.width = (this.width / this.maxHealth) * this.maxHealth;
+        } else {
+            this.milkCreated = true;
+        }
+
         if (this.removeFromWorld) {
-            this.game.bunny.milkGenerated = false;
+            this.cow.milkGenerated = false;
+            this.milkCreated = false;
         }
     };
 
-    draw(ctx){
-        this.milkAnimations[this.cow.color].drawFrame(this.game.clockTick, ctx, this.x + 45, this.y + 20, 2);
-
-        if (PARAMS.DEBUG) {
-            ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);  
+    draw(ctx){ 
+        if (this.milkCreated) {
+            this.BB = new BoundingBox(this.x + 10, this.y + 5, 16 * 2 - 8, 16 * 2 - 3);
+            this.milkAnimations[this.cow.color].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+            if (PARAMS.DEBUG) {
+                ctx.strokeStyle = 'Red';
+                ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);  
+            }
+          
         }
+        this.timerbar.draw(ctx);
     };
 
 }
@@ -42,23 +66,14 @@ class Cow {
         this.facing = this.direction; // 0 = right; 1 = left
         this.state = this.type; // 0 = idle, 1 = walking, 2 = sit 3 = sleep 4 = sniff 5 = eat 6 = love
         this.animations = [];
-        this.velocity = { x: 0, y: 0};
-        this.collidedRight = false;
-        this.collidedLeft = false;
         this.elapsedTime = 0;
-        this.width = 0;
-        this.height = 3.5;
-        this.maxHealth = 20;
-        this.barX = this.x + 20;
-        this.barY = this.y + 60;
- 
+        this.milkGenerated = false;
+        this.velocity = { x: 0, y: 0};
         if (this.type == 1) {
             this.game.cow = this;
-            this.timerbar = new TimerBar(this, this.game);
-        } else {
-            this.timerbar = new TimerBar(this, this.game);
         }
-        
+        this.collidedRight = false;
+        this.collidedLeft = false;    
         this.loadAnimations();
         this.updateBB();
        
@@ -108,14 +123,6 @@ class Cow {
     }
 
     update() {
-        this.elapsed += this.game.clockTick;
-        if (this.width <= this.maxHealth && this.game.bunny.milkInteract && this.game.bunny.cowInteract == this.color) {
-            this.width += 0.05; // original
-            this.width = (this.width / this.maxHealth) * this.maxHealth;
-        } else {
-            
-        }
-          
         const MIN_WALK = 10;
         const TICK = this.game.clockTick;
         this.velocity.x = 0;
@@ -168,16 +175,12 @@ class Cow {
 
     draw(ctx) {
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
-        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract && this.width >= 20 ) { // match the color with the cow
-            this.elapsedTime += this.game.clockTick;
-            if (this.elapsedTime > 1 && this.game.bunny.milkInteract && !this.game.bunny.milkGenerated) {  // generate the milk upon interact
-                this.elapsedTime = 0;
-                this.game.addEntity(new Milk(this.game, this, this.x, this.y));
-                this.game.bunny.milkGenerated = true;
+        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract && !this.milkGenerated) {
+            this.elapsedTime += this.game.clockTick;         
+            if (this.elapsedTime > 2) {
+                this.game.addEntity(new Milk(this.game, this));  
+                this.milkGenerated = true;
                 this.game.bunny.milkInteract = false;
-            } 
-            if (this.game.bunny.milkGenerated) {
-                this.width = 0; // regen
             }
         }
        
@@ -187,7 +190,7 @@ class Cow {
             ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
         }
 
-        this.timerbar.draw(ctx);
+      
   
     };
 }

@@ -16,7 +16,6 @@ class Bunny {
         this.sleep = false;
         this.bedVisible = false;
         this.milkInteract = false;
-        this.milkGenerated = false;
         this.plowing = false;
         this.dirtTypeInteract = 0;
         this.cowInteract = 0;
@@ -240,23 +239,23 @@ class Bunny {
                         that.under = false;
                     }
                 } 
-                if (entity instanceof Cow && that.BB.withinRange(entity.BB) && that.game.interact) {  
-                    that.cowInteract = entity.color;
-                    that.milkInteract = true;           
-                } else {
-                    
-                }  
+               
                 
             }
-
+            if (entity instanceof Cow && that.BB.withinRange(entity.BB)) { 
+                if (!entity.milkGenerated && that.game.interact) {
+                    that.milkInteract = true;   
+                    that.cowInteract = entity.color;
+                }        
+            } 
             if (entity instanceof Milk) {
-                if (that.topBB.collide(entity.BB)) {
-                    entity.removeFromWorld = true;              
+                if (entity.milkCreated && that.topBB.collide(entity.BB)) {
+                    entity.removeFromWorld = true;     
                 }
             }
 
             if (entity instanceof Dirt && that.BB.withinRange(entity.BB)) {
-                if (that.game.interact) {
+                if (!entity.dirtTaken && that.game.interact) {
                     that.plowing = true;
                     that.dirtTypeInteract = entity.type;
                 }
