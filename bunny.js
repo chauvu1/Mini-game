@@ -3,7 +3,7 @@ class Bunny {
         Object.assign(this, { game, x, y});
         this.game.bunny = this;
         // this.game.x = this.x;
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/bunny_spritesheet.png"); 
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/characters/Premium Charakter Spritesheet.png"); 
         this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
         this.emotesheet = ASSET_MANAGER.getAsset("./sprites/emotes.png");
         this.emoteAnim = [];
@@ -34,31 +34,31 @@ class Bunny {
         // idle left row 4
         // idle down row 1
         // idle up row 2
-        this.animations[0][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 2, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
-        this.animations[0][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 3, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
-        this.animations[0][2] = new Animator (this.spritesheet, 0, 0, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
-        this.animations[0][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
+        this.animations[0][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 2, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[0][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 3, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[0][2] = new Animator (this.spritesheet, 0, 0, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[0][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
 
         // walk right 7
         // walk left 8
         // walk down 5
         // walk up 6
-        this.animations[1][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 6, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
-        this.animations[1][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 7, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
-        this.animations[1][2] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 4, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
-        this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 4, 0.2, 0, false, true);
+        this.animations[1][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 6, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[1][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 7, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[1][2] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 4, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
         // bed animation
-        this.animations[1][4] = new Animator (this.spritesheet, 332, 632, 56, 88, 1, 0.2, 0, false, true);
+        this.animations[1][4] = new Animator (this.spritesheet, 0, 1152, 48, 48, 8, 0.5, 0, false, true);
 
         // 0 640 80 80 right crouch
         // 80 640 80 80 left crouch
         // 160 640 down 
         // 240 640 up
 
-        this.animations[2][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
-        this.animations[2][1] = new Animator (this.spritesheet, 80, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
-        this.animations[2][2] = new Animator (this.spritesheet, 160, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
-        this.animations[2][3] = new Animator (this.spritesheet, 240, PARAMS.BITWIDTH * 8, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 1, 0.2, 0, false, true);
+        this.animations[2][0] = new Animator (this.spritesheet, 0, 1200, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, true, true);
+        this.animations[2][1] = new Animator (this.spritesheet, 0, 1248, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[2][2] = new Animator (this.spritesheet, 0, 1296, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[2][3] = new Animator (this.spritesheet, 0, 1344, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
 
         // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
         this.emoteAnim = new Animator (this.emotesheet, 0,0, 32, 32, 4, 0.2, 0, false, true);
@@ -67,22 +67,20 @@ class Bunny {
     /* Update the bounding box of the player for collision detection */
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x + 25, this.y + 74, 64 - 36, 5); 
-        this.topBB = new BoundingBox(this.x + 25, this.y + 60, 64 - 36, 15); 
-        this.leftBB = new BoundingBox(this.x + 20, this.y + 65, 10, 10); 
-        this.rightBB = new BoundingBox(this.BB.right - 5, this.y + 65, 10, 10);
+        this.BB = new BoundingBox(this.x + 58, this.y + 90, 64 - 36, 5); 
+        this.topBB = new BoundingBox(this.x + 58, this.y + 72, 64 - 36, 15); 
+        this.leftBB = new BoundingBox(this.x + 55, this.y + 65 + 10, 10, 10); 
+        this.rightBB = new BoundingBox(this.BB.right - 7, this.y + 65 + 10, 10, 10);
     
     };
         
     draw(ctx) {
-        let scale = 1;
-       
         if (this.sleep) {
-            this.animations[1][4].drawFrame(this.game.clockTick, ctx, 385, 182, 1);
+            this.animations[1][4].drawFrame(this.game.clockTick, ctx, 340, 150, 3);
             this.emoteAnim.drawFrame(this.game.clockTick, ctx, 400, 175, 1);
             this.bedVisible = false;
         } else {
-            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 3);
         }
         if (this.bedVisible) {
             this.bubble.drawFrame(this.game.clockTick, ctx, 404, 160, 3);

@@ -6,6 +6,7 @@ class Plant {
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Tilled Dirt.png");
         this.BB = new BoundingBox(this.x, this.y, 28*2, 28*2)
     }
+    
     update() {
 
 
