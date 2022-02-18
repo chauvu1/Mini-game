@@ -49,6 +49,8 @@ class Cow {
         this.width = 0;
         this.height = 3.5;
         this.maxHealth = 20;
+        this.barX = this.x + 20;
+        this.barY = this.y + 60;
  
         if (this.type == 1) {
             this.game.cow = this;

@@ -18,6 +18,7 @@ class Bunny {
         this.milkInteract = false;
         this.milkGenerated = false;
         this.plowing = false;
+        this.dirtTypeInteract = 0;
         this.cowInteract = 0;
         this.loadAnimations();
         this.updateBB();
@@ -138,7 +139,10 @@ class Bunny {
         if (this.plowing) {
             this.state = 3;
         }
-
+        if (this.state == 3) {
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+        }
 
         this.updateBB();
 
@@ -251,6 +255,20 @@ class Bunny {
                 }
             }
 
+            if (entity instanceof Dirt && that.BB.withinRange(entity.BB)) {
+                if (that.game.interact) {
+                    that.plowing = true;
+                    that.dirtTypeInteract = entity.type;
+                }
+            }
+            if (entity instanceof Plant && that.topBB.collide(entity.BB)) {
+                if (entity.animation.isDone()) {
+                    entity.removeFromWorld = true;
+                }
+            
+            }
+
+
             if (entity instanceof House && that.BB.collide(entity.BBtable)) {
                 if (that.BB.collide(entity.BBtableRight) && that.lastBB.left <= entity.BBtableRight.right) {
                     if (that.velocity.x < 0) that.velocity.x = 0;
@@ -287,13 +305,7 @@ class Bunny {
             }    
 
 
-            if (entity instanceof Plant && that.BB.withinRange(entity.BB)) {
-                if (that.game.interact) 
-                    that.plowing = true;
-                if (that.velocity.y > 0 || that.velocity.x < 0 || that.velocity.y < 0 || that.velocity.x > 0){
-                    that.plowing = false;
-                }
-            }
+          
 
             if (entity.BB && that.BB.withinRange(entity.BB)) {
 

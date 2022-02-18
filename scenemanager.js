@@ -37,7 +37,10 @@ var BACKGROUND = {
     FENCE: {SIZE: 16, SCALE: 3},
     COW:   [{X: 200, Y: 200, TYPE: 1, FACING: 0, COLOR: 1}, {X: 150, Y: 550, TYPE: 2, FACING: 0, COLOR: 0}, {X: 170, Y: 150, TYPE:3, FACING: 0, COLOR: 3}, {X:750, Y:250, TYPE:4, FACING: 1, COLOR: 2}],
     COW_SIZE: 32, 
-    TREE: [{X:700, Y: 200}, {X:120, Y:500}]
+    TREE: [{X:700, Y: 200}, {X:120, Y:500}],
+
+    DIRT:   [{X: 550, Y: 400, TYPE: 0}, {X: 611, Y: 400, TYPE: 1}, {X: 672, Y: 400, TYPE: 2}, 
+             {X: 550, Y: 461, TYPE: 3}, {X: 611, Y: 461, TYPE: 4}, {X: 672, Y: 461, TYPE: 5}],
     
 }
 
@@ -83,13 +86,11 @@ class SceneManager {
             this.game.addEntity(new Cow(this.game, cow.X, cow.Y, cow.TYPE, cow.FACING, cow.COLOR)); 
            
         }
-        for (var i = 0; i < 3; i++) {
-            for (var j = 0; j < 2; j++) {
-                this.game.addEntity(new Plant(this.game, i * (28 * 2 + 5) + 550, j * (28 * 2 + 5) + 400)); 
-            }
+        for (var i = 0; i < BACKGROUND.DIRT.length; i++) {
+            let dirt = BACKGROUND.DIRT[i];
+                this.game.addEntity(new Dirt(this.game, dirt.X, dirt.Y, dirt.TYPE)); 
         }
        
-
         this.game.addEntity(this.waterObj); 
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
