@@ -46,7 +46,7 @@ class Cow {
         this.collidedRight = false;
         this.collidedLeft = false;
         this.elapsedTime = 0;
-        this.width = 20;
+        this.width = 0;
         this.height = 3.5;
         this.maxHealth = 20;
  
@@ -107,14 +107,13 @@ class Cow {
 
     update() {
         this.elapsed += this.game.clockTick;
-        if (this.width > 0) {
-            this.width -= 0.005; // original
+        if (this.width <= this.maxHealth && this.game.bunny.milkInteract && this.game.bunny.cowInteract == this.color) {
+            this.width += 0.05; // original
             this.width = (this.width / this.maxHealth) * this.maxHealth;
-           
-        } else{
-          
+        } else {
+            
         }
-        
+          
         const MIN_WALK = 10;
         const TICK = this.game.clockTick;
         this.velocity.x = 0;
@@ -167,7 +166,7 @@ class Cow {
 
     draw(ctx) {
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
-        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract && this.width <= 0 ) { // match the color with the cow
+        if (this.game.bunny.milkInteract && this.color == this.game.bunny.cowInteract && this.width >= 20 ) { // match the color with the cow
             this.elapsedTime += this.game.clockTick;
             if (this.elapsedTime > 1 && this.game.bunny.milkInteract && !this.game.bunny.milkGenerated) {  // generate the milk upon interact
                 this.elapsedTime = 0;
@@ -176,7 +175,7 @@ class Cow {
                 this.game.bunny.milkInteract = false;
             } 
             if (this.game.bunny.milkGenerated) {
-                this.width = this.width + 20; // regen
+                this.width = 0; // regen
             }
         }
        

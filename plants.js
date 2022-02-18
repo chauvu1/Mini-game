@@ -18,6 +18,13 @@ class Plant {
             this.y,
             28 * 2,
             28 * 2);
+
+        if (this.game.bunny.plowing) {
+            // draw animations for plants
+            // include health bar 
+            // when health bar reaches 100 
+            // pop out a plant
+        }
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'pink';
             ctx.lineWidth = 2;

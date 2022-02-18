@@ -17,6 +17,7 @@ class Bunny {
         this.bedVisible = false;
         this.milkInteract = false;
         this.milkGenerated = false;
+        this.plowing = false;
         this.cowInteract = 0;
         this.loadAnimations();
         this.updateBB();
@@ -24,7 +25,7 @@ class Bunny {
 
     loadAnimations() {
            // array with [state] [face] of the same animator.
-           for (var i = 0; i < 3; i++) {
+           for (var i = 0; i < 4; i++) {
             this.animations.push([]);
             for (var j = 0; j < 5; j++) {
                 this.animations[i].push([]);
@@ -54,11 +55,20 @@ class Bunny {
         // 80 640 80 80 left crouch
         // 160 640 down 
         // 240 640 up
-
         this.animations[2][0] = new Animator (this.spritesheet, 0, 1200, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, true, true);
         this.animations[2][1] = new Animator (this.spritesheet, 0, 1248, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
         this.animations[2][2] = new Animator (this.spritesheet, 0, 1296, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
         this.animations[2][3] = new Animator (this.spritesheet, 0, 1344, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+
+        // plowing dirt right left down up
+        this.animations[3][0] = new Animator (this.spritesheet, 0, 720, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, true, true);
+        this.animations[3][1] = new Animator (this.spritesheet, 0, 672, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[3][2] = new Animator (this.spritesheet, 0, 576, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[3][3] = new Animator (this.spritesheet, 0, 624, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+
+
+
+
 
         // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
         this.emoteAnim = new Animator (this.emotesheet, 0,0, 32, 32, 4, 0.2, 0, false, true);
@@ -125,6 +135,11 @@ class Bunny {
            this.state = 0;
         }
         
+        if (this.plowing) {
+            this.state = 3;
+        }
+
+
         this.updateBB();
 
         var that = this; 
@@ -271,6 +286,15 @@ class Bunny {
                 }
             }    
 
+
+            if (entity instanceof Plant && that.BB.withinRange(entity.BB)) {
+                if (that.game.interact) 
+                    that.plowing = true;
+                if (that.velocity.y > 0 || that.velocity.x < 0 || that.velocity.y < 0 || that.velocity.x > 0){
+                    that.plowing = false;
+                }
+            }
+
             if (entity.BB && that.BB.withinRange(entity.BB)) {
 
                 if (entity instanceof House && that.BB.withinRange(entity.BBbed)) {
@@ -303,7 +327,7 @@ class Bunny {
         if (this.velocity.x < 0) this.facing = 1; // left
         if (this.velocity.y > 0) this.facing = 2; // down
         if (this.velocity.y < 0) this.facing = 3; // up
-       
+      
 
         this.x += this.velocity.x * TICK * 2;
         this.y += this.velocity.y * TICK * 2;
