@@ -58,6 +58,18 @@ class GameEngine {
         // pass in the event to the function
         this.ctx.canvas.addEventListener("keydown", function (e) {
             switch(e.code) {
+                case "KeyA":
+                    that.left = true;
+                    break;
+                case "KeyD":
+                    that.right = true;
+                    break;
+                case "KeyW":
+                    that.up = true;
+                    break;
+                case "KeyS":
+                    that.down = true;
+                    break;
                 case "ArrowLeft":
                     that.left = true;
                     break;
@@ -81,6 +93,18 @@ class GameEngine {
 
         this.ctx.canvas.addEventListener("keyup", function (e) {
             switch(e.code) {
+                case "KeyA":
+                    that.left = false;
+                    break;
+                case "KeyD":
+                    that.right = false;
+                    break;
+                case "KeyW":
+                    that.up = false;
+                    break;
+                case "KeyS":
+                    that.down = false;
+                    break;
                 case "ArrowLeft":
                     that.left = false;
                     break;

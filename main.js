@@ -3,6 +3,7 @@ var gameEngine = new GameEngine();
 var ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./sprites/bunny_spritesheet.png");
+ASSET_MANAGER.queueDownload("./sprites/title_screen.png");
 ASSET_MANAGER.queueDownload("./sprites/emotes.png");
 ASSET_MANAGER.queueDownload("./sprites/speech_bubble.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Wooden House.png");
@@ -28,6 +29,10 @@ ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Light 
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Brown cow animation sprites.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Purple cow animation sprites.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/background.png");  
+ASSET_MANAGER.queueDownload("./sprites/bunny_icon.png")
+ASSET_MANAGER.queueDownload("./sprites/buttons.png")
+ASSET_MANAGER.queueDownload("./sprites/title_clouds.png")
+ASSET_MANAGER.queueDownload("./sprites/heartspin.png")
 
 
 ASSET_MANAGER.downloadAll(function () {

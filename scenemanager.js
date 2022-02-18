@@ -55,6 +55,7 @@ class SceneManager {
         this.bunny = new Bunny(this.game, 300, 300);
         this.waterObj = new WaterObjects(this.game, 0, 0);
         this.overlay = new Overlay(this.game, 0, 0);
+        this.title = new Title(this.game, 0, 0);
         this.loadScreen();
     }
     
@@ -94,6 +95,7 @@ class SceneManager {
         this.game.addEntity(this.waterObj); 
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
+        this.game.addEntity(this.title);
     }
 
     update() {
