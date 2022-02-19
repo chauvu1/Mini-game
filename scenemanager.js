@@ -47,6 +47,8 @@ var BACKGROUND = {
 class SceneManager {
     constructor(game) {
         this.game = game;
+        this.game.scene = this;
+        this.title = true;
         this.grass = new Grass(this.game, 0, 0);
         this.house = new House(this.game, 360, 160);
         this.pavement = new Pavement(this.game, 440, 350);

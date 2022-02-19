@@ -16,10 +16,14 @@ class GameEngine {
         this.entitiesToAdd = [];
 
         // Information on the input
-        this.click = null;
-        this.mouse = null;
-        this.wheel = null;
-
+        this.click = false;
+        this.mouse = false;
+        this.left = false;
+        this.right = false;
+        this.up = false; 
+        this.down = false;
+        this.interact = false;
+        this.crouch = false;
         // THE KILL SWITCH
         this.running = false;
      
@@ -54,7 +58,7 @@ class GameEngine {
 
     startInput() {
         var that = this; 
-        // add the listeners and detect key inputs
+        // add the listeners and detect key input
         // pass in the event to the function
         this.ctx.canvas.addEventListener("keydown", function (e) {
             switch(e.code) {
@@ -136,6 +140,12 @@ class GameEngine {
             }
             this.click = getXandY(e);
         });
+
+        // From Mario Bros
+        this.ctx.canvas.addEventListener("mousemove", function (e) {
+            that.mouse = getXandY(e);
+        }, false);
+
     };
 
     addEntity(entity) {
