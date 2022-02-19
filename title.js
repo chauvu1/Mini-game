@@ -64,7 +64,7 @@ class Title {
     }
 
     update() {
-        if (this.game.scene.title) { // start button
+        if (this.game.scene.title && !PARAMS.DEBUG) { // start button
            if (this.game.mouse.x > 375 && this.game.mouse.x < 512 && this.game.mouse.y > 440 && this.game.mouse.y < 491) {
                this.buttonStartState = 1;
                if (this.game.click && this.game.click.x > 375 && this.game.click.x < 512 && this.game.click.y > 440 && this.game.click.y < 491) {
@@ -90,16 +90,13 @@ class Title {
 
     draw(ctx) {
 
-        if (this.game.scene.title) {
+        if (this.game.scene.title && !PARAMS.DEBUG) {
             this.titleAnim[0].drawFrame(this.game.clockTick, ctx, 0, -100, 5);
             this.titleAnim[2].drawFrame(this.game.clockTick, ctx, 0, 0, 2);
-            
             this.titleAnim[5].drawFrame(this.game.clockTick, ctx, 280, 60, 3);
             this.titleAnim[7].drawFrame(this.game.clockTick, ctx, 0, -24, 2);
             this.titleAnim[8].drawFrame(this.game.clockTick, ctx, 0, 743, 3);
-            this.titleAnim[1].drawFrame(this.game.clockTick, ctx, 150, 0, 3);
-            
-            this.titleAnim[3].drawFrame(this.game.clockTick, ctx, 0, 720, 3);
+            this.titleAnim[1].drawFrame(this.game.clockTick, ctx, 150, 0, 3);          
             this.titleAnim[4].drawFrame(this.game.clockTick, ctx, 55, 720, 3);
            
     
@@ -116,7 +113,25 @@ class Title {
     
             this.titleAnim[6].drawFrame(this.game.clockTick, ctx, 408, 620, 3); // heart
         }
-        
+        this.titleAnim[3].drawFrame(this.game.clockTick, ctx, 0, 720, 3);
+    }
+
+}
+
+class TransitionScreen {
+    constructor(game, x, y) {
+        Object.assign(this, {game, x, y}); 
+        this.elapsed = 0;
+
+        // clouds come in and out and faded away after title screen is clicked.
+    }
+
+    update() {
+
+    }
+
+    draw(ctx) {
+
     }
 
 }

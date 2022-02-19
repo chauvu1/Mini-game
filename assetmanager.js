@@ -43,5 +43,7 @@ class AssetManager {
     getAsset(path) {
         return this.cache[path];
     };
+
+    
 };
 

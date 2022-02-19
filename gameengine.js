@@ -24,6 +24,10 @@ class GameEngine {
         this.down = false;
         this.interact = false;
         this.crouch = false;
+
+        this.dragItem = document.querySelector("#item");
+        this.container = document.querySelector("#container");
+
         // THE KILL SWITCH
         this.running = false;
      

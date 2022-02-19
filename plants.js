@@ -13,14 +13,23 @@ class Dirt {
 
     }
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 26, 58,
-            28,  28,
-            this.x,
-            this.y,
-            28 * 2,
-            28 * 2);
-         
-        if (this.game.bunny.plowing && this.type == this.game.bunny.dirtTypeInteract && !this.dirtTaken) {
+        if (this.game.bunny.withinRangeDirt && this.type == this.game.bunny.dirtTypeInteract) {
+            ctx.drawImage(this.spritesheet, 114, 56,
+                32, 32,
+                this.x -4,
+                this.y -4 ,
+                32 * 2,
+                32 * 2);
+        } else {
+            ctx.drawImage(this.spritesheet, 26, 58,
+                28, 28,
+                this.x,
+                this.y,
+                28 * 2,
+                28 * 2);
+        }
+        
+        if (this.game.bunny.plowing && this.type == this.game.bunny.dirtTypeInteract && !this.dirtTaken && this.game.bunny.withinRangeDirt) {
             this.elapsedTime += this.game.clockTick;         
             if (this.elapsedTime > 2) {
                 this.game.addEntity(new Plant(this.game, this));  
@@ -71,6 +80,7 @@ class Plant {
 
     draw(ctx) {
         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+
         if (this.animation.isDone()){
             ctx.drawImage(this.spritesheet, 64, 32,
                 16,  16,
@@ -79,6 +89,8 @@ class Plant {
                 16 * 2,
                 16 * 2);
         }
+
+     
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'pink';
             ctx.lineWidth = 2;

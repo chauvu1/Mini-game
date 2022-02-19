@@ -33,6 +33,10 @@ ASSET_MANAGER.queueDownload("./sprites/bunny_icon.png")
 ASSET_MANAGER.queueDownload("./sprites/buttons.png")
 ASSET_MANAGER.queueDownload("./sprites/title_clouds.png")
 ASSET_MANAGER.queueDownload("./sprites/heartspin.png")
+ASSET_MANAGER.queueDownload("./sprites/task_ui.png")
+ASSET_MANAGER.queueDownload("./sprites/carrots_icon.png")
+
+
 
 
 ASSET_MANAGER.downloadAll(function () {

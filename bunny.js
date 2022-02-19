@@ -18,7 +18,9 @@ class Bunny {
         this.milkInteract = false;
         this.plowing = false;
         this.dirtTypeInteract = 0;
+        this.withinRangeDirt = false;
         this.cowInteract = 0;
+        this.milkCount = 0;
         this.loadAnimations();
         this.updateBB();
     };
@@ -66,10 +68,6 @@ class Bunny {
         this.animations[3][2] = new Animator (this.spritesheet, 0, 576, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
         this.animations[3][3] = new Animator (this.spritesheet, 0, 624, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
 
-
-
-
-
         // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
         this.emoteAnim = new Animator (this.emotesheet, 0,0, 32, 32, 4, 0.2, 0, false, true);
         this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
@@ -84,7 +82,7 @@ class Bunny {
     
     };
         
-    draw(ctx) {
+    draw(ctx) {  
         if (this.sleep) {
             this.animations[1][4].drawFrame(this.game.clockTick, ctx, 340, 150, 3);
             this.emoteAnim.drawFrame(this.game.clockTick, ctx, 400, 175, 1);
@@ -135,7 +133,7 @@ class Bunny {
            this.state = 0;
         }
         
-        if (this.plowing) {
+        if (this.plowing && this.withinRangeDirt) {
             this.state = 3;
         }
         if (this.state == 3) {
@@ -250,16 +248,23 @@ class Bunny {
             } 
             if (entity instanceof Milk) {
                 if (entity.milkCreated && that.topBB.collide(entity.BB)) {
+                    that.milkCount = that.milkCount + 1;
                     entity.removeFromWorld = true;     
                 }
             }
 
             if (entity instanceof Dirt && that.BB.withinRange(entity.BB)) {
+                if (that.BB.collide(entity.BB)){
+                    that.dirtTypeInteract = entity.type;
+                    that.withinRangeDirt = true;
+                } else {
+                    that.withinRangeDirt = false;
+                }            
                 if (!entity.dirtTaken && that.game.interact) {
                     that.plowing = true;
                     that.dirtTypeInteract = entity.type;
                 }
-            }
+            } 
             if (entity instanceof Plant && that.topBB.collide(entity.BB)) {
                 if (entity.animation.isDone()) {
                     entity.removeFromWorld = true;
