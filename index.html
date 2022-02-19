@@ -15,6 +15,10 @@
             left: 0;
             right: 0;
         }
+        body {
+           background-image: url('');
+           background-repeat: no-repeat;
+        }
     </style>
     <meta charset="utf-8">
     <title>Bunni Express</title>
@@ -38,11 +42,11 @@
     <script type="text/javascript" src="./title.js"></script>
     <script type="text/javascript" src="./tasks.js"></script>
 </head>
-<body>
+<body style = "background-color: #f7ebaa;">
     <canvas id="gameWorld" width="960" height="768" style="background: white; border: 1px solid black" tabindex ="0" autofocus></canvas></canvas>
     <div>
         <br />
-        <input type="checkbox" id="debug" unchecked> Debug 
+        <input type="checkbox" id="debug" checked> Debug 
         <br />
     </div>
 </body>

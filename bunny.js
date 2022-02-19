@@ -94,10 +94,10 @@ class Bunny {
     /* Update the bounding box of the player for collision detection */
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x + 58, this.y + 90, 64 - 36, 5); 
-        this.topBB = new BoundingBox(this.x + 58, this.y + 72, 64 - 36, 15); 
-        this.leftBB = new BoundingBox(this.x + 55, this.y + 65 + 10, 10, 10); 
-        this.rightBB = new BoundingBox(this.BB.right - 7, this.y + 65 + 10, 10, 10);
+        this.BB = new BoundingBox(this.x + 62, this.y + 90, 64 - 46, 5); 
+        this.topBB = new BoundingBox(this.x + 62, this.y + 74, 64 - 46, 12); 
+        this.leftBB = new BoundingBox(this.x + 55, this.y + 67 + 10, 10, 10); 
+        this.rightBB = new BoundingBox(this.BB.right - 3, this.y + 67 + 10, 10, 10);
     
     };
         
@@ -255,7 +255,7 @@ class Bunny {
                     if (that.velocity.x > 0) that.velocity.x = 0;
                 
                 if (that.BB.collide(entity.BB)) {
-                    if (that.BB.left > entity.BB.left - 20 && that.BB.right < entity.BB.right + 20 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
+                    if (that.BB.left > entity.BB.left - 10 && that.BB.right < entity.BB.right + 10 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
                         that.under = true;
                     } else {
                         that.under = false;
