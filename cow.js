@@ -10,6 +10,7 @@ class Milk {
         this.width = 0;
         this.height = 3.5;
         this.maxHealth = 20;
+        this.x = this.cow.x + 35;
         this.timerbar = new TimerBar(this, this.game);
         this.loadAnimations();
     }
@@ -28,7 +29,7 @@ class Milk {
     update(){
         this.barX = this.cow.x + 20;
         this.barY = this.cow.y + 60;
-        this.x = this.cow.x + 35;
+       
         this.elapsed += this.game.clockTick;
 
         if (this.width <= this.maxHealth) {

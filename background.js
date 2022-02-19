@@ -194,7 +194,7 @@ class Fence {
         Object.assign(this, { game, x, y});
         // 0 0 16 48
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Fences.png");
-        this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
+        //this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
         this.game.fence = this;
         this.door = false;
         this.visible = false;
@@ -204,7 +204,7 @@ class Fence {
         for (var i = 0; i < 2; i++) {
             this.animation.push([]);
         }
-        this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
+        //this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
         this.loadAnimations();
         this.createBB();
         this.updateBB();
@@ -255,7 +255,7 @@ class Fence {
         this.animation[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 3);
        
         if (this.visible && !this.door) {
-            this.bubble.drawFrame(this.game.clockTick, ctx, 200, 270, 3);
+            //this.bubble.drawFrame(this.game.clockTick, ctx, 200, 270, 3);
         } 
         if (PARAMS.DEBUG) {   
             if (this.door) {

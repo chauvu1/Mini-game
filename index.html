@@ -2,6 +2,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        #gameWorld {
+            padding: 0;
+            margin: auto;
+            display: block;
+            width: 960px;
+            height: 768px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
     <meta charset="utf-8">
     <title>Bunni Express</title>
     <script type="text/javascript" src="./animator.js"></script>
@@ -28,7 +42,7 @@
     <canvas id="gameWorld" width="960" height="768" style="background: white; border: 1px solid black" tabindex ="0" autofocus></canvas></canvas>
     <div>
         <br />
-        <input type="checkbox" id="debug" checked> Debug 
+        <input type="checkbox" id="debug" unchecked> Debug 
         <br />
     </div>
 </body>

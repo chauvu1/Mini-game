@@ -12,11 +12,12 @@ class UI {
         this.spritesheetHeart = ASSET_MANAGER.getAsset("./sprites/heartspin.png")
         this.spritesheetCarrot = ASSET_MANAGER.getAsset("./sprites/carrots_icon.png")
         this.buttonsheet = ASSET_MANAGER.getAsset("./sprites/buttons.png");
+        this.helpbutton = [];
         this.button = [];
         this.button1 = [];
         this.button2 = [];
         this.button3 = [];
-        this.animationUI = new Animator(this.spritesheetUI, 0, 0, 352, 350, 1, 0.5, 0, false, true);
+        this.animationUI = new Animator(this.spritesheetUI, 0, 0, 400, 464, 1, 0.5, 0, false, true);
         this.button1[0] = new Animator(this.buttonsheet, 269, 314, 22, 22, 1, 0.5, 0, false, true);
         this.button1[1] = new Animator(this.buttonsheet, 295, 314, 22, 22, 1, 0.5, 0, false, true);
         this.button3[0] = new Animator(this.buttonsheet, 269, 290, 22, 22, 1, 0.5, 0, false, true);
@@ -77,6 +78,12 @@ class UI {
             this.buttonstate = 0; 
         }
 
+        if (this.game.click && this.game.click.x > 12 && this.game.click.x < 49 && this.game.click.y > 731 && this.game.click.y < 763) {
+            this.game.bunny.x = 400;
+            this.game.bunny.y = 400;
+            this.game.bunny.state = 0;
+            this.game.click = false;
+        }
         if (this.game.bunny.milkCount >= 5) {
 
         }
@@ -103,9 +110,12 @@ class UI {
             ctx.fillText("Collect milk 0/5", 800, 115); //280
             ctx.fillText("Plant carrots 0/5", 800, 138); //280
             ctx.fillText("Collect fruits 0/5", 800, 161); //280
+            ctx.fillText("Water flowers 0/5", 800, 184); //280
+            ctx.fillText("Take a nap 0/1", 800, 207); //280
+            ctx.fillText("Sit near a tree 0/1", 800, 230); //280
         }
 
-       
+        // water plants
         // ctx.fillText("Collect fruits 0/5", 800, 161); //280
     }
 

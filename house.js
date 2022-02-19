@@ -3,7 +3,7 @@ class House {
         Object.assign(this, {game, x, y});
         this.game.house = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
-        this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
+        //this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
         this.nightLight = new Animator(this.spritesheet, 60, 196, 60, 49, 4, 0.2, 0, false, true);
         this.light = false;
         this.door = false;
@@ -15,7 +15,7 @@ class House {
         for (var i = 0; i < 4; i++) {
             this.animation.push([]);
         }
-        this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
+        //this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
         this.loadAnimations();
         this.createBB();
         this.updateBB();
@@ -91,14 +91,14 @@ class House {
 
         if (this.visible && ! this.door) {
             this.animation[1].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
-            this.bubble.drawFrame(this.game.clockTick, ctx, 460, 280, 3);
+            //this.bubble.drawFrame(this.game.clockTick, ctx, 460, 280, 3);
         } else if (this.visible && this.door) {
             this.animation[2].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
         }  else {
             this.animation[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
         }
         if (this.nightLampInteract && !this.light) {
-            this.bubble.drawFrame(this.game.clockTick, ctx, this.x + 100, this.y, 3);
+            //this.bubble.drawFrame(this.game.clockTick, ctx, this.x + 100, this.y, 3);
         }
         if (this.light) {
             this.nightLight.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);

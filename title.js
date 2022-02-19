@@ -64,7 +64,7 @@ class Title {
     }
 
     update() {
-        if (this.game.scene.title && !PARAMS.DEBUG) { // start button
+        if (this.game.scene.title) { // start button
            if (this.game.mouse.x > 375 && this.game.mouse.x < 512 && this.game.mouse.y > 440 && this.game.mouse.y < 491) {
                this.buttonStartState = 1;
                if (this.game.click && this.game.click.x > 375 && this.game.click.x < 512 && this.game.click.y > 440 && this.game.click.y < 491) {
@@ -90,7 +90,7 @@ class Title {
 
     draw(ctx) {
 
-        if (this.game.scene.title && !PARAMS.DEBUG) {
+        if (this.game.scene.title) { // debug
             this.titleAnim[0].drawFrame(this.game.clockTick, ctx, 0, -100, 5);
             this.titleAnim[2].drawFrame(this.game.clockTick, ctx, 0, 0, 2);
             this.titleAnim[5].drawFrame(this.game.clockTick, ctx, 280, 60, 3);

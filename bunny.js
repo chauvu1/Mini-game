@@ -4,30 +4,41 @@ class Bunny {
         this.game.bunny = this;
         // this.game.x = this.x;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/characters/Premium Charakter Spritesheet.png"); 
-        this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
+        //this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
         this.emotesheet = ASSET_MANAGER.getAsset("./sprites/emotes.png");
         this.emoteAnim = [];
-        this.under = false;
-        this.crouch = false;
+      
         this.velocity = { x: 0, y: 0};
         this.facing = 2; // 0 = right; 1 = left; 2 = down; 3 = up; 4 = bed
         this.state = 0; // 0 = idle, 1 = walking, 2 = crouch
         this.animations = [];
+       
+        this.under = false;
+        this.crouch = false;
+
         this.sleep = false;
         this.bedVisible = false;
+
+
         this.milkInteract = false;
+        this.cowInteract = 0;
+        this.milkCount = 0;
+
         this.plowing = false;
         this.dirtTypeInteract = 0;
         this.withinRangeDirt = false;
-        this.cowInteract = 0;
-        this.milkCount = 0;
+        
+        this.waterFlower = false;
+        this.flowerTypeInteract = 0;
+        this.withinRangeFlower = false;
+
         this.loadAnimations();
         this.updateBB();
     };
 
     loadAnimations() {
            // array with [state] [face] of the same animator.
-           for (var i = 0; i < 4; i++) {
+           for (var i = 0; i < 5; i++) {
             this.animations.push([]);
             for (var j = 0; j < 5; j++) {
                 this.animations[i].push([]);
@@ -37,19 +48,19 @@ class Bunny {
         // idle left row 4
         // idle down row 1
         // idle up row 2
-        this.animations[0][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 2, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[0][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 3, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[0][2] = new Animator (this.spritesheet, 0, 0, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[0][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[0][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 2, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[0][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 3, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[0][2] = new Animator (this.spritesheet, 0, 0, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[0][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
 
         // walk right 7
         // walk left 8
         // walk down 5
         // walk up 6
-        this.animations[1][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 6, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[1][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 7, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[1][2] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 4, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[1][0] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 6, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[1][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 7, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[1][2] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 4, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
         // bed animation
         this.animations[1][4] = new Animator (this.spritesheet, 0, 1152, 48, 48, 8, 0.5, 0, false, true);
 
@@ -57,10 +68,10 @@ class Bunny {
         // 80 640 80 80 left crouch
         // 160 640 down 
         // 240 640 up
-        this.animations[2][0] = new Animator (this.spritesheet, 0, 1200, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, true, true);
-        this.animations[2][1] = new Animator (this.spritesheet, 0, 1248, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[2][2] = new Animator (this.spritesheet, 0, 1296, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
-        this.animations[2][3] = new Animator (this.spritesheet, 0, 1344, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.2, 0, false, true);
+        this.animations[2][0] = new Animator (this.spritesheet, 0, 1200, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, true, true);
+        this.animations[2][1] = new Animator (this.spritesheet, 0, 1248, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[2][2] = new Animator (this.spritesheet, 0, 1296, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[2][3] = new Animator (this.spritesheet, 0, 1344, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
 
         // plowing dirt right left down up
         this.animations[3][0] = new Animator (this.spritesheet, 0, 720, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, true, true);
@@ -68,9 +79,17 @@ class Bunny {
         this.animations[3][2] = new Animator (this.spritesheet, 0, 576, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
         this.animations[3][3] = new Animator (this.spritesheet, 0, 624, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
 
+        // watering plants
+
+        this.animations[4][2] = new Animator (this.spritesheet, 0, 960, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, true, true);
+        this.animations[4][3] = new Animator (this.spritesheet, 0, 1008, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[4][1] = new Animator (this.spritesheet, 0, 1056, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        this.animations[4][0] = new Animator (this.spritesheet, 0, 1104, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+
+
         // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
         this.emoteAnim = new Animator (this.emotesheet, 0,0, 32, 32, 4, 0.2, 0, false, true);
-        this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
+        //this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
     }
     /* Update the bounding box of the player for collision detection */
     updateBB() {
@@ -91,7 +110,7 @@ class Bunny {
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 3);
         }
         if (this.bedVisible) {
-            this.bubble.drawFrame(this.game.clockTick, ctx, 404, 160, 3);
+            //this.bubble.drawFrame(this.game.clockTick, ctx, 404, 160, 3);
             this.bedVisible = false;
         } 
         if (PARAMS.DEBUG) {
@@ -136,7 +155,12 @@ class Bunny {
         if (this.plowing && this.withinRangeDirt) {
             this.state = 3;
         }
-        if (this.state == 3) {
+
+        if (this.waterPlants && this.withinRangeFlower) {
+            this.state = 4;
+        }
+        
+        if (this.state == 3 || this.state == 4) {
             this.velocity.x = 0;
             this.velocity.y = 0;
         }
@@ -272,6 +296,19 @@ class Bunny {
             
             }
 
+            if (entity instanceof Flower && that.BB.withinRange(entity.BB)) {
+                if (that.BB.collide(entity.BB)) {
+                    that.flowerTypeInteract = entity.color;
+                    that.withinRangeFlower = true;
+                } else {
+                    that.withinRangeFlower = false;
+                }
+                if (that.game.interact) {
+                    that.waterPlants = true;
+                    that.flowerTypeInteract = entity.color;
+                }
+                
+            }
 
             if (entity instanceof House && that.BB.collide(entity.BBtable)) {
                 if (that.BB.collide(entity.BBtableRight) && that.lastBB.left <= entity.BBtableRight.right) {
