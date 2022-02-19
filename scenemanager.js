@@ -64,7 +64,7 @@ class SceneManager {
     }
 
     update() {
-        this.title = !document.getElementById("debug").checked;
+        //this.title = !document.getElementById("debug").checked;
         PARAMS.DEBUG = document.getElementById("debug").checked;
     }
 
