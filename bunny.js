@@ -16,6 +16,10 @@ class Bunny {
         this.under = false;
         this.crouch = false;
 
+        this.withinBlanket = false;
+        this.havingPicnic = false;
+        this.picnicCount = 0;
+
         this.sleep = false;
         this.bedVisible = false;
         this.sleepCount = 0;
@@ -119,19 +123,14 @@ class Bunny {
     draw(ctx) {  
         if (this.sleep) {
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, 340, 150, 3);
+            this.emoteAnim.drawFrame(this.game.clockTick, ctx, 400, 175, 1);
         } else {
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 3);
         }
-        //     //this.emoteAnim.drawFrame(this.game.clockTick, ctx, 400, 175, 1);
-        //     this.bedVisible = false;
-        // } else {
-           
-        // }
-      
+
         if (this.bedVisible) {
-            //this.bubble.drawFrame(this.game.clockTick, ctx, 404, 160, 3);
             this.bedVisible = false;
-        } 
+        }
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -177,6 +176,14 @@ class Bunny {
             }
         } 
 
+        if (this.havingPicnic && this.withinBlanket) {
+            this.state = 2;
+            this.facing = 2;
+            if (this.velocity.y > 0 || this.velocity.x < 0 || this.velocity.y < 0 || this.velocity.x > 0){
+                this.havingPicnic = false;
+            }
+        }
+
         if (this.plowing && this.withinRangeDirt) {
             this.state = 3;
         }
@@ -185,7 +192,7 @@ class Bunny {
             this.state = 4;
         }
         
-        if (this.state == 3 || this.state == 4 || this.state == 5 || this.fillWaterTray) {
+        if (this.state == 3 || this.state == 4 || this.state == 5 || this.fillWaterTray || this.havingPicnic) {
             this.velocity.x = 0;
             this.velocity.y = 0;
         }
@@ -275,7 +282,7 @@ class Bunny {
                 that.updateBB();
             }
 
-            if ((entity instanceof Tree || entity instanceof Cow || entity instanceof WaterTray || entity instanceof Barn || entity instanceof FlowerPot)) {
+            if ((entity instanceof Tree || entity instanceof WaterWell || entity instanceof Picnic || entity instanceof Sign || entity instanceof Cow || entity instanceof WaterTray || entity instanceof Barn || entity instanceof FlowerPot)) {
               
                 if (that.BB.collide(entity.BBbottom) && that.lastBB.bottom >= entity.BBbottom.top)
                     if (that.velocity.y > 0) that.velocity.y = 0;
@@ -286,7 +293,7 @@ class Bunny {
                 if (that.rightBB.collide(entity.BBbottom) && that.rightBB.right >= entity.BBbottom.left)
                     if (that.velocity.x > 0) that.velocity.x = 0;
                 
-                if ( (entity instanceof Tree || entity instanceof Cow) && that.BB.collide(entity.BB)) {
+                if ( (entity instanceof Tree || entity instanceof WaterWell || entity instanceof Cow || entity instanceof Sign || entity instanceof Picnic) && that.BB.collide(entity.BB)) {
                     if (that.BB.left > entity.BB.left - 13 && that.BB.right < entity.BB.right + 13 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
                         that.under = true;
                     } else {
@@ -297,8 +304,20 @@ class Bunny {
                 
             }
 
-            if (entity instanceof WaterTray) { 
+            if (entity instanceof PicnicBlanket) {
+                if (that.BB.collide(entity.BB)) {
+                    that.withinBlanket = true;
+                } else {
+                    that.withinBlanket = false;
+                }
+                if (that.withinBlanket && that.game.interact) {
+                    that.havingPicnic = true;
+                } else {
+                    
+                }
+            }
 
+            if (entity instanceof WaterTray) { 
                 if (that.topBB.collide(entity.BBbottom) || that.BB.collide(entity.BBbottom) || that.leftBB.collide(entity.BBbottom) || that.rightBB.collide(entity.BBbottom)) {
                     that.waterTrayInteracted = entity.type; 
                     that.withinRangeWaterTray = true;

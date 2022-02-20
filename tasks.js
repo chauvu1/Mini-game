@@ -116,14 +116,15 @@ class UI {
             ctx.fillText("Water flowers " + this.game.bunny.waterFlowerCount + "/5", 790, 184); //280
             ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 790, 207); //280
             ctx.fillText("Fill water tray " + this.game.bunny.WaterTrayCount + "/1", 790, 230); //280
-            // ctx.fillText("Sit near a tree 0/1", 800, 230); //280
+            ctx.fillText("Have a picnic " + this.game.bunny.picnicCount + "/1", 790, 253); //280
+         
+            // ctx.fillText("Have a picnic 0/1", 800, 230); //280
 
             if (this.game.bunny.milkCount >= 5) {
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
                 ctx.fillText("Collect milk " + this.game.bunny.milkCount + "/5", 790, 115); //280
             } 
-
             if (this.game.bunny.carrotPlantedCount>= 5) {
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
@@ -148,6 +149,11 @@ class UI {
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
                 ctx.fillText("Fill water tray " + this.game.bunny.WaterTrayCount + "/1", 790, 230); //280
+            }
+            if (this.game.bunny.picnicCount >= 1) {
+                ctx.strokeStyle = '#9da89a';
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fillText("Have a picnic " + this.game.bunny.picnicCount + "/1", 790, 253); //280
             }
         }
 

@@ -71,11 +71,13 @@ class SceneManager {
             let watertray = BACKGROUND.WATER_TRAY[i];
                 this.game.addEntity(new WaterTray(this.game, watertray.X, watertray.Y, watertray.TYPE)); 
         }
-       
+        this.game.addEntity(new Sign(this.game, 693, 360));
+        this.game.addEntity(new PicnicBlanket(this.game, 700, 530));
+        this.game.addEntity(new Picnic(this.game, 700, 530));
+        this.game.addEntity(new WaterWell(this.game, 770, 420));
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
-        
-       
+ 
         this.game.addEntity(this.UI);
         this.game.addEntity(this.titlescreen);
     }
