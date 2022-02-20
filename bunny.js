@@ -166,7 +166,9 @@ class Bunny {
         }
         if (this.sleep) {
             this.state = 5;
-
+            if (this.velocity.y > 0 || this.velocity.x < 0 || this.velocity.y < 0 || this.velocity.x > 0){
+                this.sleep = false;
+            }
         } 
 
         if (this.plowing && this.withinRangeDirt) {
@@ -378,7 +380,7 @@ class Bunny {
                     if (that.BB.withinRange(entity.BBbed) && that.game.interact) {
                          that.sleep = true;
                     } 
-                    
+                   
                 } 
             }   
             
