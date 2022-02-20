@@ -3,6 +3,7 @@ class WaterTray {
         Object.assign(this, {game, x, y, type});  
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Water Tray.png");
         this.waterFilled = false;
+        this.game.watertray = this;
         this.animations = [];
         if (type == 1) {
             // 0 empty
@@ -34,7 +35,6 @@ class WaterTray {
 
     draw(ctx){
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
-        console.log(this.game.bunny.withinRangeWaterTray);
         if (!this.waterFilled && this.game.bunny.withinRangeWaterTray && this.game.bunny.fillWaterTray && this.game.bunny.waterTrayInteracted == this.type) { 
             this.state = 1;
             if (this.animations[1].isDone()) {

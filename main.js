@@ -19,6 +19,10 @@ ASSET_MANAGER.queueDownload("./sprites/characters/Premium Charakter Spritesheet.
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Water.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Hills.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Farming Plants.png");
+ASSET_MANAGER.queueDownload("./sprites/objects/signs.png");
+ASSET_MANAGER.queueDownload("./sprites/objects/piknik blanket.png");
+ASSET_MANAGER.queueDownload("./sprites/objects/piknik basket.png");
+ASSET_MANAGER.queueDownload("./sprites/objects/Water well.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Boats.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Milk and grass item Simple.png");
 ASSET_MANAGER.queueDownload("./sprites/objects/Milk and grass item.png");

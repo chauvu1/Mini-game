@@ -1,17 +1,122 @@
 class Picnic {
     constructor(game, x, y) {
         Object.assign(this, {game, x, y});
+        this.spritesheetBlanket = ASSET_MANAGER.getAsset("./sprites/objects/piknik blanket.png");
+        this.spritesheetBasket = ASSET_MANAGER.getAsset("./sprites/objects/piknik basket.png");
 
+        this.BB = new BoundingBox(this.x + 50,this.y+50, 16*2, 16*2);
+        this.BBbottom = new BoundingBox(this.x + 50,this.y+ 70, 16*2, 16*2 - 20);
     }
     update() {
 
     }
 
     draw(ctx) {
-
+        //ctx.drawImage(this.spritesheetBlanket, 0, 0, 48, 48, this.x, this.y, 16*6, 16*6);
+        ctx.drawImage(this.spritesheetBasket, 0, 0, 16, 16, this.x+ 50, this.y + 50, 16*2, 16*2);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);  
+            ctx.strokeStyle = 'Pink';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);  
+        }
     }
 }
 
+
+class PicnicBlanket {
+    constructor(game, x, y) {
+        Object.assign(this, {game, x, y});
+        this.spritesheetBlanket = ASSET_MANAGER.getAsset("./sprites/objects/piknik blanket.png");
+        this.BB = new BoundingBox(this.x, this.y, 48*2, 48*2);
+        this.width = 0;
+        this.height = 3.5;
+        this.maxHealth = 20;
+        this.barX = this.x + 10;
+        this.barY = this.y + 85;
+        this.timerBar = new TimerBar(this, this.game);
+    }
+    update() {
+        if (this.game.bunny.havingPicnic) {
+            this.elapsed += this.game.clockTick;
+            if (this.width <= this.maxHealth) {
+                this.width += 0.05; // original
+                this.width = (this.width / this.maxHealth) * this.maxHealth;
+            } else {
+                
+            }
+        } else {
+            this.width = 0;
+        }
+
+        if (this.width >= this.maxHealth) {
+            this.game.bunny.picnicCount = this.game.bunny.picnicCount + 1;
+            this.game.bunny.havingPicnic = false;
+            this.width = 0;
+        }
+
+    }
+
+    draw(ctx) {
+      
+        ctx.drawImage(this.spritesheetBlanket, 0, 0, 48, 48, this.x, this.y, 16*6, 16*6);
+
+        if (this.game.bunny.withinBlanket && !this.game.bunny.havingPicnic) {
+            ctx.drawImage(this.spritesheetBlanket, 48, 0, 48, 48, this.x, this.y, 16*6, 16*6);
+        }
+        if (this.game.bunny.havingPicnic) {
+            this.timerBar.draw(ctx);
+        }
+        if (PARAMS.DEBUG) {   
+            ctx.strokeStyle = 'Pink';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);  
+        }
+    }
+}
+
+class WaterWell {
+    constructor(game, x, y) {
+        Object.assign(this, {game, x, y});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Water well.png"); 
+        this.BB = new BoundingBox(this.x,this.y, 32*2, 32*2);
+        this.BBbottom = new BoundingBox(this.x,this.y+40, 32*2, 32*2 - 40);
+    }
+    update() {
+
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.spritesheet, 0, 0, 32, 32, this.x, this.y, 32*2, 32*2);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);  
+            ctx.strokeStyle = 'Pink';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);  
+        }
+    }
+}
+
+class Sign {
+    constructor(game, x, y) {
+        Object.assign(this, {game, x, y});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/signs.png"); 
+        this.BB = new BoundingBox(this.x,this.y, 16*2, 16*2);
+        this.BBbottom = new BoundingBox(this.x,this.y+ 20, 16*2, 16*2 - 20);
+    }
+    update() {
+
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.spritesheet, 32, 0, 16, 16, this.x, this.y, 16*2, 16*2);
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);  
+            ctx.strokeStyle = 'Pink';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);  
+        }
+    }
+}
 class FlowerPot {
     constructor(game, x, y, type) {
         Object.assign(this, {game, x, y, type});
