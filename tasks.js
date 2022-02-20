@@ -116,7 +116,7 @@ class UI {
             ctx.fillText("Collect carrots " + this.game.bunny.carrotCollectedCount + "/5", 800, 161); //280
             ctx.fillText("Water flowers " + this.game.bunny.waterFlowerCount + "/5", 800, 184); //280
             ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 800, 207); //280
-            ctx.fillText("Sit near a tree 0/1", 800, 230); //280
+            // ctx.fillText("Sit near a tree 0/1", 800, 230); //280
 
             if (this.game.bunny.milkCount == 5) {
                 ctx.strokeStyle = '#9da89a';

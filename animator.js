@@ -4,6 +4,7 @@ class Animator {
 
         this.elapsedTime = 0;
         this.totalTime = this.frameCount * this.frameDuration;
+        this.framecurrent = 0;
 
     };
 
@@ -18,17 +19,21 @@ class Animator {
             }
         }
 
-        let frame = this.currentFrame();
-        if (this.reverse) frame = this.frameCount - frame - 1;
+        this.framecurrent = this.currentFrame();
+        if (this.reverse) this.framecurrent = this.frameCount - this.framecurrent - 1;
        
         ctx.drawImage(this.spritesheet,
-            this.xStart + frame * (this.width + this.framePadding), this.yStart, //source from sheet
+            this.xStart + this.framecurrent * (this.width + this.framePadding), this.yStart, //source from sheet
             this.width, this.height,
             x, y,
             this.width * scale,
             this.height * scale);
 
     };
+
+    setCurrentFrame(number) {
+        this.framecurrent = number;
+    }
 
     currentFrame() {
         return Math.floor(this.elapsedTime / this.frameDuration);
