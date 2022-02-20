@@ -7,7 +7,7 @@ class UI {
         this.button1state = 0;
         this.button2state = 0;
         this.button3state = 0;
-        this.taskOpened = false;
+        this.taskOpened = true;
         this.spritesheetUI = ASSET_MANAGER.getAsset("./sprites/task_ui.png")
         this.spritesheetHeart = ASSET_MANAGER.getAsset("./sprites/heartspin.png")
         this.spritesheetCarrot = ASSET_MANAGER.getAsset("./sprites/carrots_icon.png")
@@ -35,11 +35,16 @@ class UI {
                 this.taskOpened = true;  
                
             } else if (this.taskOpened && this.game.click && this.game.click.x > 810 && this.game.click.x < 853 && this.game.click.y > 12 && this.game.click.y < 52) {
+                this.button1state = 1;
                 this.taskOpened = false;  
             } 
             this.game.click = false;
         } else {
             this.button1state = 0; 
+        }
+        
+        if (this.taskOpened) {
+            this.button1state = 1;
         }
 
         if (this.game.mouse.x > 862 && this.game.mouse.x < 904 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
@@ -81,12 +86,9 @@ class UI {
         if (this.game.click && this.game.click.x > 12 && this.game.click.x < 49 && this.game.click.y > 731 && this.game.click.y < 763) {
             this.game.bunny.x = 400;
             this.game.bunny.y = 400;
-            this.game.bunny.state = 0;
             this.game.click = false;
         }
-        if (this.game.bunny.milkCount >= 5) {
 
-        }
         // if 
     }
 
@@ -105,14 +107,43 @@ class UI {
                 document.fonts.add(loadedFont);
             }) 
             ctx.font = "16px Minecraft";
+                 
+           
             ctx.strokeStyle = '#bd757e';
             ctx.fillStyle = ctx.strokeStyle;
-            ctx.fillText("Collect milk 0/5", 800, 115); //280
-            ctx.fillText("Plant carrots 0/5", 800, 138); //280
-            ctx.fillText("Collect fruits 0/5", 800, 161); //280
-            ctx.fillText("Water flowers 0/5", 800, 184); //280
-            ctx.fillText("Take a nap 0/1", 800, 207); //280
+            ctx.fillText("Collect milk " + this.game.bunny.milkCount + "/5", 800, 115); //280
+            ctx.fillText("Plant carrots " + this.game.bunny.carrotPlantedCount + "/5", 800, 138);
+            ctx.fillText("Collect carrots " + this.game.bunny.carrotCollectedCount + "/5", 800, 161); //280
+            ctx.fillText("Water flowers " + this.game.bunny.waterFlowerCount + "/5", 800, 184); //280
+            ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 800, 207); //280
             ctx.fillText("Sit near a tree 0/1", 800, 230); //280
+
+            if (this.game.bunny.milkCount == 5) {
+                ctx.strokeStyle = '#9da89a';
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fillText("Collect milk " + this.game.bunny.milkCount + "/5", 800, 115); //280
+            } 
+
+            if (this.game.bunny.carrotPlantedCount == 5) {
+                ctx.strokeStyle = '#9da89a';
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fillText("Plant carrots " + this.game.bunny.carrotPlantedCount + "/5", 800, 138);
+            } 
+            if (this.game.bunny.waterFlowerCount == 5) {
+                ctx.strokeStyle = '#9da89a';
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fillText("Water flowers " + this.game.bunny.waterFlowerCount + "/5", 800, 184); //280
+            }
+            if (this.game.bunny.carrotCollectedCount == 5) {
+                ctx.strokeStyle = '#9da89a';
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fillText("Collect carrots " + this.game.bunny.carrotCollectedCount + "/5", 800, 161); //280
+            } 
+            if (this.game.bunny.sleepCount == 1) {
+                ctx.strokeStyle = '#9da89a';
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 800, 207); //280
+            }
         }
 
         // water plants

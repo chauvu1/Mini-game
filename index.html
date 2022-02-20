@@ -19,6 +19,12 @@
            background-image: url('');
            background-repeat: no-repeat;
         }
+
+        #gameWorld:focus {
+            outline: none !important;
+            border-color: "white";
+            box-shadow: 0 0 10px #719ECE
+        }
     </style>
     <meta charset="utf-8">
     <title>Bunni Express</title>
@@ -43,7 +49,7 @@
     <script type="text/javascript" src="./tasks.js"></script>
 </head>
 <body style = "background-color: #f7ebaa;">
-    <canvas id="gameWorld" width="960" height="768" style="background: white; border: 1px solid black" tabindex ="0" autofocus></canvas></canvas>
+    <canvas id="gameWorld" width="960" height="768" border: 1px solid rgb(255, 255, 255) tabindex ="0" autofocus></canvas></canvas>
     <div>
         <br />
         <input type="checkbox" id="debug" unchecked> Debug 
