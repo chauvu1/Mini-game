@@ -17,7 +17,7 @@ class UI {
         this.button1 = [];
         this.button2 = [];
         this.button3 = [];
-        this.animationUI = new Animator(this.spritesheetUI, 0, 0, 400, 464, 1, 0.5, 0, false, true);
+        this.animationUI = new Animator(this.spritesheetUI, 0, 0, 416, 562, 1, 0.5, 0, false, true);
         this.button1[0] = new Animator(this.buttonsheet, 269, 314, 22, 22, 1, 0.5, 0, false, true);
         this.button1[1] = new Animator(this.buttonsheet, 295, 314, 22, 22, 1, 0.5, 0, false, true);
         this.button3[0] = new Animator(this.buttonsheet, 269, 290, 22, 22, 1, 0.5, 0, false, true);
@@ -101,48 +101,53 @@ class UI {
         this.button2[this.button2state].drawFrame(this.game.clockTick, ctx, 860, 10, 2);
      
         if (this.taskOpened) {
-            this.animationUI.drawFrame(this.game.clockTick, ctx, 760, 40, 0.5);
+            this.animationUI.drawFrame(this.game.clockTick, ctx, 750, 40, 0.5);
             let font = new FontFace("Minecraft", 'url(./sprites/Minecraft.ttf) format("TrueType")');
             font.load().then(function(loadedFont) {
                 document.fonts.add(loadedFont);
             }) 
             ctx.font = "16px Minecraft";
                  
-           
             ctx.strokeStyle = '#bd757e';
             ctx.fillStyle = ctx.strokeStyle;
-            ctx.fillText("Collect milk " + this.game.bunny.milkCount + "/5", 800, 115); //280
-            ctx.fillText("Plant carrots " + this.game.bunny.carrotPlantedCount + "/5", 800, 138);
-            ctx.fillText("Collect carrots " + this.game.bunny.carrotCollectedCount + "/5", 800, 161); //280
-            ctx.fillText("Water flowers " + this.game.bunny.waterFlowerCount + "/5", 800, 184); //280
-            ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 800, 207); //280
+            ctx.fillText("Collect milk " + this.game.bunny.milkCount + "/5", 790, 115); //280
+            ctx.fillText("Plant carrots " + this.game.bunny.carrotPlantedCount + "/5", 790, 138);
+            ctx.fillText("Harvest carrots " + this.game.bunny.carrotCollectedCount + "/5", 790, 161); //280
+            ctx.fillText("Water flowers " + this.game.bunny.waterFlowerCount + "/5", 790, 184); //280
+            ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 790, 207); //280
+            ctx.fillText("Fill water tray " + this.game.bunny.WaterTrayCount + "/1", 790, 230); //280
             // ctx.fillText("Sit near a tree 0/1", 800, 230); //280
 
-            if (this.game.bunny.milkCount == 5) {
+            if (this.game.bunny.milkCount >= 5) {
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
-                ctx.fillText("Collect milk " + this.game.bunny.milkCount + "/5", 800, 115); //280
+                ctx.fillText("Collect milk " + this.game.bunny.milkCount + "/5", 790, 115); //280
             } 
 
-            if (this.game.bunny.carrotPlantedCount == 5) {
+            if (this.game.bunny.carrotPlantedCount>= 5) {
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
-                ctx.fillText("Plant carrots " + this.game.bunny.carrotPlantedCount + "/5", 800, 138);
+                ctx.fillText("Plant carrots " + this.game.bunny.carrotPlantedCount + "/5", 790, 138);
             } 
-            if (this.game.bunny.waterFlowerCount == 5) {
+            if (this.game.bunny.waterFlowerCount >= 5) {
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
-                ctx.fillText("Water flowers " + this.game.bunny.waterFlowerCount + "/5", 800, 184); //280
+                ctx.fillText("Water flowers " + this.game.bunny.waterFlowerCount + "/5", 790, 184); //280
             }
-            if (this.game.bunny.carrotCollectedCount == 5) {
+            if (this.game.bunny.carrotCollectedCount>= 5) {
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
-                ctx.fillText("Collect carrots " + this.game.bunny.carrotCollectedCount + "/5", 800, 161); //280
+                ctx.fillText("Harvest carrots " + this.game.bunny.carrotCollectedCount + "/5", 790, 161); //280
             } 
-            if (this.game.bunny.sleepCount == 1) {
+            if (this.game.bunny.sleepCount>= 1) {
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
-                ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 800, 207); //280
+                ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 790, 207); //280
+            }
+            if (this.game.bunny.WaterTrayCount>= 1) {
+                ctx.strokeStyle = '#9da89a';
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fillText("Fill water tray " + this.game.bunny.WaterTrayCount + "/1", 790, 230); //280
             }
         }
 

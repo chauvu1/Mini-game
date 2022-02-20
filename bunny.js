@@ -35,6 +35,12 @@ class Bunny {
         this.withinRangeFlower = false;
         this.waterFlowerCount = 0;
 
+        this.WaterInteract = false;
+        this.withinRangeWaterTray = false;
+        this.waterTrayInteracted = 0;
+
+        this.fillWaterTray = false;
+        this.WaterTrayCount = 0;
         this.loadAnimations();
         this.updateBB();
     };
@@ -105,8 +111,8 @@ class Bunny {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x + 64, this.y + 88, 64 - 48, 5); 
         this.topBB = new BoundingBox(this.x + 62, this.y + 74, 64 - 46, 12); 
-        this.leftBB = new BoundingBox(this.x + 55, this.y + 67 + 10, 10, 10); 
-        this.rightBB = new BoundingBox(this.BB.right - 3, this.y + 67 + 10, 10, 10);
+        this.leftBB = new BoundingBox(this.x + 55, this.y + 67 + 10, 7, 10); 
+        this.rightBB = new BoundingBox(this.BB.right , this.y + 67 + 10, 7, 10);
     
     };
         
@@ -179,7 +185,7 @@ class Bunny {
             this.state = 4;
         }
         
-        if (this.state == 3 || this.state == 4 || this.state == 5) {
+        if (this.state == 3 || this.state == 4 || this.state == 5 || this.fillWaterTray) {
             this.velocity.x = 0;
             this.velocity.y = 0;
         }
@@ -230,6 +236,8 @@ class Bunny {
                 }   
                 that.updateBB(); 
             } 
+
+        
             if ((entity instanceof House)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
                     && that.lastBB.right - 3 < entity.BBinteriorRight.left
@@ -267,7 +275,7 @@ class Bunny {
                 that.updateBB();
             }
 
-            if ((entity instanceof Tree || entity instanceof Cow)) {
+            if ((entity instanceof Tree || entity instanceof Cow || entity instanceof WaterTray || entity instanceof Barn || entity instanceof FlowerPot)) {
               
                 if (that.BB.collide(entity.BBbottom) && that.lastBB.bottom >= entity.BBbottom.top)
                     if (that.velocity.y > 0) that.velocity.y = 0;
@@ -278,8 +286,8 @@ class Bunny {
                 if (that.rightBB.collide(entity.BBbottom) && that.rightBB.right >= entity.BBbottom.left)
                     if (that.velocity.x > 0) that.velocity.x = 0;
                 
-                if (that.BB.collide(entity.BB)) {
-                    if (that.BB.left > entity.BB.left - 10 && that.BB.right < entity.BB.right + 10 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
+                if ( (entity instanceof Tree || entity instanceof Cow) && that.BB.collide(entity.BB)) {
+                    if (that.BB.left > entity.BB.left - 13 && that.BB.right < entity.BB.right + 13 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
                         that.under = true;
                     } else {
                         that.under = false;
@@ -288,6 +296,25 @@ class Bunny {
                
                 
             }
+
+            if (entity instanceof WaterTray) { 
+
+                if (that.topBB.collide(entity.BBbottom) || that.BB.collide(entity.BBbottom) || that.leftBB.collide(entity.BBbottom) || that.rightBB.collide(entity.BBbottom)) {
+                    that.waterTrayInteracted = entity.type; 
+                    that.withinRangeWaterTray = true;
+                } else {
+                    that.withinRangeWaterTray = false;
+                }
+                if (that.withinRangeWaterTray && that.game.interact) {
+                    that.waterTrayInteracted = entity.type;
+                    that.fillWaterTray = true; 
+                } else{
+                   
+                }
+            } else {
+                
+            }
+
             if (entity instanceof Cow && that.BB.withinRange(entity.BB)) { 
                 if (!entity.milkGenerated && that.game.interact) {
                     that.milkInteract = true;   

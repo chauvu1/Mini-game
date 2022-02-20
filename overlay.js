@@ -5,6 +5,8 @@ class Overlay {
         this.spritesheetTree = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
         this.spritesheetFence = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Fences.png");
         this.spritesheetHouse = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png"); 
+        this.spritesheetFlowers = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Basic Furniture.png");   
+        this.spritesheetTray = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Water Tray.png");
         this.animationHouseDoor = new Animator(this.spritesheetHouse, 60, 147, 60, 49, 5, 0.2, 0, true, false);  
         this.animationHouseNightTime= new Animator(this.spritesheetHouse, 0, 196, 60, 49, 1, 0.2, 0, false, true);
         this.animations = [];
@@ -40,6 +42,7 @@ class Overlay {
         // 4 sleep
         this.animations[4][0] = new Animator (this.cowspritesheet, 0, BACKGROUND.COW_SIZE * 4, BACKGROUND.COW_SIZE, BACKGROUND.COW_SIZE, 4, 0.5, 0, false, true);
         this.animations[4][1] = new Animator (this.cowspritesheet, BACKGROUND.COW_SIZE * 4, BACKGROUND.COW_SIZE * 4, BACKGROUND.COW_SIZE, BACKGROUND.COW_SIZE, 4, 0.5, 0, true, true);
+
     }
 
     update(){
@@ -59,7 +62,6 @@ class Overlay {
                 OVERLAY.TREE[1].Y,
                 32 * 3,
                 32 * 3);
-
         this.animations[this.game.cow.state][this.game.cow.facing].drawFrame(this.game.clockTick, ctx, this.game.cow.x, this.game.cow.y, 2);
     }
         if (this.game.fence.inside) {
@@ -75,6 +77,28 @@ class Overlay {
             if (this.game.bunny.sleep) {
                 //this.animationHouseNightTime.drawFrame(this.game.clockTick, ctx, OVERLAY.HOUSE.X, OVERLAY.HOUSE.Y, 4);
             }
+
+        
+            for (var i = 0; i < BACKGROUND.FLOWERPOT.length; i++) {
+                let flower_pot = BACKGROUND.FLOWERPOT[i];
+                ctx.drawImage(this.spritesheetFlowers, 48, 0,
+                    16,  16,
+                    flower_pot.X,
+                    flower_pot.Y,
+                    16 * 2,
+                    16 * 2);
+                   
+            }
+            for (var i = 0; i < BACKGROUND.WATER_TRAY.length; i++) {
+                let watertray = BACKGROUND.WATER_TRAY[i];
+                ctx.drawImage(this.spritesheetTray, 0, 48,
+                    32,  16,
+                    watertray.X,
+                    watertray.Y,
+                    32 * 2,
+                    16 * 2);
+            }
         } 
+        
     }
 }

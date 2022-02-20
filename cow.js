@@ -1,3 +1,103 @@
+class WaterTray {
+    constructor(game, x, y, type) {
+        Object.assign(this, {game, x, y, type});  
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Water Tray.png");
+        this.waterFilled = false;
+        this.animations = [];
+        if (type == 1) {
+            // 0 empty
+            this.animations[0] = new Animator(this.spritesheet, 0, 16, 16, 32, 1, 0.1, 0, false, true);
+            // 1 filling animation
+            this.animations[1] = new Animator(this.spritesheet, 0, 16, 16, 32, 3, 0.5, 0, false, false);
+            // 2 full
+            this.animations[2] = new Animator(this.spritesheet, 32, 16, 16, 32, 1, 0.1, 0, false, true);
+            // 48 16 16 32 the indicator
+            this.BBbottom = new BoundingBox(this.x, this.y, 16*2 -5, 32*2)
+        } 
+        if (type == 2) {
+            // 0 empty
+            this.animations[0] = new Animator(this.spritesheet, 0, 48, 32, 16, 1, 0.1, 0, false, true);
+            // 1 filling animation
+            this.animations[1] = new Animator(this.spritesheet, 0, 48, 32, 16, 3, 0.5, 0, false, false);
+            // 2 full
+            this.animations[2] = new Animator(this.spritesheet, 64, 48, 32, 16, 1, 0.1, 0, false, true);
+            // 48 16 16 32 the indicator
+            this.BBbottom = new BoundingBox(this.x, this.y+5, 32*2, 16*2 -10)
+        }
+
+       
+        this.state = 0;
+    }
+    update(){
+
+    }
+
+    draw(ctx){
+        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+        console.log(this.game.bunny.withinRangeWaterTray);
+        if (!this.waterFilled && this.game.bunny.withinRangeWaterTray && this.game.bunny.fillWaterTray && this.game.bunny.waterTrayInteracted == this.type) { 
+            this.state = 1;
+            if (this.animations[1].isDone()) {
+                this.state = 2;
+                this.game.bunny.WaterTrayCount = this.game.bunny.WaterTrayCount + 1;
+                this.game.bunny.fillWaterTray = false;
+                this.game.bunny.withinRangeWaterTray = false;
+        }
+    }
+        if (this.state == 2) {
+            this.waterFilled = true;
+            this.game.bunny.fillWaterTray = false;
+        } else {
+            this.waterFilled = false;
+        }
+
+        if (this.game.bunny.withinRangeWaterTray && this.game.bunny.waterTrayInteracted == this.type) { 
+            if (this.type == 2) {
+                ctx.drawImage(this.spritesheet, 0, 64,
+                    32,  16,
+                    this.x ,
+                    this.y,
+                    32 * 2,
+                    16 * 2);
+            } 
+        } 
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);  
+        }
+    }
+}
+class Barn {
+    constructor(game, x, y, type) {
+        Object.assign(this, {game, x, y, type});  
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Barn Structures.png");
+        this.animations = []; 
+        // 0 empty
+       
+        if (this.type == 1) {
+            this.animations[1] = new Animator(this.spritesheet, 0, 16, 16, 16, 1, 0.1, 0, false, true);
+            this.BBbottom = new BoundingBox(this.x, this.y, 16*2 -5, 16*2)
+        }
+        if (this.type == 2) {
+            this.animations[2] = new Animator(this.spritesheet, 0, 0, 16, 16, 1, 0.1, 0, false, true);
+            this.BBbottom = new BoundingBox(this.x, this.y, 16*2, 16*2)
+        }
+        
+    }
+    update(){
+
+    }
+
+    draw(ctx){
+        this.animations[this.type].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+        
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);  
+        }
+    }
+}
+
 class Milk {
     constructor(game, cow, x, y) {
         Object.assign(this, {game, cow, x, y});  

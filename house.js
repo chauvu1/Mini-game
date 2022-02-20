@@ -1,3 +1,42 @@
+class Picnic {
+    constructor(game, x, y) {
+        Object.assign(this, {game, x, y});
+
+    }
+    update() {
+
+    }
+
+    draw(ctx) {
+
+    }
+}
+
+class FlowerPot {
+    constructor(game, x, y, type) {
+        Object.assign(this, {game, x, y, type});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Basic Furniture.png");  
+        this.animations = []; 
+        if (this.type == 1) {
+            this.animations[1] = new Animator(this.spritesheet, 48, 0, 16, 16, 1, 0.1, 0, false, true);
+            this.BBbottom = new BoundingBox(this.x+10, this.y, 16*2 -17, 16*2-10)
+        }
+        
+    }
+    update() {
+
+    }
+
+    draw(ctx) {
+        this.animations[this.type].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+        
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);  
+        }
+    }
+}
+
 class House {
     constructor(game, x, y) {
         Object.assign(this, {game, x, y});
@@ -60,7 +99,7 @@ class House {
         if (this.game.bunny.sleep) {
             this.elapsed += this.game.clockTick;
             if (this.width <= this.maxHealth) {
-                this.width += 0.1; // original
+                this.width += 0.01; // original
                 this.width = (this.width / this.maxHealth) * this.maxHealth;
             } else {
                 
@@ -115,9 +154,9 @@ class House {
         this.y,
         60 * 4,
         49 * 4);
-
-
        
+
+
         this.animation[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
 
         if (this.visible && !this.door) {
@@ -134,9 +173,22 @@ class House {
            this.state = 0;
         }
       
-
+        if (this.game.bunny.bedVisible && !this.game.bunny.sleep) {
+            ctx.drawImage(this.spritesheet, 60, 147,
+                60,  49,
+                this.x,
+                this.y,
+                60 * 4,
+                49 * 4);
+               
+        }
         if (this.nightLampInteract && !this.light) {
-            //this.bubble.drawFrame(this.game.clockTick, ctx, this.x + 100, this.y, 3);
+            ctx.drawImage(this.spritesheet, 120, 147,
+                60,  49,
+                this.x,
+                this.y,
+                60 * 4,
+                49 * 4);
         }
        
         
