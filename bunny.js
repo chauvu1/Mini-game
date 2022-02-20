@@ -209,6 +209,7 @@ class Bunny {
                         if (that.velocity.y < 0) that.velocity.y = 0;
                     }
                 }
+                that.updateBB();
             }
 
             if ((entity instanceof Fence || entity instanceof House) && that.BB.collide(entity.BBinterior)) {           
@@ -226,7 +227,8 @@ class Bunny {
                 }
                 if (that.BB.collide(entity.BBinteriorTop) && that.lastBB.top <= entity.BBinteriorTop.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
-                }    
+                }   
+                that.updateBB(); 
             } 
             if ((entity instanceof House)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
@@ -239,6 +241,7 @@ class Bunny {
                     entity.inside = false;
                    
                 }
+                that.updateBB();
             }
             if ((entity instanceof Fence)) {
                 if (that.lastBB.left + 3 > entity.BBinteriorLeft.right 
@@ -250,6 +253,7 @@ class Bunny {
                 } else {
                     entity.inside = false;
                 }
+                that.updateBB();
             }
         
             if (entity instanceof House && that.BB.collide(entity.BBbed)) {
@@ -260,6 +264,7 @@ class Bunny {
                 if (that.BB.collide(entity.BBbedBottom) && that.lastBB.top <= entity.BBbedBottom.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }
+                that.updateBB();
             }
 
             if ((entity instanceof Tree || entity instanceof Cow)) {
