@@ -21,7 +21,7 @@ class House {
         this.loadAnimations();
         this.createBB();
         this.updateBB();
-
+    
         this.width = 0;
         this.height = 3.5;
         this.maxHealth = 20;
@@ -33,7 +33,7 @@ class House {
     loadAnimations() {
         this.animation[0] = new Animator(this.spritesheet, 60, 0, 60, 49, 1, 0.2, 0, false, true); // roof 
         this.animation[1] = new Animator(this.spritesheet, 0, 49, 60, 49, 1, 0.2, 0, false, true);  // no roof
-        this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.1, 0, false, false); // no roof animation
+        this.animation[2] = new Animator(this.spritesheet, 0, 49, 60, 49, 6, 0.2, 0, false, false); // no roof animation
         this.animation[3] = new Animator(this.spritesheet, 0, 0, 60, 49, 1, 0.1, 0, false, true); // no roof no doors
     }
 
@@ -116,23 +116,29 @@ class House {
         60 * 4,
         49 * 4);
 
-        if (this.visible && ! this.door) {
-            this.animation[1].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
-            //this.bubble.drawFrame(this.game.clockTick, ctx, 460, 280, 3);
-        } else if (this.visible && this.door) {
-            this.animation[2].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+
+       
+        this.animation[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+
+        if (this.visible && !this.door) {
+            this.state = 1; // no roof with doors
+        } else if (this.visible && this.door) { // if the door is opened // play animation, if the animation is done, draw the house
+            this.state = 2; // door animation
+            if (this.animation[2].isDone()) {
+                this.state = 3;
+            }
+            if (this.light) {
+                this.nightLight[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);  
+            } 
         }  else {
-            this.animation[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+           this.state = 0;
         }
+      
+
         if (this.nightLampInteract && !this.light) {
             //this.bubble.drawFrame(this.game.clockTick, ctx, this.x + 100, this.y, 3);
         }
-        if (this.light) {
-            this.nightLight[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);  
-        } else {
-            
-        }
-        
+       
         
         if (PARAMS.DEBUG) {
             if (this.door) {

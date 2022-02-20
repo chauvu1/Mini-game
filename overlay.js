@@ -71,7 +71,7 @@ class Overlay {
                 64 * 3);
         } 
         if (this.game.house.inside) {
-            ctx.drawImage(this.spritesheetHouse, 60, 147, 60, 49, OVERLAY.HOUSE.X, OVERLAY.HOUSE.Y, 60 * 4, 49 * 4);
+            ctx.drawImage(this.spritesheetHouse, 0, 147, 60, 49, OVERLAY.HOUSE.X, OVERLAY.HOUSE.Y, 60 * 4, 49 * 4);
             if (this.game.bunny.sleep) {
                 //this.animationHouseNightTime.drawFrame(this.game.clockTick, ctx, OVERLAY.HOUSE.X, OVERLAY.HOUSE.Y, 4);
             }
