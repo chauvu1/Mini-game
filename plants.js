@@ -13,6 +13,7 @@ class Dirt {
 
     }
     draw(ctx) {
+
         if (this.game.bunny.withinRangeDirt && this.type == this.game.bunny.dirtTypeInteract) {
             ctx.drawImage(this.spritesheet, 114, 56,
                 32, 32,
@@ -34,6 +35,7 @@ class Dirt {
             if (this.elapsedTime > 2) {
                 this.dirtTaken = true;
                 this.game.addEntity(new Plant(this.game, this));  
+                this.game.bunny.carrotPlantedCount = this.game.bunny.carrotPlantedCount + 1;
                 this.elapsedTime = 0;
                 this.game.bunny.plowing = false;
             }
@@ -106,7 +108,7 @@ class Flower {
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Mushrooms, Flowers, Stones.png");       
         this.flower = this.type;
         this.state = 0;
-        this.BB = new BoundingBox(this.x, this.y, 16*2, 16*2)
+        this.BB = new BoundingBox(this.x - 16, this.y - 10, 16*2 + 38, 16*2 + 20)
         this.animation = [];
         this.loadAnimations();
 
@@ -163,8 +165,8 @@ class Flower {
     draw(ctx) {      
         if (this.game.bunny.withinRangeFlower && this.color == this.game.bunny.flowerTypeInteract && this.game.bunny.waterPlants) {
             this.animation[this.flower][1].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
-
             if (this.animation[this.flower][1].isDone()) {
+                this.game.bunny.waterFlowerCount = this.game.bunny.waterFlowerCount + 1;
                 this.animation[this.flower][2].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
                 this.game.bunny.waterPlants = false;
                 this.state = 2;

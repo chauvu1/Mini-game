@@ -18,7 +18,7 @@ class Bunny {
 
         this.sleep = false;
         this.bedVisible = false;
-
+        this.sleepCount = 0;
 
         this.milkInteract = false;
         this.cowInteract = 0;
@@ -27,10 +27,13 @@ class Bunny {
         this.plowing = false;
         this.dirtTypeInteract = 0;
         this.withinRangeDirt = false;
-        
+        this.carrotPlantedCount = 0;
+        this.carrotCollectedCount = 0;
+
         this.waterFlower = false;
         this.flowerTypeInteract = 0;
         this.withinRangeFlower = false;
+        this.waterFlowerCount = 0;
 
         this.loadAnimations();
         this.updateBB();
@@ -38,7 +41,7 @@ class Bunny {
 
     loadAnimations() {
            // array with [state] [face] of the same animator.
-           for (var i = 0; i < 5; i++) {
+           for (var i = 0; i < 6; i++) {
             this.animations.push([]);
             for (var j = 0; j < 5; j++) {
                 this.animations[i].push([]);
@@ -61,8 +64,6 @@ class Bunny {
         this.animations[1][1] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 7, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
         this.animations[1][2] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 4, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
         this.animations[1][3] = new Animator (this.spritesheet, 0, PARAMS.BITWIDTH * 5, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
-        // bed animation
-        this.animations[1][4] = new Animator (this.spritesheet, 0, 1152, 48, 48, 8, 0.5, 0, false, true);
 
         // 0 640 80 80 right crouch
         // 80 640 80 80 left crouch
@@ -80,13 +81,21 @@ class Bunny {
         this.animations[3][3] = new Animator (this.spritesheet, 0, 624, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
 
         // watering plants
-
+        // down 
         this.animations[4][2] = new Animator (this.spritesheet, 0, 960, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, true, true);
+        // up 
         this.animations[4][3] = new Animator (this.spritesheet, 0, 1008, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
-        this.animations[4][1] = new Animator (this.spritesheet, 0, 1056, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
-        this.animations[4][0] = new Animator (this.spritesheet, 0, 1104, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
+        // left
+        this.animations[4][1] = new Animator (this.spritesheet, 0, 1056, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, true, true);
+        // right
+        this.animations[4][0] = new Animator (this.spritesheet, 2, 1104, PARAMS.BITWIDTH, PARAMS.BITWIDTH, 8, 0.1, 0, false, true);
 
 
+        // bed
+        this.animations[5][0] = new Animator (this.spritesheet, 0, 1152, 48, 48, 8, 0.5, 0, false, true);
+        this.animations[5][1] = new Animator (this.spritesheet, 0, 1152, 48, 48, 8, 0.5, 0, false, true);
+        this.animations[5][2] = new Animator (this.spritesheet, 0, 1152, 48, 48, 8, 0.5, 0, false, true);
+        this.animations[5][3] = new Animator (this.spritesheet, 0, 1152, 48, 48, 8, 0.5, 0, false, true);
         // this.animations[0][4] = new Animator (this.spritesheet, 400, 400, 100, 151, 1, 0.2, 0, false, true);
         this.emoteAnim = new Animator (this.emotesheet, 0,0, 32, 32, 4, 0.2, 0, false, true);
         //this.bubble = new Animator(this.bubblesheet, 0, 0, 11, 11, 8, 0.1, 0, false, true);
@@ -94,7 +103,7 @@ class Bunny {
     /* Update the bounding box of the player for collision detection */
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x + 62, this.y + 90, 64 - 46, 5); 
+        this.BB = new BoundingBox(this.x + 64, this.y + 88, 64 - 48, 5); 
         this.topBB = new BoundingBox(this.x + 62, this.y + 74, 64 - 46, 12); 
         this.leftBB = new BoundingBox(this.x + 55, this.y + 67 + 10, 10, 10); 
         this.rightBB = new BoundingBox(this.BB.right - 3, this.y + 67 + 10, 10, 10);
@@ -103,12 +112,16 @@ class Bunny {
         
     draw(ctx) {  
         if (this.sleep) {
-            this.animations[1][4].drawFrame(this.game.clockTick, ctx, 340, 150, 3);
-            this.emoteAnim.drawFrame(this.game.clockTick, ctx, 400, 175, 1);
-            this.bedVisible = false;
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, 340, 150, 3);
         } else {
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 3);
         }
+        //     //this.emoteAnim.drawFrame(this.game.clockTick, ctx, 400, 175, 1);
+        //     this.bedVisible = false;
+        // } else {
+           
+        // }
+      
         if (this.bedVisible) {
             //this.bubble.drawFrame(this.game.clockTick, ctx, 404, 160, 3);
             this.bedVisible = false;
@@ -151,7 +164,11 @@ class Bunny {
             if (!this.crouch)
            this.state = 0;
         }
-        
+        if (this.sleep) {
+            this.state = 5;
+
+        } 
+
         if (this.plowing && this.withinRangeDirt) {
             this.state = 3;
         }
@@ -160,7 +177,7 @@ class Bunny {
             this.state = 4;
         }
         
-        if (this.state == 3 || this.state == 4) {
+        if (this.state == 3 || this.state == 4 || this.state == 5) {
             this.velocity.x = 0;
             this.velocity.y = 0;
         }
@@ -289,8 +306,9 @@ class Bunny {
                     that.dirtTypeInteract = entity.type;
                 }
             } 
-            if (entity instanceof Plant && that.topBB.collide(entity.BB)) {
-                if (entity.animation.isDone()) {
+            if (entity instanceof Plant && that.topBB.collide(entity.BB)) {      
+                if (entity.animation.isDone()) {  
+                    that.carrotCollectedCount = that.carrotCollectedCount + 1;
                     entity.removeFromWorld = true;
                 }
             
@@ -317,11 +335,16 @@ class Bunny {
                 if (that.BB.collide(entity.BBtableBottom) && that.lastBB.top <= entity.BBtableBottom.bottom) {
                     if (that.velocity.y < 0) that.velocity.y = 0;
                 }    
-                if ((that.BB.collide(entity.BBtableBottom) || that.BB.collide(entity.BBtableRight)) && that.game.interact) {
+                if (!entity.light && (that.BB.collide(entity.BBtableBottom) || that.BB.collide(entity.BBtableRight)) && that.game.interact) {
                     entity.light = true;
+                    that.game.interact = false;
                 } 
+                else if (entity.light && (that.BB.collide(entity.BBtableBottom) || that.BB.collide(entity.BBtableRight)) && that.game.interact) {
+                    entity.light = false;
+                    that.game.interact = false;
+                }
             } else {
-                entity.light = false;
+               
             }
 
             if ((entity instanceof House && that.BB.withinRange(entity.BBtableBottom))){
@@ -355,9 +378,7 @@ class Bunny {
                     if (that.BB.withinRange(entity.BBbed) && that.game.interact) {
                          that.sleep = true;
                     } 
-                    if (that.velocity.y > 0 || that.velocity.x < 0 || that.velocity.y < 0 || that.velocity.x > 0){
-                        that.sleep = false;
-                    }
+                    
                 } 
             }   
             

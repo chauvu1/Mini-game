@@ -4,7 +4,9 @@ class House {
         this.game.house = this;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png");  
         //this.bubblesheet = ASSET_MANAGER.getAsset("./sprites/speech_bubble.png");
-        this.nightLight = new Animator(this.spritesheet, 60, 196, 60, 49, 4, 0.2, 0, false, true);
+        this.nightLight = [];
+        this.nightLight[0] = new Animator(this.spritesheet, 60, 196, 60, 49, 4, 0.2, 0, false, true);
+        this.nightLight[1] = new Animator(this.spritesheet, 240, 196, 60, 49, 1, 0.2, 0, false, true);
         this.light = false;
         this.door = false;
         this.visible = false;
@@ -19,6 +21,13 @@ class House {
         this.loadAnimations();
         this.createBB();
         this.updateBB();
+
+        this.width = 0;
+        this.height = 3.5;
+        this.maxHealth = 20;
+        this.barX = this.x + 41;
+        this.barY = this.y + 80;
+        this.timerBar = new TimerBar(this, this.game);
     }
 
     loadAnimations() {
@@ -48,6 +57,22 @@ class House {
     };
 
     update() {
+        if (this.game.bunny.sleep) {
+            this.elapsed += this.game.clockTick;
+            if (this.width <= this.maxHealth) {
+                this.width += 0.01; // original
+                this.width = (this.width / this.maxHealth) * this.maxHealth;
+            } else {
+                
+            }
+        }
+
+        if (this.width >= this.maxHealth) {
+            this.game.bunny.sleepCount = this.game.bunny.sleepCount + 1;
+            this.game.bunny.sleep = false;
+            this.width = 0;
+        }
+
         if (this.visible) {
             if (this.door) {
                 this.BBdoor.remove();
@@ -81,13 +106,13 @@ class House {
     }
 
     draw(ctx) {
-           // base image of the house, with no roof & doors
-            ctx.drawImage(this.spritesheet, 0, 0,
-            60,  49,
-            this.x,
-            this.y,
-            60 * 4,
-            49 * 4);
+        // base image of the house, with no roof & doors
+        ctx.drawImage(this.spritesheet, 0, 0,
+        60,  49,
+        this.x,
+        this.y,
+        60 * 4,
+        49 * 4);
 
         if (this.visible && ! this.door) {
             this.animation[1].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
@@ -101,9 +126,12 @@ class House {
             //this.bubble.drawFrame(this.game.clockTick, ctx, this.x + 100, this.y, 3);
         }
         if (this.light) {
-            this.nightLight.drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);
+            this.nightLight[0].drawFrame(this.game.clockTick, ctx, this.x, this.y, 4);  
+        } else {
             
         }
+        
+        
         if (PARAMS.DEBUG) {
             if (this.door) {
                 ctx.strokeStyle = 'pink';
@@ -140,6 +168,10 @@ class House {
                 
             }        
         }
+
+        if (this.game.bunny.sleep){
+            this.timerBar.draw(ctx);
+        } 
         ctx.imageSmoothingEnabled = false;
     }
 }
