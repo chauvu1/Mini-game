@@ -6,7 +6,7 @@ class Overlay {
         this.spritesheetFence = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Fences.png");
         this.spritesheetHouse = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Wooden House.png"); 
         this.spritesheetFlowers = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Basic Furniture.png");   
-        this.spritesheetBasket = ASSET_MANAGER.getAsset("./sprites/objects/piknik basket.png");
+        this.spritesheetBasket = ASSET_MANAGER.getAsset("./sprites/objects/Piknik basket.png");
         this.spritesheetTray = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Water tray.png");
         this.spritesheetSign = ASSET_MANAGER.getAsset("./sprites/objects/signs.png"); 
         this.spritesheetWell = ASSET_MANAGER.getAsset("./sprites/objects/Water well.png"); 
