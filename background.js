@@ -2,6 +2,7 @@ class Grass {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Grass.png");   
+        this.spritesheetGrass = ASSET_MANAGER.getAsset("./sprites/objects/Mushrooms, Flowers, Stones.png");  
         this.BB = new BoundingBox(BACKGROUND.BB.START.X + BACKGROUND.BB.START.PADDING + 5, 
             BACKGROUND.BB.START.Y + BACKGROUND.BB.START.PADDING + 5,
             BACKGROUND.BB.WIDTH - BACKGROUND.BB.PADDING - 10,
@@ -83,6 +84,22 @@ class Grass {
                     BACKGROUND.GRASS.RIGHT_PIECE.SIZE * BACKGROUND.GRASS.RIGHT_PIECE.SCALE,
                     BACKGROUND.GRASS.RIGHT_PIECE.SIZE * BACKGROUND.GRASS.RIGHT_PIECE.SCALE);
 
+        
+        for (var i = 0; i < BACKGROUND.GRASS_DECO.length; i++) {
+            let grass = BACKGROUND.GRASS_DECO[i];
+            ctx.drawImage(this.spritesheetGrass, 0, 32,
+                16,  16,
+                grass.X,
+                grass.Y,
+                16 * 2,
+                16 * 2);
+        }
+        ctx.drawImage(this.spritesheetGrass, 48, 32,
+            16,  16,
+            699,
+            154,
+            16 * 2,
+            16 * 2);           
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'yellow';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -255,7 +272,11 @@ class Fence {
         this.animation[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 3);
        
         if (this.visible && !this.door) {
-            //this.bubble.drawFrame(this.game.clockTick, ctx, 200, 270, 3);
+            ctx.drawImage(this.spritesheet, 64, 64, 
+                        64, 64,
+                        this.x, this.y,
+                        64 * 3, 
+                        64 * 3);
         } 
         if (PARAMS.DEBUG) {   
             if (this.door) {

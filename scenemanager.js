@@ -57,8 +57,25 @@ class SceneManager {
             let flower = BACKGROUND.FLOWER[i];
                 this.game.addEntity(new Flower(this.game, flower.X, flower.Y, flower.TYPE, flower.COLOR)); 
         }
+
+        for (var i = 0; i < BACKGROUND.BARN.length; i++) {
+            let barn = BACKGROUND.BARN[i];
+                this.game.addEntity(new Barn(this.game, barn.X, barn.Y, barn.TYPE)); 
+        }
+
+        for (var i = 0; i < BACKGROUND.FLOWERPOT.length; i++) {
+            let flower_pot = BACKGROUND.FLOWERPOT[i];
+                this.game.addEntity(new FlowerPot(this.game, flower_pot.X, flower_pot.Y, flower_pot.TYPE)); 
+        }
+        for (var i = 0; i < BACKGROUND.WATER_TRAY.length; i++) {
+            let watertray = BACKGROUND.WATER_TRAY[i];
+                this.game.addEntity(new WaterTray(this.game, watertray.X, watertray.Y, watertray.TYPE)); 
+        }
+       
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
+        
+       
         this.game.addEntity(this.UI);
         this.game.addEntity(this.titlescreen);
     }
@@ -79,6 +96,11 @@ var OVERLAY = {
     HOUSE: {X: 360, Y:160}
 }
 var BACKGROUND = {
+    FLOWERPOT: [{X:360, Y:340, TYPE: 1}, {X:384, Y:340, TYPE: 1}, {X:410, Y:340, TYPE: 1}],
+    GRASS_DECO: [{X: 640,Y:570},{X:831,Y:334},{X:96, y:145}, {X:332, Y:472}],
+    WATER_TRAY: [{X:509, Y:340, TYPE:2}], // {X:294, Y:200, TYPE:1}, 
+
+    BARN : [{X: 298, Y: 270, TYPE: 1}, {X: 298, Y: 240, TYPE: 1},{X: 298, Y: 210, TYPE: 1}, {X: 106, Y: 104, TYPE: 2}, {X: 528, Y: 612, TYPE: 2}, {X: 512, Y: 622, TYPE: 2}],
     GRASS: { CENTER_PIECE:{ X: 0, Y: 0, SIZE: 32, SCALE: 2},
              MIDDLE_PIECE:{ SIZE:  16, SCALE: 4,
                             TOP:    {X: 32, Y: 48}, 
