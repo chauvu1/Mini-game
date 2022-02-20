@@ -60,11 +60,13 @@ class House {
         if (this.game.bunny.sleep) {
             this.elapsed += this.game.clockTick;
             if (this.width <= this.maxHealth) {
-                this.width += 0.01; // original
+                this.width += 0.1; // original
                 this.width = (this.width / this.maxHealth) * this.maxHealth;
             } else {
                 
             }
+        } else {
+            this.width = 0;
         }
 
         if (this.width >= this.maxHealth) {
