@@ -12,7 +12,7 @@ ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/STONE PATH.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Fences.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Grass.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Tilled Dirt.png");
-ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Water Tray.png");
+ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Water tray.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Barn structures.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Basic Furniture.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Premium Charakter Spritesheet.png");

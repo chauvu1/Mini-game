@@ -1,7 +1,7 @@
 class WaterTray {
     constructor(game, x, y, type) {
         Object.assign(this, {game, x, y, type});  
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Water Tray.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Water tray.png");
         this.waterFilled = false;
         this.game.watertray = this;
         this.animations = [];
