@@ -1,8 +1,8 @@
 class Picnic {
     constructor(game, x, y) {
         Object.assign(this, {game, x, y});
-        this.spritesheetBlanket = ASSET_MANAGER.getAsset("./sprites/objects/piknik blanket.png");
-        this.spritesheetBasket = ASSET_MANAGER.getAsset("./sprites/objects/piknik basket.png");
+        this.spritesheetBlanket = ASSET_MANAGER.getAsset("./sprites/objects/Piknik blanket.png");
+        this.spritesheetBasket = ASSET_MANAGER.getAsset("./sprites/objects/Piknik basket.png");
 
         this.BB = new BoundingBox(this.x + 50,this.y+50, 16*2, 16*2);
         this.BBbottom = new BoundingBox(this.x + 50,this.y+ 70, 16*2, 16*2 - 20);
@@ -27,7 +27,7 @@ class Picnic {
 class PicnicBlanket {
     constructor(game, x, y) {
         Object.assign(this, {game, x, y});
-        this.spritesheetBlanket = ASSET_MANAGER.getAsset("./sprites/objects/piknik blanket.png");
+        this.spritesheetBlanket = ASSET_MANAGER.getAsset("./sprites/objects/Piknik blanket.png");
         this.BB = new BoundingBox(this.x, this.y, 48*2, 48*2);
         this.width = 0;
         this.height = 3.5;

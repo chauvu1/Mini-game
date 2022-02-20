@@ -13,7 +13,7 @@ ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Fences.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Grass.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Tilled Dirt.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Water Tray.png");
-ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Barn Structures.png");
+ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Barn structures.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Building parts/Basic Furniture.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Premium Charakter Spritesheet.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/Water.png");
@@ -42,8 +42,6 @@ ASSET_MANAGER.queueDownload("./sprites/title_clouds.png")
 ASSET_MANAGER.queueDownload("./sprites/heartspin.png")
 ASSET_MANAGER.queueDownload("./sprites/task_ui.png")
 ASSET_MANAGER.queueDownload("./sprites/carrots_icon.png")
-
-
 
 
 ASSET_MANAGER.downloadAll(function () {

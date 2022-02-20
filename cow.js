@@ -70,7 +70,7 @@ class WaterTray {
 class Barn {
     constructor(game, x, y, type) {
         Object.assign(this, {game, x, y, type});  
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Barn Structures.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Barn structures.png");
         this.animations = []; 
         // 0 empty
        
