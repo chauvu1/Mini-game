@@ -16,14 +16,14 @@
             right: 0;
         }
         body {
-           background-image: url('');
-           background-repeat: no-repeat;
+           background-image: url('/sprites/background_gif.gif');
+           background-repeat: repeat;
         }
-
         #gameWorld:focus {
             outline: none !important;
             border-color: "white";
-            box-shadow: 0 0 10px #719ECE
+            box-shadow: 0 0 10px #719ECE;
+            zoom: 110%;
         }
     </style>
     <meta charset="utf-8">
@@ -48,7 +48,7 @@
     <script type="text/javascript" src="./title.js"></script>
     <script type="text/javascript" src="./tasks.js"></script>
 </head>
-<body style = "background-color: #f7ebaa;">
+<body>
     <canvas id="gameWorld" width="960" height="768" border: 1px solid rgb(255, 255, 255) tabindex ="0" autofocus></canvas></canvas>
     <div>
         <br />
