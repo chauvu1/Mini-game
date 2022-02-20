@@ -111,6 +111,7 @@ class Flower {
         this.BB = new BoundingBox(this.x - 16, this.y - 10, 16*2 + 38, 16*2 + 20)
         this.animation = [];
         this.loadAnimations();
+        this.alreadyWatered = false;
 
         // this.width = 0;
         // this.height = 3.5;
@@ -163,7 +164,7 @@ class Flower {
     }
 
     draw(ctx) {      
-        if (this.game.bunny.withinRangeFlower && this.color == this.game.bunny.flowerTypeInteract && this.game.bunny.waterPlants) {
+        if (!this.alreadyWatered && this.game.bunny.withinRangeFlower && this.color == this.game.bunny.flowerTypeInteract && this.game.bunny.waterPlants) {
             this.animation[this.flower][1].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
             if (this.animation[this.flower][1].isDone()) {
                 this.game.bunny.waterFlowerCount = this.game.bunny.waterFlowerCount + 1;
@@ -174,7 +175,11 @@ class Flower {
         } else {
             this.animation[this.flower][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
         }
-
+        if (this.state == 2 && this.color == this.game.bunny.flowerTypeInteract) {
+            this.alreadyWatered = true;
+            this.game.bunny.waterPlants = false;
+        }
+      
         if (this.game.bunny.withinRangeFlower && this.color == this.game.bunny.flowerTypeInteract) {
             ctx.drawImage(this.spritesheet, 112, 0,
                 16,  16,
