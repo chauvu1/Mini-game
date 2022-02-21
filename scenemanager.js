@@ -18,6 +18,13 @@ class SceneManager {
         this.loadScreen();
     }
     
+    updateAudio() {
+        var mute = document.getElementById("mute").checked;
+        var volume = document.getElementById("volume").value;
+        ASSET_MANAGER.muteAudio(mute);
+        ASSET_MANAGER.adjustVolume(volume);
+    }
+
     clearEntities() {
         this.game.entities.forEach(function (entity) {
             entity.removeFromWorld = true;
@@ -25,13 +32,13 @@ class SceneManager {
     };
 
     loadScreen() {
+        ASSET_MANAGER.pauseBackgroundMusic();
+        ASSET_MANAGER.playAsset("./music/Lemon Cake - Day Star.mp3");
         for (var i = 0; i < 15; i++) {
             for (var j = 0; j < 12; j++) {
                 this.game.addEntity(new Water(this.game, 16 * 4 * i + 0, 16 * 4 * j + 0)); 
             }
         }
-
-
         this.game.addEntity(this.grass);   
         this.game.addEntity(this.house);
         this.game.addEntity(this.pavement);
@@ -83,6 +90,7 @@ class SceneManager {
     }
 
     update() {
+        this.updateAudio();
         //this.title = !document.getElementById("debug").checked;
         PARAMS.DEBUG = document.getElementById("debug").checked;
     }

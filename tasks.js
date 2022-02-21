@@ -13,15 +13,32 @@ class UI {
         this.spritesheetHeart = ASSET_MANAGER.getAsset("./sprites/heartspin.png")
         this.spritesheetCarrot = ASSET_MANAGER.getAsset("./sprites/carrots_icon.png")
         this.buttonsheet = ASSET_MANAGER.getAsset("./sprites/buttons.png");
-        this.helpbutton = [];
 
+        this.font = new FontFace("Minecraft", 'url(./sprites/Minecraft.ttf) format("TrueType")');
+        this.font.load().then(function(loadedFont) {
+            document.fonts.add(loadedFont);
+        }) 
+
+        this.helpbutton = [];
+        this.elapsedTime = 0;
+        this.minute = 0;
+        this.stopTimer = false;
         this.tasksCompleted = false;
         this.tasksCompletedDisplay = false;
-        this.taskCompletedAnim = new Animator (this.buttonsheet, 372, 61, 284, 44, 1, 1, 0, false, true);
+        this.taskCompletedAnim = new Animator (this.buttonsheet, 368, 48, 284, 56, 1, 1, 0, false, true);
+
+        this.closeButtonEnabled = false;
+        this.closeButtonPressed = false;
         this.button = [];
         this.button1 = [];
         this.button2 = [];
         this.button3 = [];
+
+        this.closeButton = [];
+        this.closeButtonState= 0;
+        this.closeButton[0] = new Animator (this.buttonsheet, 368, 128, 16, 16, 1, 1, 0,false,true);
+        this.closeButton[1] = new Animator (this.buttonsheet, 384, 128, 16, 16, 1, 1, 0,false,true);
+
         this.taskUI = new Animator(this.spritesheetUI, 0, 0, 416, 562, 1, 0.5, 0, false, true);
         this.messageUI = new Animator(this.spritesheetUI, 496, 112, 402, 291, 1, 0.5, 0, false, true);
 
@@ -104,22 +121,41 @@ class UI {
             this.game.click = false;
         }
 
-        // if 
+        if (this.game.mouse.x > 753 && this.game.mouse.x < 768 && this.game.mouse.y > 342 && this.game.mouse.y < 356 && this.closeButtonEnabled) {
+            this.closeButtonState = 1;
+            if (this.tasksCompleted && this.game.click && this.game.click.x > 753 && this.game.click.x < 768 && this.game.click.y > 342 && this.game.click.y < 356 && this.closeButtonEnabled) {
+                this.closeButtonPressed = true;
+            }
+        } else {
+            this.closeButtonState = 0;
+        }
+    }
+
+    startTimer() {
+        if (!this.stopTimer) {
+            this.elapsedTime += this.game.clockTick; 
+            if (Math.round(this.elapsedTime) == 60) {
+                this.minute += this.elapsedTime / 60;
+                this.elapsedTime = 0;
+            }
+        }
     }
 
     draw(ctx) { 
-        let font = new FontFace("Minecraft", 'url(./sprites/Minecraft.ttf) format("TrueType")');
-        font.load().then(function(loadedFont) {
-            document.fonts.add(loadedFont);
-        }) 
-        ctx.font = "16px Minecraft";
-
+        ctx.font = "32px Minecraft";
         this.button[this.buttonstate].drawFrame(this.game.clockTick, ctx, 760, 10, 2);
         this.button1[this.button1state].drawFrame(this.game.clockTick, ctx, 810, 10, 2);
         this.button3[this.button3state].drawFrame(this.game.clockTick, ctx, 910, 10, 2);
         this.button2[this.button2state].drawFrame(this.game.clockTick, ctx, 860, 10, 2);
-     
+      
+        ctx.strokeStyle = '#f3f4e7';
+        ctx.fillStyle = ctx.strokeStyle;
+        this.startTimer();
+        ctx.fillText(Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 675, 41); //timer 
+
+        ctx.font = "16px Minecraft";
         if (this.messageOpened) {
+
             this.messageUI.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH / 2 - 402 /2, PARAMS.CANVAS_HEIGHT / 2 - 291/2, 1);
             ctx.strokeStyle = '#bd757e';
             ctx.fillStyle = ctx.strokeStyle;
@@ -169,6 +205,7 @@ class UI {
                 ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 790, 207); //280
             }
             if (this.game.bunny.WaterTrayCount>= 1) {
+                this.stopTimer = true;
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
                 ctx.fillText("Fill water tray " + this.game.bunny.WaterTrayCount + "/1", 790, 230); //280
@@ -179,21 +216,20 @@ class UI {
                 ctx.fillText("Have a picnic " + this.game.bunny.picnicCount + "/1", 790, 253); //280
             }
         }
-
-         if (this.game.bunny.picnicCount >= 1 && this.game.bunny.WaterTrayCount>= 1 
+    
+        if (this.game.bunny.picnicCount >= 1 && this.game.bunny.WaterTrayCount>= 1 
             && this.game.bunny.sleepCount>= 1 && this.game.bunny.carrotCollectedCount>= 5 
             && this.game.bunny.waterFlowerCount >= 5 && this.game.bunny.carrotPlantedCount>= 5 
-            &&this.game.bunny.milkCount >= 5 && !this.tasksCompletedDisplay) {
-            this.tasksCompleted = true;       
+            &&this.game.bunny.milkCount >= 5 
+            && !this.tasksCompletedDisplay && !this.closeButtonPressed) { // if it didnt display, and task is finished, task is completed
+            this.tasksCompleted = true;  
+            this.taskCompletedAnim.drawFrame(this.game.clockTick, ctx, 200, 330, 2); 
+            this.closeButtonEnabled = true;   
+            this.closeButton[this.closeButtonState].drawFrame(this.game.clockTick, ctx, 744, 332, 2);   
         } 
-
-        if (this.tasksCompleted) {
-            this.taskCompletedAnim.drawFrame(this.game.clockTick, ctx, 200, 330, 2);      
+        if (this.closeButtonPressed) {   
             this.tasksCompletedDisplay = true;
         }
-        if (this.tasksCompletedDisplay && this.tasksCompleted && this.game.click) {
-            this.tasksCompleted = false;
-        }  
     }
 
 }

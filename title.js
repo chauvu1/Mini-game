@@ -11,6 +11,7 @@ class Title {
         this.buttonCreditState = 0;
         this.HTPScreen = false;
         this.CreditsScreen = false;
+        this.titleStartClicked = false;
         this.loadAnimations();
     }
 
@@ -68,6 +69,7 @@ class Title {
            if (this.game.mouse.x > 375 && this.game.mouse.x < 512 && this.game.mouse.y > 440 && this.game.mouse.y < 491) {
                this.buttonStartState = 1;
                if (this.game.click && this.game.click.x > 375 && this.game.click.x < 512 && this.game.click.y > 440 && this.game.click.y < 491) {
+                   this.titleStartClicked  = true;
                    this.game.scene.title = false;
                    this.game.click = false;
                }

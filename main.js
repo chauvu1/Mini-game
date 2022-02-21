@@ -43,14 +43,15 @@ ASSET_MANAGER.queueDownload("./sprites/heartspin.png")
 ASSET_MANAGER.queueDownload("./sprites/task_ui.png")
 ASSET_MANAGER.queueDownload("./sprites/carrots_icon.png")
 
+ASSET_MANAGER.queueDownload("./music/Lemon Cake - Day Star.mp3")
 
 ASSET_MANAGER.downloadAll(function () {
 	var canvas = document.getElementById("gameWorld");
 	var ctx = canvas.getContext("2d");
+	ASSET_MANAGER.autoRepeat("./music/Lemon Cake - Day Star.mp3");
 	PARAMS.CANVAS_WIDTH = canvas.width;
 	PARAMS.CANVAS_HEIGHT = canvas.height;
 	PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
-
 	gameEngine.init(ctx);
 	gameEngine.addEntity(new SceneManager(gameEngine));
 	gameEngine.start();
