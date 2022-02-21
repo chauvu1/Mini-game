@@ -204,8 +204,7 @@ class UI {
                 ctx.fillStyle = ctx.strokeStyle;
                 ctx.fillText("Take a nap " + this.game.bunny.sleepCount + "/1", 790, 207); //280
             }
-            if (this.game.bunny.WaterTrayCount>= 1) {
-                this.stopTimer = true;
+            if (this.game.bunny.WaterTrayCount>= 1) {  
                 ctx.strokeStyle = '#9da89a';
                 ctx.fillStyle = ctx.strokeStyle;
                 ctx.fillText("Fill water tray " + this.game.bunny.WaterTrayCount + "/1", 790, 230); //280
@@ -222,6 +221,7 @@ class UI {
             && this.game.bunny.waterFlowerCount >= 5 && this.game.bunny.carrotPlantedCount>= 5 
             &&this.game.bunny.milkCount >= 5 
             && !this.tasksCompletedDisplay && !this.closeButtonPressed) { // if it didnt display, and task is finished, task is completed
+            this.stopTimer = true;
             this.tasksCompleted = true;  
             this.taskCompletedAnim.drawFrame(this.game.clockTick, ctx, 200, 330, 2); 
             this.closeButtonEnabled = true;   
