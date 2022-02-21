@@ -16,6 +16,7 @@ class SceneManager {
         this.titlescreen = new Title(this.game, 0, 0);
         this.UI = new UI(this.game, 0,0);
         this.loadScreen();
+        this.playMusic();
     }
     
     updateAudio() {
@@ -31,9 +32,13 @@ class SceneManager {
         });
     };
 
-    loadScreen() {
+    playMusic() {
         ASSET_MANAGER.pauseBackgroundMusic();
         ASSET_MANAGER.playAsset("./music/Lemon Cake - Day Star.mp3");
+    }
+
+    loadScreen() {
+        this.playMusic();
         for (var i = 0; i < 15; i++) {
             for (var j = 0; j < 12; j++) {
                 this.game.addEntity(new Water(this.game, 16 * 4 * i + 0, 16 * 4 * j + 0)); 
@@ -84,7 +89,6 @@ class SceneManager {
         this.game.addEntity(new WaterWell(this.game, 770, 420));
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
- 
         this.game.addEntity(this.UI);
         this.game.addEntity(this.titlescreen);
     }
@@ -93,6 +97,9 @@ class SceneManager {
         this.updateAudio();
         //this.title = !document.getElementById("debug").checked;
         PARAMS.DEBUG = document.getElementById("debug").checked;
+        if (this.game.click) {
+            ASSET_MANAGER.muteAudio(false);
+        }
     }
 
     draw(ctx) {

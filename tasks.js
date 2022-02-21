@@ -13,7 +13,7 @@ class UI {
         this.spritesheetHeart = ASSET_MANAGER.getAsset("./sprites/heartspin.png")
         this.spritesheetCarrot = ASSET_MANAGER.getAsset("./sprites/carrots_icon.png")
         this.buttonsheet = ASSET_MANAGER.getAsset("./sprites/buttons.png");
-
+        this.titleMusicStart = false;
         this.font = new FontFace("Minecraft", 'url(./sprites/Minecraft.ttf) format("TrueType")');
         this.font.load().then(function(loadedFont) {
             document.fonts.add(loadedFont);
@@ -78,6 +78,7 @@ class UI {
             this.button2state = 1;
             if (this.game.click && this.game.click.x > 862 && this.game.click.x < 904 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.game.scene.title = true; 
+                this.titleMusicStart = true;
                 this.game.click = false;
             } 
         } else {
