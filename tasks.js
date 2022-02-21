@@ -162,7 +162,11 @@ class UI {
             ctx.fillText("A message for you :)", 315, 314); //280
             ctx.fillText("Thank you for playing!", 335, 354); //280
             ctx.fillText("I hope you have fun", 335, 394); //280
-            ctx.fillText("Chau", 550, 434); //280
+            ctx.fillText("Credits:", 315, 434); //280
+            ctx.fillText("Asset pack: Sprout Lands @CUP NOOBLE ", 315, 510); //280
+            ctx.fillText("Song: Daystar - Lemon Cake", 315, 460); //280
+            ctx.fillText("Link: / https://youtu.be/AunAZS5yYmw", 315, 480); //280
+            
         }
 
         if (this.taskOpened) { 
