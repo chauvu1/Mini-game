@@ -16,7 +16,7 @@ class UI {
         this.helpbutton = [];
 
         this.tasksCompleted = false;
-
+        this.tasksCompletedDisplay = false;
         this.taskCompletedAnim = new Animator (this.buttonsheet, 372, 61, 284, 44, 1, 1, 0, false, true);
         this.button = [];
         this.button1 = [];
@@ -180,20 +180,20 @@ class UI {
             }
         }
 
-        if (this.game.bunny.picnicCount >= 1 && this.game.bunny.WaterTrayCount>= 1 && this.game.bunny.sleepCount>= 1 && this.game.bunny.carrotCollectedCount>= 5 && this.game.bunny.waterFlowerCount >= 5 
-            && this.game.bunny.carrotPlantedCount>= 5 &&this.game.bunny.milkCount >= 5) {
-                this.tasksCompleted = true;
-            }
-
-        
-        if (this.tasksCompleted) {
-            this.taskCompletedAnim.drawFrame(this.game.clockTick, ctx, 200, 330, 2);
-
+         if (this.game.bunny.picnicCount >= 1 && this.game.bunny.WaterTrayCount>= 1 
+            && this.game.bunny.sleepCount>= 1 && this.game.bunny.carrotCollectedCount>= 5 
+            && this.game.bunny.waterFlowerCount >= 5 && this.game.bunny.carrotPlantedCount>= 5 
+            &&this.game.bunny.milkCount >= 5 && !this.tasksCompletedDisplay) {
+            this.tasksCompleted = true;       
         } 
 
-        if (this.tasksCompleted && (this.game.click || this.game.up || this.game.down || this.game.left || this.game.right || this.game.interact)) {
-            this.tasksCompleted = false;
+        if (this.tasksCompleted) {
+            this.taskCompletedAnim.drawFrame(this.game.clockTick, ctx, 200, 330, 2);      
+            this.tasksCompletedDisplay = true;
         }
+        if (this.tasksCompletedDisplay && this.tasksCompleted && this.game.click) {
+            this.tasksCompleted = false;
+        }  
     }
 
 }
