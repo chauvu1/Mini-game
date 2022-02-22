@@ -1,6 +1,7 @@
 class Title {
     constructor(game, x, y) {
         Object.assign(this, {game, x, y});
+        this.game.title = this;
         this.titlesheet = ASSET_MANAGER.getAsset("./sprites/title_screen.png");
         this.iconsheet = ASSET_MANAGER.getAsset("./sprites/bunny_icon.png");
         this.buttonsheet = ASSET_MANAGER.getAsset("./sprites/buttons.png");
@@ -11,6 +12,7 @@ class Title {
         this.buttonCreditState = 0;
         this.HTPScreen = false;
         this.CreditsScreen = false;
+        this.title = true;
         this.titleStartClicked = false;
         this.loadAnimations();
     }
@@ -65,12 +67,12 @@ class Title {
     }
 
     update() {
-        if (this.game.scene.title) { // start button
+        if (this.title) { // start button
            if (this.game.mouse.x > 375 && this.game.mouse.x < 512 && this.game.mouse.y > 440 && this.game.mouse.y < 491) {
                this.buttonStartState = 1;
                if (this.game.click && this.game.click.x > 375 && this.game.click.x < 512 && this.game.click.y > 440 && this.game.click.y < 491) {
                    this.titleStartClicked  = true;
-                   this.game.scene.title = false;
+                   this.title = false;
                    this.game.click = false;
                }
            } else {
@@ -92,7 +94,7 @@ class Title {
 
     draw(ctx) {
 
-        if (this.game.scene.title) { // debug
+        if (this.title) { // debug
             this.titleAnim[0].drawFrame(this.game.clockTick, ctx, 0, -100, 5);
             this.titleAnim[2].drawFrame(this.game.clockTick, ctx, 0, 0, 2);
             this.titleAnim[5].drawFrame(this.game.clockTick, ctx, 280, 60, 3);
@@ -116,6 +118,7 @@ class Title {
             this.titleAnim[6].drawFrame(this.game.clockTick, ctx, 408, 620, 3); // heart
         }
         this.titleAnim[3].drawFrame(this.game.clockTick, ctx, 0, 720, 3);
+        ctx.imageSmoothingEnabled = false;
     }
 
 }

@@ -70,7 +70,7 @@ class UI {
         if (this.taskOpened) {
             this.button1state = 1;
         }
-        if (this.taskOpened && this.game.click && this.game.click.x > 632 && this.game.click.x < 655 && this.game.click.y > 250 && this.game.click.y < 274) {
+        if (this.messageOpened && this.game.click && this.game.click.x > 632 && this.game.click.x < 655 && this.game.click.y > 250 && this.game.click.y < 274) {
             this.messageOpened = false;
         }
 
@@ -151,9 +151,12 @@ class UI {
       
         ctx.strokeStyle = '#f3f4e7';
         ctx.fillStyle = ctx.strokeStyle;
-        this.startTimer();
-        ctx.fillText(Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 675, 41); //timer 
 
+        if (!this.game.title.title) {
+            this.startTimer();
+            ctx.fillText(Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 675, 41); //timer 
+        }
+      
         ctx.font = "16px Minecraft";
         if (this.messageOpened) {
 

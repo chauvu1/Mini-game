@@ -5,25 +5,21 @@ class SceneManager {
         this.game = game;
         this.game.scene = this;
         this.title = true;
-        this.grass = new Grass(this.game, 0, 0);
-        this.house = new House(this.game, 360, 160);
-        this.pavement = new Pavement(this.game, 440, 350);
-        this.fence = new Fence(this.game, 120, 150);
-        this.boat = new Boat(this.game, 675, 660);
-        this.bunny = new Bunny(this.game, 300, 300);
-        this.waterObj = new WaterObjects(this.game, 0, 0);
-        this.overlay = new Overlay(this.game, 0, 0);
-        this.titlescreen = new Title(this.game, 0, 0);
-        this.UI = new UI(this.game, 0,0);
-        this.loadScreen();
-        this.playMusic();
+        this.loadGame(this.title);
     }
     
-    updateAudio() {
-        var mute = document.getElementById("mute").checked;
-        var volume = document.getElementById("volume").value;
-        ASSET_MANAGER.muteAudio(mute);
-        ASSET_MANAGER.adjustVolume(volume);
+
+    loadGame(title) {
+        this.title = title;
+        this.clearEntities();
+        if (this.title) {
+            this.titlescreen = new Title(this.game, 0, 0);
+            this.game.addEntity(this.titlescreen);
+        }
+        if (!this.title) {
+            this.playMusic();
+            this.loadScreen();
+        }
     }
 
     clearEntities() {
@@ -32,13 +28,31 @@ class SceneManager {
         });
     };
 
+    updateAudio() {
+        var mute = document.getElementById("mute").checked;
+        var volume = document.getElementById("volume").value;
+
+        ASSET_MANAGER.muteAudio(mute);
+        ASSET_MANAGER.adjustVolume(volume);
+    }
+
     playMusic() {
         ASSET_MANAGER.pauseBackgroundMusic();
         ASSET_MANAGER.playAsset("./music/Lemon Cake - Day Star.mp3");
     }
 
+
     loadScreen() {
-        this.playMusic();
+        this.grass = new Grass(this.game, 0, 0);
+        this.house = new House(this.game, 360, 160);
+        this.pavement = new Pavement(this.game, 440, 350);
+        this.fence = new Fence(this.game, 120, 150);
+        this.boat = new Boat(this.game, 675, 660);
+        this.bunny = new Bunny(this.game, 300, 300);
+        this.waterObj = new WaterObjects(this.game, 0, 0);
+        this.overlay = new Overlay(this.game, 0, 0);
+     
+        this.UI = new UI(this.game, 0,0);
         for (var i = 0; i < 15; i++) {
             for (var j = 0; j < 12; j++) {
                 this.game.addEntity(new Water(this.game, 16 * 4 * i + 0, 16 * 4 * j + 0)); 
@@ -90,16 +104,17 @@ class SceneManager {
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
         this.game.addEntity(this.UI);
-        this.game.addEntity(this.titlescreen);
+
     }
 
     update() {
         this.updateAudio();
-        //this.title = !document.getElementById("debug").checked;
-        PARAMS.DEBUG = document.getElementById("debug").checked;
-        if (this.game.click) {
-            ASSET_MANAGER.muteAudio(false);
+        if (this.game.title.titleStartClicked) { // if they click on start button
+            this.title = false;
+            this.loadGame(this.title); // load the game without title
+            this.game.click = false;
         }
+        PARAMS.DEBUG = document.getElementById("debug").checked;
     }
 
     draw(ctx) {
