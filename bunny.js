@@ -354,7 +354,7 @@ class Bunny {
                 } else {
                     that.withinRangeDirt = false;
                 }            
-                if (!entity.dirtTaken && that.game.interact) {
+                if (!entity.dirtTaken && !that.plowing && that.game.interact) {
                     that.plowing = true;
                     that.dirtTypeInteract = entity.type;
                 }

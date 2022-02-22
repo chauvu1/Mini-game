@@ -31,13 +31,13 @@ class Dirt {
         }
         
         if (this.game.bunny.plowing && this.type == this.game.bunny.dirtTypeInteract && !this.dirtTaken && this.game.bunny.withinRangeDirt) {   
-            this.elapsedTime += this.game.clockTick;         
+            this.elapsedTime += this.game.clockTick;   
             if (this.elapsedTime > 2) {
-                this.dirtTaken = true;
                 this.game.addEntity(new Plant(this.game, this));  
                 this.game.bunny.carrotPlantedCount = this.game.bunny.carrotPlantedCount + 1;
                 this.elapsedTime = 0;
                 this.game.bunny.plowing = false;
+                this.dirtTaken = true; 
             }
         }
         if (PARAMS.DEBUG) {
