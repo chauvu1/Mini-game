@@ -39,7 +39,7 @@ class SceneManager {
 
     playMusic() {
         ASSET_MANAGER.pauseBackgroundMusic();
-        ASSET_MANAGER.playAsset("./music/Oneul - Morning Peppermint.mp3");
+        ASSET_MANAGER.playAsset("./music/Oneul - Lemon and Ginger.mp3");
     }
 
 
@@ -115,7 +115,7 @@ class SceneManager {
             this.loadGame(this.title); // load the game without title
             this.game.click = false;
         }
-        PARAMS.DEBUG = document.getElementById("debug").checked;
+        PARAMS.DEBUG = true;
     }
 
     draw(ctx) {
