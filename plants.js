@@ -29,7 +29,12 @@ class Dirt {
                 28 * 2,
                 28 * 2);
         }
-        
+        if (!this.dirtTaken && this.game.bunny.withinRangeDirt && this.type == this.game.bunny.dirtTypeInteract && this.game.interact) {
+            this.game.bunny.plowing = true;
+            this.game.interact = false;
+        } else {
+           
+        }
         if (this.game.bunny.plowing && this.type == this.game.bunny.dirtTypeInteract && !this.dirtTaken && this.game.bunny.withinRangeDirt) {   
             this.elapsedTime += this.game.clockTick;   
             if (this.elapsedTime > 2) {
@@ -56,7 +61,7 @@ class Plant {
         this.removeFromWorld = false;
         this.x = this.dirt.x + 12;
         this.y = this.dirt.y + 5;
-        this.BB = new BoundingBox(this.x, this.y, 16*2, 16*2)
+        this.BB = new BoundingBox(this.x, this.y + 10, 16*2, 16*2-20)
         this.animation = new Animator(this.spritesheet, 16, 32, 16, 16, 4, 1, 0, false, false); // roof 
         this.width = 0;
         this.height = 3.5;
@@ -74,7 +79,7 @@ class Plant {
         } else {
             
         }
-        if (this.removeFromWorld && this.dirt.type == this.game.bunny.dirtTypeInteract) {
+        if (this.removeFromWorld) {
             this.dirt.dirtTaken = false;
         } else {
            

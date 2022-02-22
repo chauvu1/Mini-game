@@ -347,17 +347,17 @@ class Bunny {
                 }
             }
 
-            if (entity instanceof Dirt && that.BB.withinRange(entity.BB)) {
+            if (entity instanceof Dirt && that.BB.collide(entity.BB)) {
                 if (that.BB.collide(entity.BB)){
                     that.dirtTypeInteract = entity.type;
                     that.withinRangeDirt = true;
                 } else {
                     that.withinRangeDirt = false;
                 }            
-                if (!entity.dirtTaken && !that.plowing && that.game.interact) {
-                    that.plowing = true;
-                    that.dirtTypeInteract = entity.type;
-                }
+                // if (that.withinRangeDirt && !entity.dirtTaken && !that.plowing && that.game.interact) {
+                //     that.plowing = true;
+                //     that.dirtTypeInteract = entity.type;
+                // }
             } 
             if (entity instanceof Plant && that.topBB.collide(entity.BB)) {      
                 if (entity.animation.isDone()) {  
