@@ -116,19 +116,20 @@ class Title {
             this.buttonAnim[2][this.buttonCreditState].drawFrame(this.game.clockTick, ctx, 348, 460, 3);
     
             this.titleAnim[6].drawFrame(this.game.clockTick, ctx, 408, 620, 3); // heart
+            this.titleAnim[3].drawFrame(this.game.clockTick, ctx, 0, 720, 3);
         }
-        this.titleAnim[3].drawFrame(this.game.clockTick, ctx, 0, 720, 3);
+      
         ctx.imageSmoothingEnabled = false;
     }
 
 }
 
 class TransitionScreen {
-    constructor(game, x, y) {
-        Object.assign(this, {game, x, y}); 
+    constructor(game) {
+        Object.assign(this, {game}); 
         this.elapsed = 0;
-
-        // clouds come in and out and faded away after title screen is clicked.
+        this.fade = 1;
+        this.iconsheet = ASSET_MANAGER.getAsset("./sprites/bunny_hops.png");
     }
 
     update() {
@@ -136,7 +137,12 @@ class TransitionScreen {
     }
 
     draw(ctx) {
-
-    }
-
+        this.elapsed += this.game.clockTick;
+        this.fade -= this.game.clockTick;
+        if (this.elapsed < 4) {
+            // fade animation
+            ctx.fillStyle = "rgba(155,212,195," + this.fade + ")";
+            ctx.fillRect(0, 0, PARAMS.CANVAS_WIDTH, PARAMS.CANVAS_HEIGHT); 
+        }
+    }     
 }

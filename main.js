@@ -42,7 +42,7 @@ ASSET_MANAGER.queueDownload("./sprites/title_clouds.png")
 ASSET_MANAGER.queueDownload("./sprites/heartspin.png")
 ASSET_MANAGER.queueDownload("./sprites/task_ui.png")
 ASSET_MANAGER.queueDownload("./sprites/carrots_icon.png")
-
+ASSET_MANAGER.queueDownload("./sprites/bunny_hops.png")
 ASSET_MANAGER.queueDownload("./music/Oneul - Lemon and Ginger.mp3")
 
 ASSET_MANAGER.downloadAll(function () {

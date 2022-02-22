@@ -20,6 +20,7 @@ class SceneManager {
             this.updateAudio();
             this.playMusic();
             this.loadScreen();
+            this.game.addEntity(new TransitionScreen(this.game));
         }
     }
 
@@ -109,13 +110,15 @@ class SceneManager {
     }
 
     update() {
+        // added these for debugging
+        //PARAMS.DEBUG = true;
+        //this.game.title.titleStartClicked = true;
         this.updateAudio();
         if (this.game.title.titleStartClicked) { // if they click on start button
             this.title = false;
             this.loadGame(this.title); // load the game without title
             this.game.click = false;
         }
-        PARAMS.DEBUG = true;
     }
 
     draw(ctx) {
