@@ -17,6 +17,7 @@ class SceneManager {
             this.game.addEntity(this.titlescreen);
         }
         if (!this.title) {
+            this.updateAudio();
             this.playMusic();
             this.loadScreen();
         }
@@ -38,7 +39,7 @@ class SceneManager {
 
     playMusic() {
         ASSET_MANAGER.pauseBackgroundMusic();
-        ASSET_MANAGER.playAsset("./music/Lemon Cake - Day Star.mp3");
+        ASSET_MANAGER.playAsset("./music/Oneul - Morning Peppermint.mp3");
     }
 
 

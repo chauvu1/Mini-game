@@ -168,8 +168,8 @@ class UI {
             ctx.fillText("I hope you have fun", 335, 394); //280
             ctx.fillText("Credits:", 315, 434); //280
             ctx.fillText("Asset pack: Sprout Lands @CUP NOOBLE ", 315, 510); //280
-            ctx.fillText("Song: Daystar - Lemon Cake", 315, 460); //280
-            ctx.fillText("Link: / https://youtu.be/AunAZS5yYmw", 315, 480); //280
+            ctx.fillText("Song: Oneul - Morning peppermint", 315, 460); //280
+            ctx.fillText("Link: Oneul https://youtu.be/Ek62F18l_To", 315, 480); //280
             
         }
 
