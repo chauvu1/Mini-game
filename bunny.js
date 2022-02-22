@@ -347,7 +347,7 @@ class Bunny {
                 }
             }
 
-            if (entity instanceof Dirt && that.BB.collide(entity.BB)) {
+            if (entity instanceof Dirt && that.BB.withinRange(entity.BB)) {
                 if (that.BB.collide(entity.BB)){
                     that.dirtTypeInteract = entity.type;
                     that.withinRangeDirt = true;
