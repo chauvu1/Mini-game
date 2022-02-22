@@ -74,8 +74,10 @@ class Plant {
         } else {
             
         }
-        if (this.removeFromWorld) {
+        if (this.removeFromWorld && this.dirt.type == this.game.bunny.dirtTypeInteract) {
             this.dirt.dirtTaken = false;
+        } else {
+           
         }
 
     }
