@@ -13,6 +13,7 @@ class UI {
         this.spritesheetHeart = ASSET_MANAGER.getAsset("./sprites/heartspin.png")
         this.spritesheetCarrot = ASSET_MANAGER.getAsset("./sprites/carrots_icon.png")
         this.buttonsheet = ASSET_MANAGER.getAsset("./sprites/buttons.png");
+        this.iconsheet = ASSET_MANAGER.getAsset("./sprites/bunny_hops.png");
         this.titleMusicStart = false;
         this.font = new FontFace("Minecraft", 'url(./sprites/Minecraft.ttf) format("TrueType")');
         this.font.load().then(function(loadedFont) {
@@ -33,6 +34,10 @@ class UI {
         this.button1 = [];
         this.button2 = [];
         this.button3 = [];
+
+        this.settingOpened = false;
+        this.settingUI = new Animator (this.spritesheetUI, 1080, 96, 176, 227, 1, 1, 0, false, true);
+        this.bunnyhopsAnim = new Animator (this.iconsheet, 0, 0, 250, 250, 7, 0.1, 0 , false, true);
 
         this.closeButton = [];
         this.closeButtonState= 0;
@@ -78,7 +83,6 @@ class UI {
             this.button2state = 1;
             if (this.game.click && this.game.click.x > 862 && this.game.click.x < 904 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.game.scene.title = true; 
-                this.titleMusicStart = true;
                 this.game.click = false;
             } 
         } else {
@@ -87,11 +91,11 @@ class UI {
 
         if (this.game.mouse.x > 911 && this.game.mouse.x < 955 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
             this.button3state = 1;
-            if (this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
-                
-               
-            } else if (this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
-               
+            if (!this.settingOpened && this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
+                this.settingOpened = true;
+            } else if (this.settingOpened && this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
+                this.settingOpened = false;
+                this.button3State = 1;
             } 
             this.game.click = false;
         } else {
@@ -116,12 +120,13 @@ class UI {
             this.buttonstate = 1;
         }
 
-        if (this.game.click && this.game.click.x > 12 && this.game.click.x < 49 && this.game.click.y > 731 && this.game.click.y < 763) {
-            this.game.bunny.x = 400;
-            this.game.bunny.y = 400;
-            this.game.click = false;
-        }
+        // if (this.game.click && this.game.click.x > 12 && this.game.click.x < 49 && this.game.click.y > 731 && this.game.click.y < 763) {
+        //     this.game.bunny.x = 400;
+        //     this.game.bunny.y = 400;
+        //     this.game.click = false;
+        // }
 
+        // for message 
         if (this.game.mouse.x > 753 && this.game.mouse.x < 768 && this.game.mouse.y > 342 && this.game.mouse.y < 356 && this.closeButtonEnabled) {
             this.closeButtonState = 1;
             if (this.tasksCompleted && this.game.click && this.game.click.x > 753 && this.game.click.x < 768 && this.game.click.y > 342 && this.game.click.y < 356 && this.closeButtonEnabled) {
@@ -166,10 +171,10 @@ class UI {
             ctx.fillText("A message for you :)", 315, 314); //280
             ctx.fillText("Thank you for playing!", 335, 354); //280
             ctx.fillText("I hope you have fun", 335, 394); //280
-            ctx.fillText("Credits:", 315, 434); //280
-            ctx.fillText("Asset pack: Sprout Lands @CUP NOOBLE ", 315, 510); //280
-            ctx.fillText("Song: Oneul - Lemon and Ginger", 315, 460); //280
-            ctx.fillText("Link: Oneul https://youtu.be/Ek62F18l_To", 315, 480); //280
+            // ctx.fillText("Credits:", 315, 434); //280
+            // ctx.fillText("Asset pack: Sprout Lands @CUP NOOBLE ", 315, 510); //280
+            // ctx.fillText("Song: Oneul - Lemon and Ginger", 315, 460); //280
+            // ctx.fillText("Link: Oneul https://youtu.be/Ek62F18l_To", 315, 480); //280
             
         }
 
@@ -238,6 +243,21 @@ class UI {
         if (this.closeButtonPressed) {   
             this.tasksCompletedDisplay = true;
         }
+
+
+        if (this.settingOpened) {
+            this.settingUI.drawFrame(this.game.clockTick, ctx,PARAMS.CANVAS_WIDTH / 2 - 176*2/2, PARAMS.CANVAS_HEIGHT / 2 - 227*2/2, 2);
+            this.bunnyhopsAnim.drawFrame(this.game.clockTick, ctx, 365, 195, 1);
+            ctx.strokeStyle = '#f3f4e7'
+            ctx.fillStyle = ctx.strokeStyle;
+         
+            ctx.fillText(BACKGROUND.MUSIC[0].name, 340, 490); //280
+            ctx.font = "32px Minecraft";
+            ctx.fillText("Oneul", 340, 470); //280
+           
+        }
+        
+        ctx.imageSmoothingEnabled = false;
     }
 
 }

@@ -40,7 +40,7 @@ class SceneManager {
 
     playMusic() {
         ASSET_MANAGER.pauseBackgroundMusic();
-        ASSET_MANAGER.playAsset("./music/Oneul - Lemon and Ginger.mp3");
+        ASSET_MANAGER.loopAsset();
     }
 
 
@@ -111,8 +111,8 @@ class SceneManager {
 
     update() {
         // added these for debugging
-        //PARAMS.DEBUG = true;
-        //this.game.title.titleStartClicked = true;
+        PARAMS.DEBUG = true;
+        this.game.title.titleStartClicked = true;
         this.updateAudio();
         if (this.game.title.titleStartClicked) { // if they click on start button
             this.title = false;
@@ -131,7 +131,11 @@ var OVERLAY = {
     FENCE: {X: 120, Y:150},
     HOUSE: {X: 360, Y:160}
 }
+
 var BACKGROUND = {
+    MUSIC: [{song: "./music/Oneul - Lemon and Ginger.mp3", name: "Lemon and Ginger"}, 
+            {song: "./music/Oneul - Almond Crossaint.mp3", name: "Almond Crossaint"},
+            {song: "./music/Oneul - Winter Yuja Cha.mp3", name: "Winter Yuja Cha"} ],
     FLOWERPOT: [{X:360, Y:340, TYPE: 1}, {X:384, Y:340, TYPE: 1}, {X:410, Y:340, TYPE: 1}],
     GRASS_DECO: [{X: 640,Y:570},{X:831,Y:334},{X:96, y:145}, {X:332, Y:472}],
     WATER_TRAY: [{X:509, Y:340, TYPE:2}], // {X:294, Y:200, TYPE:1}, 
