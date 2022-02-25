@@ -233,14 +233,14 @@ class House {
         this.BB = new BoundingBox(this.x - 8, this.y, 
             BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE + 16,
             BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE + 5);
-        this.BBleft = new BoundingBox(this.x - 8, this.y + 10, 
+        this.BBleft = new BoundingBox(this.x - 8, this.y + 5, 
             10,
-            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 15);
-        this.BBright = new BoundingBox(this.x + this.BB.width - 18, this.y + 10, 
+            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 10);
+        this.BBright = new BoundingBox(this.x + this.BB.width - 18, this.y + 5, 
             10,
-            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 15);
-        this.BBtop= new BoundingBox(this.x, this.y, 
-            BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE,
+            BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 10);
+        this.BBtop= new BoundingBox(this.x - 8, this.y, 
+            BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE + 16,
             10);
         this.BBbottomLeft = new BoundingBox(this.x - 8, this.y + this.BB.height - 5 - 5, 
             BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE / 2 - 20 + 8,

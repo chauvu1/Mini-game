@@ -208,6 +208,8 @@ class Tree {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+        this.maxFruitCount = 4;
+        this.currentFruitCount = 0;
         this.under = false;
         this.createBB();
     }
@@ -226,8 +228,19 @@ class Tree {
             this.y,
             32 * 3,
             32 * 3); 
+
+            // fix the UI later
+        if (this.currentFruitCount < this.maxFruitCount) {
+            for (var i = 0; i < BACKGROUND.FRUIT.length; i++) {
+                let fruit = BACKGROUND.FRUIT[i];
+                this.game.addEntity(new Fruit(this.game, this.x + fruit.X, this.y + fruit.Y));
+            }     
+            this.game.addEntity(this.game.scene.UI);
+            this.currentFruitCount = this.currentFruitCount + BACKGROUND.FRUIT.length;
+        }
+        
+
         if (PARAMS.DEBUG) {
-           
             ctx.strokeStyle = 'red';  
             ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
             ctx.strokeStyle = 'pink';
@@ -239,35 +252,24 @@ class Tree {
 
 
 
-class Fruits {
+class Fruit {
     constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
+        Object.assign(this, {game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
-        this.under = false;
         this.createBB();
     }
     createBB() {
-        this.BB = new BoundingBox(this.x + 10, this.y, 32 * 3 - 20, 32 * 3 - 12);
-        this.BBbottom = new BoundingBox(this.x + 10, this.y + 32 * 3 - 22, 32 * 3 - 20, 10);
     }
 
     update() {
     };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 16, 0,
-            32,  32,
+        ctx.drawImage(this.spritesheet, 64, 32,
+            16,  16,
             this.x,
             this.y,
-            32 * 3,
-            32 * 3); 
-        if (PARAMS.DEBUG) {
-           
-            ctx.strokeStyle = 'red';  
-            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
-            ctx.strokeStyle = 'pink';
-            ctx.strokeStyle = 'yellow';
-            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
-        }
+            16 * 3,
+            16 * 3); 
     }
 }

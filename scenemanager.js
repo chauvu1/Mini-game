@@ -31,7 +31,8 @@ class SceneManager {
     };
 
     updateAudio() {
-        var mute = document.getElementById("mute").checked;
+        var mute = true;
+        // document.getElementById("mute").checked;
         var volume = document.getElementById("volume").value;
 
         ASSET_MANAGER.muteAudio(mute);
@@ -53,8 +54,8 @@ class SceneManager {
         this.bunny = new Bunny(this.game, 300, 300);
         this.waterObj = new WaterObjects(this.game, 0, 0);
         this.overlay = new Overlay(this.game, 0, 0);
-     
         this.UI = new UI(this.game, 0,0);
+
         for (var i = 0; i < 15; i++) {
             for (var j = 0; j < 12; j++) {
                 this.game.addEntity(new Water(this.game, 16 * 4 * i + 0, 16 * 4 * j + 0)); 
@@ -105,8 +106,9 @@ class SceneManager {
         this.game.addEntity(new WaterWell(this.game, 770, 420));
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
-        this.game.addEntity(this.UI);
 
+        // everytime an entity is added, put bunny on top. unless its overlay
+      
     }
 
     update() {
@@ -119,6 +121,7 @@ class SceneManager {
             this.loadGame(this.title); // load the game without title
             this.game.click = false;
         }
+      
     }
 
     draw(ctx) {
@@ -144,6 +147,10 @@ var BACKGROUND = {
             {song: "./music/Oneul - Morning Peppermint.mp3", name: "Morning Peppermint"} ,
             {song: "./music/Oneul - Strawberry Dance.mp3", name: "Strawberry Dance"} ,
             {song: "./music/Oneul - Kaya Toast.mp3", name: "Kaya Toast"} ],
+
+
+
+    FRUIT:     [{X:10, Y:15, TYPE: 1}, {X:40, Y:15, TYPE: 1}, {X:25, Y:-10, TYPE: 1}],
     FLOWERPOT: [{X:360, Y:340, TYPE: 1}, {X:384, Y:340, TYPE: 1}, {X:410, Y:340, TYPE: 1}],
     GRASS_DECO: [{X: 640,Y:570},{X:831,Y:334},{X:96, y:145}, {X:332, Y:472}],
     WATER_TRAY: [{X:509, Y:340, TYPE:2}], // {X:294, Y:200, TYPE:1}, 

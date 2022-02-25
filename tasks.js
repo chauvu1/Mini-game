@@ -37,8 +37,8 @@ class UI {
         this.button2 = [];
         this.button3 = [];
 
-        this.settingOpened = false;
-        this.settingUI = new Animator (this.spritesheetUI, 1080, 96, 176, 227, 1, 1, 0, false, true);
+        this.musicOpened = false;
+        this.settingUI = new Animator (this.spritesheetUI, 988 , 441, 244, 45, 1, 1, 0, false, true);
         this.cakeAnim = new Animator (this.iconsheet, 0, 0, 250, 214, 10, 0.1, 0 , false, true);
         this.heartAnim = new Animator (this.heart_bg, 0, 0, 110, 110, 3, 0.5, 0 , false, true);
 
@@ -94,10 +94,10 @@ class UI {
 
         if (this.game.mouse.x > 911 && this.game.mouse.x < 955 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
             this.button3state = 1;
-            if (!this.settingOpened && this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
-                this.settingOpened = true;
-            } else if (this.settingOpened && this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
-                this.settingOpened = false;
+            if (!this.musicOpened && this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
+                this.musicOpened = true;
+            } else if (this.musicOpened && this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
+                this.musicOpened = false;
                 this.button3State = 1;
             } 
             this.game.click = false;
@@ -256,19 +256,16 @@ class UI {
         }
 
 
-        if (this.settingOpened) {
-            
-           
-            this.settingUI.drawFrame(this.game.clockTick, ctx,PARAMS.CANVAS_WIDTH / 2 - 176*2/2, PARAMS.CANVAS_HEIGHT / 2 - 227*2/2, 2);
-
-            this.heartAnim.drawFrame(this.game.clockTick, ctx, 360, 190, 2);
-            this.cakeAnim.drawFrame(this.game.clockTick, ctx, 365, 195, 1);
+        if (this.musicOpened) {
+            this.settingUI.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 244, PARAMS.CANVAS_HEIGHT - 45, 1);
+            //this.heartAnim.drawFrame(this.game.clockTick, ctx, 360, 190, 2);
+            this.cakeAnim.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 250 * 0.15 - 200, PARAMS.CANVAS_HEIGHT - 215 * 0.15 - 10, 0.15);
             ctx.strokeStyle = '#f3f4e7'
             ctx.fillStyle = ctx.strokeStyle;
-         
-            ctx.fillText(ASSET_MANAGER.currentSongName(), 340, 490); //280
-            ctx.font = "32px Minecraft";
-            ctx.fillText("Oneul", 340, 470); //280
+            ctx.font = "16px Minecraft";
+            ctx.fillText(ASSET_MANAGER.currentSongName(), PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 20); //280
+            ctx.font = "8px Minecraft";
+            ctx.fillText("Oneul", PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 10); //280
            
         }
         
