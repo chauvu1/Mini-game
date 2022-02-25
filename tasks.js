@@ -159,7 +159,15 @@ class UI {
 
         if (!this.game.title.title) {
             this.startTimer();
-            ctx.fillText(Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 675, 41); //timer 
+            if (Math.round(this.elapsedTime) < 10 && Math.round(this.minute) < 10) {
+                ctx.fillText("0" + Math.round(this.minute) + ":" + "0" + Math.round(this.elapsedTime), 675, 41); //timer 
+            } else if (Math.round(this.elapsedTime) >= 10 && Math.round(this.minute) < 10) {
+                ctx.fillText("0" + Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 675, 41); //timer 
+            } else if (Math.round(this.elapsedTime) < 10 && Math.round(this.minute) >= 10) {
+                ctx.fillText(Math.round(this.minute) + ":" + "0" +  Math.round(this.elapsedTime), 675, 41); //timer 
+            } else if (Math.round(this.elapsedTime) >= 10 && Math.round(this.minute) >= 10) {
+                ctx.fillText(Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 675, 41); //timer 
+            }
         }
       
         ctx.font = "16px Minecraft";
@@ -251,7 +259,7 @@ class UI {
             ctx.strokeStyle = '#f3f4e7'
             ctx.fillStyle = ctx.strokeStyle;
          
-            ctx.fillText(BACKGROUND.MUSIC[0].name, 340, 490); //280
+            ctx.fillText(ASSET_MANAGER.currentSongName(), 340, 490); //280
             ctx.font = "32px Minecraft";
             ctx.fillText("Oneul", 340, 470); //280
            

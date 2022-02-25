@@ -123,6 +123,8 @@ class Title {
     }
 
 }
+
+
 // https://stackoverflow.com/questions/2359537/how-to-change-the-opacity-alpha-transparency-of-an-element-in-a-canvas-elemen
 class TransitionScreen {
     constructor(game) {

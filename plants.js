@@ -203,3 +203,71 @@ class Flower {
         //this.timerBar.draw(ctx);
     };
 };
+
+class Tree {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+        this.under = false;
+        this.createBB();
+    }
+    createBB() {
+        this.BB = new BoundingBox(this.x + 10, this.y, 32 * 3 - 20, 32 * 3 - 12);
+        this.BBbottom = new BoundingBox(this.x + 10, this.y + 32 * 3 - 22, 32 * 3 - 20, 10);
+    }
+
+    update() {
+    };
+
+    draw(ctx) {
+        ctx.drawImage(this.spritesheet, 16, 0,
+            32,  32,
+            this.x,
+            this.y,
+            32 * 3,
+            32 * 3); 
+        if (PARAMS.DEBUG) {
+           
+            ctx.strokeStyle = 'red';  
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
+            ctx.strokeStyle = 'pink';
+            ctx.strokeStyle = 'yellow';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
+    }
+}
+
+
+
+class Fruits {
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+        this.under = false;
+        this.createBB();
+    }
+    createBB() {
+        this.BB = new BoundingBox(this.x + 10, this.y, 32 * 3 - 20, 32 * 3 - 12);
+        this.BBbottom = new BoundingBox(this.x + 10, this.y + 32 * 3 - 22, 32 * 3 - 20, 10);
+    }
+
+    update() {
+    };
+
+    draw(ctx) {
+        ctx.drawImage(this.spritesheet, 16, 0,
+            32,  32,
+            this.x,
+            this.y,
+            32 * 3,
+            32 * 3); 
+        if (PARAMS.DEBUG) {
+           
+            ctx.strokeStyle = 'red';  
+            ctx.strokeRect(this.BBbottom.x, this.BBbottom.y, this.BBbottom.width, this.BBbottom.height);
+            ctx.strokeStyle = 'pink';
+            ctx.strokeStyle = 'yellow';
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
+    }
+}

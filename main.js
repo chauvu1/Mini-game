@@ -43,13 +43,26 @@ ASSET_MANAGER.queueDownload("./sprites/heartspin.png")
 ASSET_MANAGER.queueDownload("./sprites/task_ui.png")
 ASSET_MANAGER.queueDownload("./sprites/carrots_icon.png")
 ASSET_MANAGER.queueDownload("./sprites/bunny_hops.png")
+
+
+
 ASSET_MANAGER.queueDownload("./music/Oneul - Lemon and Ginger.mp3")
 ASSET_MANAGER.queueDownload("./music/Oneul - Almond Crossaint.mp3")
 ASSET_MANAGER.queueDownload("./music/Oneul - Winter Yuja Cha.mp3")
+ASSET_MANAGER.queueDownload("./music/Oneul - Cake Five.mp3")
+ASSET_MANAGER.queueDownload("./music/Oneul - Chocolate World.mp3")
+ASSET_MANAGER.queueDownload("./music/Oneul - Cookie Tree.mp3")
+ASSET_MANAGER.queueDownload("./music/Oneul - Fig Yogurt.mp3")
+ASSET_MANAGER.queueDownload("./music/Oneul - Just Pumpkin Day.mp3")
+ASSET_MANAGER.queueDownload("./music/Oneul - Morning Peppermint.mp3")
+ASSET_MANAGER.queueDownload("./music/Oneul - Strawberry Dance.mp3")
+ASSET_MANAGER.queueDownload("./music/Oneul - Kaya Toast.mp3")
+
 ASSET_MANAGER.downloadAll(function () {
 	var canvas = document.getElementById("gameWorld");
 	var ctx = canvas.getContext("2d");
 	//ASSET_MANAGER.autoRepeat("./music/Oneul - Lemon and Ginger.mp3");
+	ASSET_MANAGER.autoRepeatLoop();
 	PARAMS.CANVAS_WIDTH = canvas.width;
 	PARAMS.CANVAS_HEIGHT = canvas.height;
 	PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;

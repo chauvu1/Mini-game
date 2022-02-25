@@ -124,15 +124,26 @@ class AssetManager {
     //     return this.song.currentSrc; // return the last song playing, how to get current song??
     // }
 
+    currentSongName() {
+        for (var key in this.cache) {
+            let asset = this.cache[key];
+            if (asset instanceof Audio && asset.currentTime > 0) {
+                this.song = asset;
+            }
+            
+    }
+    return this.song.src.replace(/%20/g, " ").slice(36, this.song.src.replace(/%20/g, " ").length - 4);
+}
+
     loopAsset() {
         let audio = this.cache[BACKGROUND.MUSIC[0].song];
+        console.log(audio);
         audio.currentTime = 0;
         var index = 1;
         audio.play();
         audio.addEventListener("ended", function () {
         if (index < BACKGROUND.MUSIC.length) {
             audio.src = BACKGROUND.MUSIC[index].song;
-            console.log(audio);
             audio.play();
             index++;
         }
@@ -142,6 +153,13 @@ class AssetManager {
       });
             
     }
+
+    autoRepeatLoop() {
+        var aud = this.cache[BACKGROUND.MUSIC[BACKGROUND.MUSIC.length - 1].song];
+        aud.addEventListener("ended", function () {
+            this.loopAsset();
+        });
+    };
 
     autoRepeat(path) {
         var aud = this.cache[path];
