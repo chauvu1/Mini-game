@@ -22,6 +22,13 @@ class UI {
             document.fonts.add(loadedFont);
         }) 
 
+        this.velocity = 0;
+        this.settingY = PARAMS.CANVAS_HEIGHT;
+        this.cakeY = PARAMS.CANVAS_HEIGHT;
+        this.fontTitleY = PARAMS.CANVAS_HEIGHT + 40;
+        this.fontArtistY = PARAMS.CANVAS_HEIGHT + 30;
+
+
         this.helpbutton = [];
         this.elapsedTime = 0;
         this.minute = 0;
@@ -257,16 +264,53 @@ class UI {
 
 
         if (this.musicOpened) {
-            this.settingUI.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 244, PARAMS.CANVAS_HEIGHT - 45, 1);
+            var TICK = this.game.clockTick 
+            var MIN = 0.125;
+            this.velocity += MIN;
+
+            // this.cakeY = PARAMS.CANVAS_HEIGHT;
+            // this.fontTitleY = PARAMS.CANVAS_HEIGHT;
+            // this.fontArtistY = PARAMS.CANVAS_HEIGHT;
+            this.settingUI.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 244, this.settingY, 1);
             //this.heartAnim.drawFrame(this.game.clockTick, ctx, 360, 190, 2);
-            this.cakeAnim.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 250 * 0.15 - 200, PARAMS.CANVAS_HEIGHT - 215 * 0.15 - 10, 0.15);
+
+            this.cakeAnim.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 250 * 0.15 - 200, this.cakeY, 0.15);
             ctx.strokeStyle = '#f3f4e7'
             ctx.fillStyle = ctx.strokeStyle;
             ctx.font = "16px Minecraft";
-            ctx.fillText(ASSET_MANAGER.currentSongName(), PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 20); //280
+            ctx.fillText(ASSET_MANAGER.currentSongName(), PARAMS.CANVAS_WIDTH - 190, this.fontArtistY); //280
             ctx.font = "8px Minecraft";
-            ctx.fillText("Oneul", PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 10); //280
+            ctx.fillText("Oneul", PARAMS.CANVAS_WIDTH - 190, this.fontTitleY); //280
            
+            if (this.fontTitleY <= PARAMS.CANVAS_HEIGHT - 10) {
+                this.fontTitleY = PARAMS.CANVAS_HEIGHT - 10
+            } else {
+                this.fontTitleY -= this.velocity * TICK * 2;
+            }
+
+            if (this.fontArtistY <= PARAMS.CANVAS_HEIGHT - 20) {
+                this.fontArtistY = PARAMS.CANVAS_HEIGHT - 20
+            } else {
+                this.fontArtistY -= this.velocity * TICK * 2;
+            }
+
+            if (this.cakeY <= PARAMS.CANVAS_HEIGHT - 215 * 0.15 - 10) {
+                this.cakeY = PARAMS.CANVAS_HEIGHT - 215 * 0.15 - 10
+            } else {
+                this.cakeY -= this.velocity * TICK * 2;
+            }
+
+            if (this.settingY <=  PARAMS.CANVAS_HEIGHT- 45) {
+                this.settingY = PARAMS.CANVAS_HEIGHT - 45
+            } else {
+                this.settingY -= this.velocity * TICK * 2;
+            }
+        } else {
+            this.velocity = 0;
+            this.settingY = PARAMS.CANVAS_HEIGHT;
+            this.cakeY = PARAMS.CANVAS_HEIGHT;
+            this.fontTitleY = PARAMS.CANVAS_HEIGHT + 40;
+            this.fontArtistY = PARAMS.CANVAS_HEIGHT + 30;
         }
         
         ctx.imageSmoothingEnabled = false;
