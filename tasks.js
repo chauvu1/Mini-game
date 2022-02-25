@@ -13,7 +13,9 @@ class UI {
         this.spritesheetHeart = ASSET_MANAGER.getAsset("./sprites/heartspin.png")
         this.spritesheetCarrot = ASSET_MANAGER.getAsset("./sprites/carrots_icon.png")
         this.buttonsheet = ASSET_MANAGER.getAsset("./sprites/buttons.png");
-        this.iconsheet = ASSET_MANAGER.getAsset("./sprites/bunny_hops.png");
+        this.iconsheet = ASSET_MANAGER.getAsset("./sprites/cake.png");
+        this.heart_bg = ASSET_MANAGER.getAsset("./sprites/heart_bg.png");
+
         this.titleMusicStart = false;
         this.font = new FontFace("Minecraft", 'url(./sprites/Minecraft.ttf) format("TrueType")');
         this.font.load().then(function(loadedFont) {
@@ -37,7 +39,8 @@ class UI {
 
         this.settingOpened = false;
         this.settingUI = new Animator (this.spritesheetUI, 1080, 96, 176, 227, 1, 1, 0, false, true);
-        this.bunnyhopsAnim = new Animator (this.iconsheet, 0, 0, 250, 250, 7, 0.1, 0 , false, true);
+        this.cakeAnim = new Animator (this.iconsheet, 0, 0, 250, 214, 10, 0.1, 0 , false, true);
+        this.heartAnim = new Animator (this.heart_bg, 0, 0, 110, 110, 3, 0.5, 0 , false, true);
 
         this.closeButton = [];
         this.closeButtonState= 0;
@@ -254,8 +257,12 @@ class UI {
 
 
         if (this.settingOpened) {
+            
+           
             this.settingUI.drawFrame(this.game.clockTick, ctx,PARAMS.CANVAS_WIDTH / 2 - 176*2/2, PARAMS.CANVAS_HEIGHT / 2 - 227*2/2, 2);
-            this.bunnyhopsAnim.drawFrame(this.game.clockTick, ctx, 365, 195, 1);
+
+            this.heartAnim.drawFrame(this.game.clockTick, ctx, 360, 190, 2);
+            this.cakeAnim.drawFrame(this.game.clockTick, ctx, 365, 195, 1);
             ctx.strokeStyle = '#f3f4e7'
             ctx.fillStyle = ctx.strokeStyle;
          

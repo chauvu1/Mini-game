@@ -182,7 +182,7 @@ class House {
     }
 
     updateBB() {
-        this.BBdoor = new BoundingBox(this.x + this.BB.width / 2 - 20, this.y + this.BB.height - 50, 40, 50);
+        this.BBdoor = new BoundingBox(this.x + this.BB.width / 2 - 20 - 6, this.y + this.BB.height - 50, 40, 50);
         this.BBinterior = new BoundingBox(this.x + 27, this.y + 65, 185, 115);
         this.BBinteriorLeft = new BoundingBox(this.x + 10, this.y + 10, 16, 170);
         this.BBinteriorRight = new BoundingBox(this.x + 10 + 208 - 6, this.y + 10, 16, 170);
@@ -230,23 +230,23 @@ class House {
     };
 
     createBB() {
-        this.BB = new BoundingBox(this.x, this.y, 
-            BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE,
+        this.BB = new BoundingBox(this.x - 8, this.y, 
+            BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE + 16,
             BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE + 5);
-        this.BBleft = new BoundingBox(this.x, this.y + 10, 
+        this.BBleft = new BoundingBox(this.x - 8, this.y + 10, 
             10,
             BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 15);
-        this.BBright = new BoundingBox(this.x + this.BB.width - 10, this.y + 10, 
+        this.BBright = new BoundingBox(this.x + this.BB.width - 18, this.y + 10, 
             10,
             BACKGROUND.HOUSE.HEIGHT * BACKGROUND.HOUSE.SCALE - 15);
         this.BBtop= new BoundingBox(this.x, this.y, 
             BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE,
             10);
-        this.BBbottomLeft = new BoundingBox(this.x, this.y + this.BB.height - 5 - 5, 
-            BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE / 2 - 20,
+        this.BBbottomLeft = new BoundingBox(this.x - 8, this.y + this.BB.height - 5 - 5, 
+            BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE / 2 - 20 + 8,
             10);
-        this.BBbottomRight = new BoundingBox(this.x + this.BB.width - BACKGROUND.HOUSE.WIDTH * 2 + 20, this.y + this.BB.height - 5 - 5, 
-            BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE / 2 - 20,
+        this.BBbottomRight = new BoundingBox(this.x + this.BB.width - BACKGROUND.HOUSE.WIDTH * 2 + 7, this.y + this.BB.height - 5 - 5, 
+            BACKGROUND.HOUSE.WIDTH * BACKGROUND.HOUSE.SCALE / 2 - 20 + 5,
             10);
        
     }

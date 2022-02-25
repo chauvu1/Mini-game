@@ -10,6 +10,7 @@ class Overlay {
         this.spritesheetTray = ASSET_MANAGER.getAsset("./sprites/tilesets/Building parts/Water tray.png");
         this.spritesheetSign = ASSET_MANAGER.getAsset("./sprites/objects/signs.png"); 
         this.spritesheetWell = ASSET_MANAGER.getAsset("./sprites/objects/Water well.png"); 
+        this.spritesheetFlowers = ASSET_MANAGER.getAsset("./sprites/objects/Mushrooms, Flowers, Stones.png"); 
         this.animationHouseDoor = new Animator(this.spritesheetHouse, 60, 147, 60, 49, 5, 0.2, 0, true, false);  
         this.animationHouseNightTime= new Animator(this.spritesheetHouse, 0, 196, 60, 49, 1, 0.2, 0, false, true);
         this.animations = [];
@@ -18,7 +19,6 @@ class Overlay {
     }
 
     loadAnimations() {
-
         // array with [state] [face] of the same animator.
         for (var i = 0; i < 7; i++) {
             this.animations.push([]);
