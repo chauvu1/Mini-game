@@ -246,21 +246,16 @@ class Fruit {
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
         this.numFruit = 1;
         this.maxFruit = 3;
+        this.removeFromWorld = false;
         this.createBB();
     }
     createBB() {
     }
 
-    update() {
-        if (this.game.bunny.treeInteract && this.game.bunny.treeTypeInteract == this.type) {
-       
-            if (this.num == this.numFruit) {
-                this.removeFromWorld = true;
-              
-            }
-            this.numFruit++;
+    update() { 
+        if (this.game.bunny.treeInteract && this.game.bunny.treeTypeInteract == this.type && this.numFruit++ == this.num) {
+            this.removeFromWorld = true;
             this.game.bunny.treeInteract = false;
-           
         }
     };
 
