@@ -110,7 +110,7 @@ class SceneManager {
             let tree = BACKGROUND.TREE[i]; 
             for (var j = 0; j < BACKGROUND.FRUIT.length; j++) {
                 let fruit = BACKGROUND.FRUIT[j]; 
-                this.game.addEntity(new Fruit(this.game, tree.TYPE, tree.X + fruit.X, tree.Y + fruit.Y, fruit.TYPE));
+                this.game.addEntity(new Fruit(this.game, tree.TYPE, tree.X + fruit.X, tree.Y + fruit.Y, fruit.TYPE, fruit.NUM));
         }
     }
         this.game.addEntity(this.UI);

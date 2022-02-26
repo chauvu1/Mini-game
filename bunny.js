@@ -17,6 +17,10 @@ class Bunny {
         this.cowunder = false;
         this.crouch = false;
 
+        this.treeTypeInteract = 0;
+        this.treeInteract = false;
+        this.withinRangeTree = false;
+
         this.withinBlanket = false;
         this.havingPicnic = false;
         this.picnicCount = 0;
@@ -312,6 +316,13 @@ class Bunny {
                     that.cowunder = false;
                 }
             }   
+
+            if (entity instanceof Tree) {
+                if (that.BB.collide(entity.BB) && that.game.interact) {
+                    that.treeInteract = true;
+                    that.treeTypeInteract = entity.type;
+                }
+            }
 
             if (entity instanceof PicnicBlanket) {
                 if (that.BB.collide(entity.BB)) {

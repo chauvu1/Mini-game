@@ -241,26 +241,38 @@ class Tree {
 
 
 class Fruit {
-    constructor(game, tree, x, y, type) {
-        Object.assign(this, {game, tree, x, y, type});
+    constructor(game, tree, x, y, type, num) {
+        Object.assign(this, {game, tree, x, y, type, num});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+        this.numFruit = 1;
+        this.maxFruit = 3;
         this.createBB();
     }
     createBB() {
     }
 
     update() {
+        if (this.game.bunny.treeInteract && this.game.bunny.treeTypeInteract == this.type) {
+       
+            if (this.num == this.numFruit) {
+                this.removeFromWorld = true;
+              
+            }
+            this.numFruit++;
+            this.game.bunny.treeInteract = false;
+           
+        }
     };
 
     draw(ctx) {
-        if (this.type == 1 && this.tree == 1) {
+        if (this.type == 1 && this.tree == 1) {//pears
             ctx.drawImage(this.spritesheet, 64, 32,
                 16,  16,
                 this.x,
                 this.y,
                 16 * 3,
                 16 * 3); 
-        } else if (this.type == 2 && this.tree == 2) {
+        } else if (this.type == 2 && this.tree == 2) {//orange tree numba 2
             ctx.drawImage(this.spritesheet, 32, 32,
                 16,  16,
                 this.x,
@@ -276,12 +288,14 @@ class FruitItem {
     constructor(game, tree, x, y, type) {
         Object.assign(this, {game, tree, x, y, type});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+        this.removeFromWorld = false;
         this.createBB();
     }
     createBB() {
     }
 
     update() {
+     
     };
 
     draw(ctx) {
