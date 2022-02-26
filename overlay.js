@@ -27,7 +27,7 @@ class Overlay {
             }
         }
         // color 0 pink 1 light 2 brown 3 purple different spritesheet?
-       
+        
         this.cowspritesheet = ASSET_MANAGER.getAsset("./sprites/characters/Animal SpriteSheets/cow/Light cow animation sprites.png");
         
         // 0 idle
@@ -52,23 +52,27 @@ class Overlay {
         
     };
     draw(ctx) {   
+        if (this.game.bunny.cowunder && this.game.cow.color == this.game.bunny.cowCollided) {
+            this.animations[this.game.cow.state][this.game.cow.facing].drawFrame(this.game.clockTick, ctx, this.game.cow.x, this.game.cow.y, 2);
+            //this.animations[this.game.cow1.state][this.game.cow1.facing].drawFrame(this.game.clockTick, ctx, this.game.cow1.x, this.game.cow1.y, 2);
+        }
         if (this.game.bunny.under) {
             ctx.drawImage(this.spritesheetWell, 0, 0, 32, 32, 770, 420, 32*2, 32*2);
             ctx.drawImage(this.spritesheetSign, 32, 0, 16, 16, 693, 360, 16*2, 16*2);
             ctx.drawImage(this.spritesheetTree, 16, 0,
-                32,  32,
+                32,  27,
                 OVERLAY.TREE[0].X,
                 OVERLAY.TREE[0].Y,
                 32 * 3,
-                32 * 3); 
+                27 * 3); 
             ctx.drawImage(this.spritesheetTree, 16, 0,
-                32,  32,
+                32,  27,
                 OVERLAY.TREE[1].X,
                 OVERLAY.TREE[1].Y,
                 32 * 3,
-                32 * 3);
+                27 * 3);
             ctx.drawImage(this.spritesheetBasket, 0, 0, 16, 16, 700+ 50, 530 + 50, 16*2, 16*2);
-            this.animations[this.game.cow.state][this.game.cow.facing].drawFrame(this.game.clockTick, ctx, this.game.cow.x, this.game.cow.y, 2);
+          
     }
         if (this.game.fence.inside) {
             ctx.drawImage(this.spritesheetFence, 0, 64,

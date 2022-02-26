@@ -67,9 +67,9 @@ class SceneManager {
         this.game.addEntity(this.fence);
         this.game.addEntity(this.boat);
         for (var i = 0; i < BACKGROUND.TREE.length; i++) {
-            let tree = BACKGROUND.TREE[i];
-            this.game.addEntity(new Tree(this.game, tree.X, tree.Y)); 
-        }
+            let tree = BACKGROUND.TREE[i]; 
+            this.game.addEntity(new Tree(this.game, tree.X, tree.Y, tree.TYPE)); 
+    }
         for (var i = 0; i < BACKGROUND.COW.length; i++) {
             let cow = BACKGROUND.COW[i];
             this.game.addEntity(new Cow(this.game, cow.X, cow.Y, cow.TYPE, cow.FACING, cow.COLOR)); 
@@ -106,7 +106,14 @@ class SceneManager {
         this.game.addEntity(new WaterWell(this.game, 770, 420));
         this.game.addEntity(this.bunny);
         this.game.addEntity(this.overlay);
-
+        for (var i = 0; i < BACKGROUND.TREE.length; i++) {
+            let tree = BACKGROUND.TREE[i]; 
+            for (var j = 0; j < BACKGROUND.FRUIT.length; j++) {
+                let fruit = BACKGROUND.FRUIT[j]; 
+                this.game.addEntity(new Fruit(this.game, tree.TYPE, tree.X + fruit.X, tree.Y + fruit.Y, fruit.TYPE));
+        }
+    }
+        this.game.addEntity(this.UI);
         // everytime an entity is added, put bunny on top. unless its overlay
       
     }
@@ -136,21 +143,21 @@ var OVERLAY = {
 }
 
 var BACKGROUND = {
-    MUSIC: [{song: "./music/Oneul - Lemon and Ginger.mp3", name: "Lemon and Ginger"}, 
-            {song: "./music/Oneul - Almond Crossaint.mp3", name: "Almond Crossaint"},
-            {song: "./music/Oneul - Winter Yuja Cha.mp3", name: "Winter Yuja Cha"} ,
-            {song: "./music/Oneul - Cake Five.mp3", name: "Cake Five"} ,
-            {song: "./music/Oneul - Chocolate World.mp3", name: "Chocolate World"} ,
-            {song: "./music/Oneul - Cookie Tree.mp3", name: "Cookie Tree"} ,
-            {song: "./music/Oneul - Fig Yogurt.mp3", name: "Fig Yogurt"} ,
-            {song: "./music/Oneul - Just Pumpkin Day.mp3", name: "Just Pumpkin Day"} ,
-            {song: "./music/Oneul - Morning Peppermint.mp3", name: "Morning Peppermint"} ,
-            {song: "./music/Oneul - Strawberry Dance.mp3", name: "Strawberry Dance"} ,
-            {song: "./music/Oneul - Kaya Toast.mp3", name: "Kaya Toast"} ],
+    MUSIC: [{song: "./music/Oneul - Lemon and Ginger.mp3",  name: "Lemon and Ginger"}, 
+            {song: "./music/Oneul - Almond Crossaint.mp3",  name: "Almond Crossaint"},
+            {song: "./music/Oneul - Winter Yuja Cha.mp3",   name: "Winter Yuja Cha"} ,
+            {song: "./music/Oneul - Cake Five.mp3",         name: "Cake Five"} ,
+            {song: "./music/Oneul - Chocolate World.mp3",   name: "Chocolate World"} ,
+            {song: "./music/Oneul - Cookie Tree.mp3",       name: "Cookie Tree"} ,
+            {song: "./music/Oneul - Fig Yogurt.mp3",        name: "Fig Yogurt"} ,
+            {song: "./music/Oneul - Just Pumpkin Day.mp3",  name: "Just Pumpkin Day"} ,
+            {song: "./music/Oneul - Morning Peppermint.mp3",name: "Morning Peppermint"} ,
+            {song: "./music/Oneul - Strawberry Dance.mp3",  name: "Strawberry Dance"} ,
+            {song: "./music/Oneul - Kaya Toast.mp3",        name: "Kaya Toast"} ],
 
 
 
-    FRUIT:     [{X:10, Y:15, TYPE: 1}, {X:40, Y:15, TYPE: 1}, {X:25, Y:-10, TYPE: 1}],
+    FRUIT:     [{X:10, Y:15, TYPE: 1, NUM: 1}, {X:40, Y:15, TYPE: 1, NUM: 2}, {X:25, Y:-10, TYPE: 1, NUM: 3}, {X:10, Y:15, TYPE: 2, NUM: 1}, {X:40, Y:15, TYPE: 2, NUM: 2}, {X:25, Y:-10, TYPE: 2, NUM: 3}],
     FLOWERPOT: [{X:360, Y:340, TYPE: 1}, {X:384, Y:340, TYPE: 1}, {X:410, Y:340, TYPE: 1}],
     GRASS_DECO: [{X: 640,Y:570},{X:831,Y:334},{X:96, y:145}, {X:332, Y:472}],
     WATER_TRAY: [{X:509, Y:340, TYPE:2}], // {X:294, Y:200, TYPE:1}, 
@@ -189,7 +196,7 @@ var BACKGROUND = {
     FENCE: {SIZE: 16, SCALE: 3},
     COW:   [{X: 200, Y: 200, TYPE: 1, FACING: 0, COLOR: 1}, {X: 150, Y: 550, TYPE: 2, FACING: 0, COLOR: 0}, {X: 170, Y: 150, TYPE:3, FACING: 0, COLOR: 3}, {X:750, Y:250, TYPE:4, FACING: 1, COLOR: 2}],
     COW_SIZE: 32, 
-    TREE: [{X:700, Y: 200}, {X:120, Y:500}],
+    TREE: [{X:700, Y: 200, TYPE: 1}, {X:120, Y:500, TYPE: 2}],
     FLOWER: [{X:262, Y:600, TYPE: 0, COLOR: 1}, {X:109, Y:396, TYPE: 1, COLOR: 2}, {X:807, Y:550, TYPE: 2, COLOR: 3}, {X:658, Y:304, TYPE: 3, COLOR: 4}, {X:770, Y:140, TYPE: 4, COLOR: 5}],
     DIRT:   [{X: 550, Y: 400, TYPE: 0}, {X: 611, Y: 400, TYPE: 1}, {X: 672, Y: 400, TYPE: 2}, 
              {X: 550, Y: 461, TYPE: 3}, {X: 611, Y: 461, TYPE: 4}, {X: 672, Y: 461, TYPE: 5}],

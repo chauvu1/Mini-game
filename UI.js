@@ -46,7 +46,7 @@ class UI {
 
         this.musicOpened = false;
         this.settingUI = new Animator (this.spritesheetUI, 988 , 441, 244, 45, 1, 1, 0, false, true);
-        this.cakeAnim = new Animator (this.iconsheet, 0, 0, 250, 214, 10, 0.1, 0 , false, true);
+        this.cakeAnim = new Animator (this.iconsheet, 0, 0, 250, 214, 10, 0.5, 0 , false, true);
         this.heartAnim = new Animator (this.heart_bg, 0, 0, 110, 110, 3, 0.5, 0 , false, true);
 
         this.closeButton = [];
@@ -99,17 +99,22 @@ class UI {
             this.button2state = 0; 
         }
 
+
         if (this.game.mouse.x > 911 && this.game.mouse.x < 955 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
             this.button3state = 1;
             if (!this.musicOpened && this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.musicOpened = true;
             } else if (this.musicOpened && this.game.click && this.game.click.x > 911 && this.game.click.x < 955 && this.game.click.y > 12 && this.game.click.y < 52) {
+                this.button3state = 1;
                 this.musicOpened = false;
-                this.button3State = 1;
             } 
             this.game.click = false;
         } else {
             this.button3state = 0; 
+        }
+
+        if (this.musicOpened) {
+            this.button3state = 1;
         }
 
         if (this.game.mouse.x > 762 && this.game.mouse.x < 803 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
@@ -189,11 +194,6 @@ class UI {
             ctx.fillText("A message for you :)", 315, 314); //280
             ctx.fillText("Thank you for playing!", 335, 354); //280
             ctx.fillText("I hope you have fun", 335, 394); //280
-            // ctx.fillText("Credits:", 315, 434); //280
-            // ctx.fillText("Asset pack: Sprout Lands @CUP NOOBLE ", 315, 510); //280
-            // ctx.fillText("Song: Oneul - Lemon and Ginger", 315, 460); //280
-            // ctx.fillText("Link: Oneul https://youtu.be/Ek62F18l_To", 315, 480); //280
-            
         }
 
         if (this.taskOpened) { 
@@ -265,7 +265,7 @@ class UI {
 
         if (this.musicOpened) {
             var TICK = this.game.clockTick 
-            var MIN = 0.125;
+            var MIN = 2;
             this.velocity += MIN;
 
             // this.cakeY = PARAMS.CANVAS_HEIGHT;

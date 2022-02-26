@@ -171,6 +171,8 @@ class Cow {
         this.velocity = { x: 0, y: 0};
         if (this.type == 1) {
             this.game.cow = this;
+        } else if (this.type == 3) {
+            this.game.cow1 = this;
         }
   
         this.collidedRight = false;
@@ -256,6 +258,7 @@ class Cow {
                }
                if (entity instanceof Bunny && that.BB.collide(entity.BB)) {
                     that.velocity.x = 0;
+                    that.state = 0;
                 } else {
 
                 }

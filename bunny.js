@@ -14,6 +14,7 @@ class Bunny {
         this.animations = [];
        
         this.under = false;
+        this.cowunder = false;
         this.crouch = false;
 
         this.withinBlanket = false;
@@ -27,6 +28,7 @@ class Bunny {
         this.milkInteract = false;
         this.cowInteract = 0;
         this.milkCount = 0;
+        this.cowCollided = 0;
 
         this.plowing = false;
         this.dirtTypeInteract = 0;
@@ -293,16 +295,23 @@ class Bunny {
                 if (that.rightBB.collide(entity.BBbottom) && that.rightBB.right >= entity.BBbottom.left)
                     if (that.velocity.x > 0) that.velocity.x = 0;
                 
-                if ( (entity instanceof Tree || entity instanceof WaterWell || entity instanceof Cow || entity instanceof Sign || entity instanceof Picnic) && that.BB.collide(entity.BB)) {
+                if ((entity instanceof Tree || entity instanceof WaterWell || entity instanceof Sign || entity instanceof Picnic) && that.BB.collide(entity.BB)) {
                     if (that.BB.left > entity.BB.left - 13 && that.BB.right < entity.BB.right + 13 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
                         that.under = true;
                     } else {
                         that.under = false;
                     }
-                } 
-               
-                
+                }   
             }
+
+            if (entity instanceof Cow && that.BB.collide(entity.BB)) {
+                that.cowCollided = entity.color;
+                if (that.BB.left > entity.BB.left - 13 && that.BB.right < entity.BB.right + 13 && that.BB.bottom < entity.BB.bottom && that.BB.top > entity.BB.top) {
+                    that.cowunder = true;
+                } else {
+                    that.cowunder = false;
+                }
+            }   
 
             if (entity instanceof PicnicBlanket) {
                 if (that.BB.collide(entity.BB)) {

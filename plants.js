@@ -205,11 +205,9 @@ class Flower {
 };
 
 class Tree {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
+    constructor(game, x, y, type) {
+        Object.assign(this, { game, x, y, type});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
-        this.maxFruitCount = 4;
-        this.currentFruitCount = 0;
         this.under = false;
         this.createBB();
     }
@@ -229,16 +227,6 @@ class Tree {
             32 * 3,
             32 * 3); 
 
-            // fix the UI later
-        if (this.currentFruitCount < this.maxFruitCount) {
-            for (var i = 0; i < BACKGROUND.FRUIT.length; i++) {
-                let fruit = BACKGROUND.FRUIT[i];
-                this.game.addEntity(new Fruit(this.game, this.x + fruit.X, this.y + fruit.Y));
-            }     
-            this.game.addEntity(this.game.scene.UI);
-            this.currentFruitCount = this.currentFruitCount + BACKGROUND.FRUIT.length;
-        }
-        
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';  
@@ -253,8 +241,8 @@ class Tree {
 
 
 class Fruit {
-    constructor(game, x, y) {
-        Object.assign(this, {game, x, y});
+    constructor(game, tree, x, y, type) {
+        Object.assign(this, {game, tree, x, y, type});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
         this.createBB();
     }
@@ -265,11 +253,53 @@ class Fruit {
     };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 64, 32,
-            16,  16,
-            this.x,
-            this.y,
-            16 * 3,
-            16 * 3); 
+        if (this.type == 1 && this.tree == 1) {
+            ctx.drawImage(this.spritesheet, 64, 32,
+                16,  16,
+                this.x,
+                this.y,
+                16 * 3,
+                16 * 3); 
+        } else if (this.type == 2 && this.tree == 2) {
+            ctx.drawImage(this.spritesheet, 32, 32,
+                16,  16,
+                this.x,
+                this.y,
+                16 * 3,
+                16 * 3); 
+        }
+    
+    }
+}
+
+class FruitItem {
+    constructor(game, tree, x, y, type) {
+        Object.assign(this, {game, tree, x, y, type});
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+        this.createBB();
+    }
+    createBB() {
+    }
+
+    update() {
+    };
+
+    draw(ctx) {
+        if (this.type == 1 && this.tree.type == 1) {
+            ctx.drawImage(this.spritesheet, 160, 32,
+                16,  16,
+                this.x,
+                this.y,
+                16 * 3,
+                16 * 3); 
+        } else if (this.type == 2 && this.tree.type == 2) {
+            ctx.drawImage(this.spritesheet, 144, 32,
+                16,  16,
+                this.x,
+                this.y,
+                16 * 3,
+                16 * 3); 
+        }
+    
     }
 }
