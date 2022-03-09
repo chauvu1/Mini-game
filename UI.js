@@ -173,7 +173,7 @@ class UI {
         ctx.strokeStyle = '#f3f4e7';
         ctx.fillStyle = ctx.strokeStyle;
 
-        if (!this.game.title.title) {
+        if (!this.game.scene.title) {
             this.startTimer();
             if (Math.round(this.elapsedTime) < 10 && Math.round(this.minute) < 10) {
                 ctx.fillText("0" + Math.round(this.minute) + ":" + "0" + Math.round(this.elapsedTime), 430, 41); //timer 
