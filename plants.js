@@ -6,6 +6,7 @@ class Dirt {
         this.dirtTaken = false;
         this.elapsedTime = 0;
         this.animators = [];
+        this.height;
     }
     
     update() {
@@ -69,6 +70,7 @@ class Plant {
         this.barX = this.x + 5;
         this.barY = this.y;
         this.timerBar = new TimerBar(this, this.game);
+        this.height;
     }
     
     update() {
@@ -119,7 +121,7 @@ class Flower {
         this.animation = [];
         this.loadAnimations();
         this.alreadyWatered = false;
-
+        this.height;
         // this.width = 0;
         // this.height = 3.5;
         // this.maxHealth = 20;
@@ -210,6 +212,7 @@ class Tree {
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
         this.under = false;
         this.createBB();
+        this.height = this.y;
     }
     createBB() {
         this.BB = new BoundingBox(this.x + 10, this.y, 32 * 3 - 20, 32 * 3 - 12);
@@ -217,6 +220,7 @@ class Tree {
     }
 
     update() {
+        //console.log(this.height);
     };
 
     draw(ctx) {
@@ -226,7 +230,7 @@ class Tree {
             this.y,
             32 * 3,
             32 * 3); 
-
+        
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';  
@@ -244,38 +248,53 @@ class Fruit {
     constructor(game, tree, x, y, type, num) {
         Object.assign(this, {game, tree, x, y, type, num});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
+        this.orangespritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Tree animations/tree orange sprites.png")
         this.numFruit = 1;
         this.maxFruit = 3;
+        this.drawCount = false;
         this.removeFromWorld = false;
+        this.fruitCollected = false;
+        this.loadAnimations();
         this.createBB();
+        this.height;
+    }
+
+    loadAnimations() {
+        this.orangeAnimation = new Animator(this.orangespritesheet, 0, 144, 48, 48, 9, 0.1, 0, false, false);
     }
     createBB() {
+
     }
 
     update() { 
+
         if (this.game.bunny.treeInteract && this.game.bunny.treeTypeInteract == this.type && this.numFruit++ == this.num) {
-            this.removeFromWorld = true;
+            this.fruitCollected = true;
             this.game.bunny.treeInteract = false;
         }
     };
 
     draw(ctx) {
-        if (this.type == 1 && this.tree == 1) {//pears
+      
+        if (this.type == 1 && this.tree == 1 && !this.fruitCollected) {//pears
             ctx.drawImage(this.spritesheet, 64, 32,
                 16,  16,
                 this.x,
                 this.y,
                 16 * 3,
                 16 * 3); 
-        } else if (this.type == 2 && this.tree == 2) {//orange tree numba 2
+        } else if (this.type == 2 && this.tree == 2 && !this.fruitCollected) {//orange tree numba 2
             ctx.drawImage(this.spritesheet, 32, 32,
                 16,  16,
                 this.x,
                 this.y,
                 16 * 3,
                 16 * 3); 
+        } else if (this.type == 2 && this.tree == 2 && this.fruitCollected  && !this.drawCount) {//orange
+           
+            // this.orangeAnimation.drawFrame(this.game.clockTick, ctx, BACKGROUND.TREE[1].X, BACKGROUND.TREE[1].Y, 3);
+          
         }
-    
     }
 }
 
@@ -285,6 +304,7 @@ class FruitItem {
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/objects/Trees, stumps and bushes.png");
         this.removeFromWorld = false;
         this.createBB();
+        this.height;
     }
     createBB() {
     }

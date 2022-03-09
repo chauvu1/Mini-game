@@ -31,9 +31,10 @@ class SceneManager {
     };
 
     updateAudio() {
-        var mute = true;
+        var mute = false;
+        var volume = 0.2;
         // document.getElementById("mute").checked;
-        var volume = document.getElementById("volume").value;
+        // var volume = document.getElementById("volume").value;
 
         ASSET_MANAGER.muteAudio(mute);
         ASSET_MANAGER.adjustVolume(volume);
@@ -52,6 +53,7 @@ class SceneManager {
         this.fence = new Fence(this.game, 120, 150);
         this.boat = new Boat(this.game, 675, 660);
         this.bunny = new Bunny(this.game, 300, 300);
+     
         this.waterObj = new WaterObjects(this.game, 0, 0);
         this.overlay = new Overlay(this.game, 0, 0);
         this.UI = new UI(this.game, 0,0);
@@ -69,6 +71,7 @@ class SceneManager {
         for (var i = 0; i < BACKGROUND.TREE.length; i++) {
             let tree = BACKGROUND.TREE[i]; 
             this.game.addEntity(new Tree(this.game, tree.X, tree.Y, tree.TYPE)); 
+       
     }
         for (var i = 0; i < BACKGROUND.COW.length; i++) {
             let cow = BACKGROUND.COW[i];
@@ -112,16 +115,17 @@ class SceneManager {
                 let fruit = BACKGROUND.FRUIT[j]; 
                 this.game.addEntity(new Fruit(this.game, tree.TYPE, tree.X + fruit.X, tree.Y + fruit.Y, fruit.TYPE, fruit.NUM));
         }
-    }
+        }
+        
         this.game.addEntity(this.UI);
-        // everytime an entity is added, put bunny on top. unless its overlay
+     
       
     }
 
     update() {
         // added these for debugging
-        PARAMS.DEBUG = true;
-        this.game.title.titleStartClicked = true;
+        // PARAMS.DEBUG = true;
+        // this.game.title.titleStartClicked = true;
         this.updateAudio();
         if (this.game.title.titleStartClicked) { // if they click on start button
             this.title = false;

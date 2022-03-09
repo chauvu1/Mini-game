@@ -45,7 +45,8 @@ ASSET_MANAGER.queueDownload("./sprites/carrots_icon.png")
 ASSET_MANAGER.queueDownload("./sprites/bunny_hops.png")
 ASSET_MANAGER.queueDownload("./sprites/cake.png")
 ASSET_MANAGER.queueDownload("./sprites/heart_bg.png")
-
+ASSET_MANAGER.queueDownload("./sprites/objects/Tree animations/tree orange sprites.png")
+ASSET_MANAGER.queueDownload("./sprites/objects/Tree animations/tree pear sprites.png")
 
 ASSET_MANAGER.queueDownload("./music/Oneul - Lemon and Ginger.mp3")
 ASSET_MANAGER.queueDownload("./music/Oneul - Almond Crossaint.mp3")

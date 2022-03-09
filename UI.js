@@ -68,12 +68,12 @@ class UI {
     }
 
     update() {
-        if (this.game.mouse.x > 810 && this.game.mouse.x < 853 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
+        if (this.game.mouse.x > 862 && this.game.mouse.x < 904 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
             this.button1state = 1;
-            if (!this.taskOpened && this.game.click && this.game.click.x > 810 && this.game.click.x < 853 && this.game.click.y > 12 && this.game.click.y < 52) {
+            if (!this.taskOpened && this.game.click && this.game.click.x > 862 && this.game.click.x < 904 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.taskOpened = true;  
                
-            } else if (this.taskOpened && this.game.click && this.game.click.x > 810 && this.game.click.x < 853 && this.game.click.y > 12 && this.game.click.y < 52) {
+            } else if (this.taskOpened && this.game.click && this.game.click.x > 862 && this.game.click.x < 904 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.button1state = 1;
                 this.taskOpened = false;  
             } 
@@ -89,15 +89,15 @@ class UI {
             this.messageOpened = false;
         }
 
-        if (this.game.mouse.x > 862 && this.game.mouse.x < 904 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
-            this.button2state = 1;
-            if (this.game.click && this.game.click.x > 862 && this.game.click.x < 904 && this.game.click.y > 12 && this.game.click.y < 52) {
-                this.game.scene.title = true; 
-                this.game.click = false;
-            } 
-        } else {
-            this.button2state = 0; 
-        }
+        // if (this.game.mouse.x > 862 && this.game.mouse.x < 904 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
+        //     this.button2state = 1;
+        //     if (this.game.click && this.game.click.x > 862 && this.game.click.x < 904 && this.game.click.y > 12 && this.game.click.y < 52) {
+        //         this.game.scene.title = true; 
+        //         this.game.click = false;
+        //     } 
+        // } else {
+        //     this.button2state = 0; 
+        // }
 
 
         if (this.game.mouse.x > 911 && this.game.mouse.x < 955 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
@@ -116,13 +116,14 @@ class UI {
         if (this.musicOpened) {
             this.button3state = 1;
         }
+        
 
-        if (this.game.mouse.x > 762 && this.game.mouse.x < 803 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
+        if (this.game.mouse.x > 810  && this.game.mouse.x < 853  && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
             this.buttonstate = 1;
-            if (!this.messageOpened && this.game.click && this.game.click.x > 762 && this.game.click.x < 803 && this.game.click.y > 12 && this.game.click.y < 52) {
+            if (!this.messageOpened && this.game.click && this.game.click.x > 810 && this.game.click.x < 853 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.messageOpened = true;
                
-            } else if (this.messageOpened && this.game.click && this.game.click.x > 762 && this.game.click.x < 803 && this.game.click.y > 12 && this.game.click.y < 52) {
+            } else if (this.messageOpened && this.game.click && this.game.click.x > 810 && this.game.click.x < 853 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.messageOpened = false;
                 this.buttonstate = 1;
             } 
@@ -164,10 +165,10 @@ class UI {
 
     draw(ctx) { 
         ctx.font = "32px Minecraft";
-        this.button[this.buttonstate].drawFrame(this.game.clockTick, ctx, 760, 10, 2);
-        this.button1[this.button1state].drawFrame(this.game.clockTick, ctx, 810, 10, 2);
+        this.button[this.buttonstate].drawFrame(this.game.clockTick, ctx, 810, 10, 2);
+        this.button1[this.button1state].drawFrame(this.game.clockTick, ctx, 860, 10, 2);
         this.button3[this.button3state].drawFrame(this.game.clockTick, ctx, 910, 10, 2);
-        this.button2[this.button2state].drawFrame(this.game.clockTick, ctx, 860, 10, 2);
+        //this.button2[this.button2state].drawFrame(this.game.clockTick, ctx, 860, 10, 2);
       
         ctx.strokeStyle = '#f3f4e7';
         ctx.fillStyle = ctx.strokeStyle;
@@ -175,25 +176,25 @@ class UI {
         if (!this.game.title.title) {
             this.startTimer();
             if (Math.round(this.elapsedTime) < 10 && Math.round(this.minute) < 10) {
-                ctx.fillText("0" + Math.round(this.minute) + ":" + "0" + Math.round(this.elapsedTime), 675, 41); //timer 
+                ctx.fillText("0" + Math.round(this.minute) + ":" + "0" + Math.round(this.elapsedTime), 430, 41); //timer 
             } else if (Math.round(this.elapsedTime) >= 10 && Math.round(this.minute) < 10) {
-                ctx.fillText("0" + Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 675, 41); //timer 
+                ctx.fillText("0" + Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 430, 41); //timer 
             } else if (Math.round(this.elapsedTime) < 10 && Math.round(this.minute) >= 10) {
-                ctx.fillText(Math.round(this.minute) + ":" + "0" +  Math.round(this.elapsedTime), 675, 41); //timer 
+                ctx.fillText(Math.round(this.minute) + ":" + "0" +  Math.round(this.elapsedTime), 430, 41); //timer 
             } else if (Math.round(this.elapsedTime) >= 10 && Math.round(this.minute) >= 10) {
-                ctx.fillText(Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 675, 41); //timer 
+                ctx.fillText(Math.round(this.minute) + ":" + Math.round(this.elapsedTime), 430, 41); //timer 
             }
         }
       
         ctx.font = "16px Minecraft";
         if (this.messageOpened) {
-
             this.messageUI.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH / 2 - 402 /2, PARAMS.CANVAS_HEIGHT / 2 - 291/2, 1);
             ctx.strokeStyle = '#bd757e';
             ctx.fillStyle = ctx.strokeStyle;
             ctx.fillText("A message for you :)", 315, 314); //280
             ctx.fillText("Thank you for playing!", 335, 354); //280
             ctx.fillText("I hope you have fun", 335, 394); //280
+            ctx.fillText("Chau", 550, 430); //280
         }
 
         if (this.taskOpened) { 

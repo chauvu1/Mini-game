@@ -170,7 +170,9 @@ class GameEngine {
 
          // Remove dead things
          this.entities = this.entities.filter(entity => !entity.removeFromWorld);
-
+       
+       
+        
          // Add new things
          this.entities = this.entities.concat(this.entitiesToAdd);
          this.entitiesToAdd = [];
@@ -182,6 +184,8 @@ class GameEngine {
         this.update();
         this.draw();
     };
+    get width() { return this.ctx?.canvas?.width || 0; }
+    get height() { return this.ctx?.canvas?.height || 0;};
 };
 
 // KV Le was here :)

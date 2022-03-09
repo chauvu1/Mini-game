@@ -148,6 +148,7 @@ class Bunny {
     }
 
     update() {
+        this.height = this.y;
         const MIN_WALK = 100;
         const TICK = this.game.clockTick;
 
