@@ -132,7 +132,7 @@ class AssetManager {
             }
             
     }
-    return this.song.src.replace(/%20/g, " ").slice(36 + 15, this.song.src.replace(/%20/g, " ").length - 4);
+    return this.song.src.replace(/%20/g, " ").slice(36 + 14, this.song.src.replace(/%20/g, " ").length - 4);
 }
 
     loopAsset() {
