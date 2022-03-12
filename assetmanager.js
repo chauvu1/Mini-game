@@ -160,7 +160,7 @@ class AssetManager {
             index++;
         }
         if (index == BACKGROUND.MUSIC.length) {
-                index = 1;
+                index = 0;
         }
       });
             
