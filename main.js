@@ -35,7 +35,9 @@ ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Pink c
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Light cow animation sprites.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Brown cow animation sprites.png");
 ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/cow/Purple cow animation sprites.png");
+ASSET_MANAGER.queueDownload("./sprites/characters/Animal SpriteSheets/baby cow/baby pink cow animations sprites.png");
 ASSET_MANAGER.queueDownload("./sprites/tilesets/background.png");  
+ASSET_MANAGER.queueDownload("./sprites/tilesets/creditsbackground.png");  
 ASSET_MANAGER.queueDownload("./sprites/bunny_icon.png")
 ASSET_MANAGER.queueDownload("./sprites/buttons.png")
 ASSET_MANAGER.queueDownload("./sprites/title_clouds.png")
@@ -47,6 +49,9 @@ ASSET_MANAGER.queueDownload("./sprites/cake.png")
 ASSET_MANAGER.queueDownload("./sprites/heart_bg.png")
 ASSET_MANAGER.queueDownload("./sprites/objects/Tree animations/tree orange sprites.png")
 ASSET_MANAGER.queueDownload("./sprites/objects/Tree animations/tree pear sprites.png")
+ASSET_MANAGER.queueDownload("./sprites/htptitle.png")
+ASSET_MANAGER.queueDownload("./sprites/htpbunny.png")
+ASSET_MANAGER.queueDownload("./sprites/fire.png")
 
 ASSET_MANAGER.queueDownload("./music/Oneul - Lemon and Ginger.mp3")
 ASSET_MANAGER.queueDownload("./music/Oneul - Almond Crossaint.mp3")
@@ -59,7 +64,10 @@ ASSET_MANAGER.queueDownload("./music/Oneul - Just Pumpkin Day.mp3")
 ASSET_MANAGER.queueDownload("./music/Oneul - Morning Peppermint.mp3")
 ASSET_MANAGER.queueDownload("./music/Oneul - Strawberry Dance.mp3")
 ASSET_MANAGER.queueDownload("./music/Oneul - Kaya Toast.mp3")
-
+ASSET_MANAGER.queueDownload("./music/bloop.mp3")
+ASSET_MANAGER.queueDownload("./music/message.mp3")
+ASSET_MANAGER.queueDownload("./music/collected.mp3")
+ASSET_MANAGER.queueDownload("./music/sleeping.mp3")
 ASSET_MANAGER.downloadAll(function () {
 	var canvas = document.getElementById("gameWorld");
 	var ctx = canvas.getContext("2d");

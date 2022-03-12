@@ -165,7 +165,7 @@ class House {
         this.loadAnimations();
         this.createBB();
         this.updateBB();
-    
+        this.sleepMusic = false;
         this.width = 0;
         this.height = 3.5;
         this.maxHealth = 20;
@@ -202,6 +202,8 @@ class House {
 
     update() {
         if (this.game.bunny.sleep) {
+
+            this.sleepMusic= true;
             this.elapsed += this.game.clockTick;
             if (this.width <= this.maxHealth) {
                 this.width += 0.01; // original
@@ -212,12 +214,13 @@ class House {
         } else {
             this.width = 0;
         }
-
+//   
         if (this.width >= this.maxHealth) {
+
             this.game.bunny.sleepCount = this.game.bunny.sleepCount + 1;
             this.game.bunny.sleep = false;
             this.width = 0;
-        }
+        } 
 
         if (this.visible) {
             if (this.door) {
