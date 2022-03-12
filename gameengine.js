@@ -24,7 +24,7 @@ class GameEngine {
         this.down = false;
         this.interact = false;
         this.crouch = false;
-
+        this.escape = false;
         this.dragItem = document.querySelector("#item");
         this.container = document.querySelector("#container");
 
@@ -96,6 +96,9 @@ class GameEngine {
                 case "ControlLeft":
                     that.crouch = true;
                     break;
+                case "Escape":
+                    that.escape = true;
+                    break;
             }
         }, false);
 
@@ -130,6 +133,9 @@ class GameEngine {
                     break;
                 case "ControlLeft":
                     that.crouch = false;
+                    break;
+                case "Escape":
+                    that.escape = false;
                     break;
             }
         }, false);

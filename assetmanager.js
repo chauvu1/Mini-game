@@ -104,6 +104,18 @@ class AssetManager {
         }
     };
 
+    // pauseCurrentSong(name) {
+    //     for (var key in this.cache) {
+    //         let asset = this.cache[key];
+          
+    //         if (asset instanceof Audio) {
+    //             console.log(asset);
+    //             asset.pause();
+    //             asset.currentTime = 0;
+    //         }
+    //     }
+    // }
+
     pauseBackgroundMusic() {
         for (var key in this.cache) {
             let asset = this.cache[key];
@@ -114,15 +126,15 @@ class AssetManager {
         }
     };
 
-    // currentSongPlaying() {
-    //     for (var key in this.cache) {
-    //         let asset = this.cache[key];
-    //         if (asset instanceof Audio) {
-    //             this.song = asset;
-    //         }
-    //     }
-    //     return this.song.currentSrc; // return the last song playing, how to get current song??
-    // }
+    currentSongPlaying() {
+        for (var key in this.cache) {
+            let asset = this.cache[key];
+            if (asset instanceof Audio) {
+                this.song = asset;
+            }
+        }
+        return this.song.currentSrc; // return the last song playing, how to get current song??
+    }
 
     currentSongName() {
         for (var key in this.cache) {

@@ -15,6 +15,11 @@ class UI {
         this.buttonsheet = ASSET_MANAGER.getAsset("./sprites/buttons.png");
         this.iconsheet = ASSET_MANAGER.getAsset("./sprites/cake.png");
         this.heart_bg = ASSET_MANAGER.getAsset("./sprites/heart_bg.png");
+        this.muteState = 0;
+        this.mutebuttonAnim = [];
+        this.mutebuttonAnim[0] = new Animator(this.buttonsheet, 448, 368, 17, 16, 1, 1, 0, false, true); 
+        this.mutebuttonAnim[1] = new Animator(this.buttonsheet, 448+ 17, 368, 17, 16, 1, 1, 0, false, true); 
+        this.mutebuttonAnim[2] = new Animator(this.buttonsheet, 448+ 17 + 17, 368, 17, 16, 1, 1, 0, false, true); 
 
         this.titleMusicStart = false;
         this.font = new FontFace("Minecraft", 'url(./sprites/Minecraft.ttf) format("TrueType")');
@@ -27,8 +32,7 @@ class UI {
         this.cakeY = PARAMS.CANVAS_HEIGHT;
         this.fontTitleY = PARAMS.CANVAS_HEIGHT + 40;
         this.fontArtistY = PARAMS.CANVAS_HEIGHT + 30;
-
-
+        
         this.helpbutton = [];
         this.elapsedTime = 0;
         this.minute = 0;
@@ -68,6 +72,25 @@ class UI {
     }
 
     update() {
+        this.game.scene.updateAudio();
+        if (this.game.mouse.x > 917 && this.game.mouse.x < 954 && this.game.mouse.y > 728 && this.game.mouse.y < 758) {
+            this.muteState = 2;
+            if (!this.game.scene.mute && this.game.click && this.game.click.x > 917 && this.game.click.x < 954 && this.game.click.y > 728 && this.game.click.y < 758) {
+                this.game.scene.mute = true;
+            } else if (this.game.scene.mute && this.game.click && this.game.click.x > 917 && this.game.click.x < 954 && this.game.click.y > 728 && this.game.click.y < 758 ) {
+                this.muteState = 1;
+                this.game.scene.mute = false;
+            }
+            this.game.click = false;
+        } else {
+            this.muteState = 0;
+        }
+
+        if (this.game.scene.mute) {
+            this.muteState = 1;
+        }
+
+
         if (this.game.mouse.x > 862 && this.game.mouse.x < 904 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
             this.button1state = 1;
             if (!this.taskOpened && this.game.click && this.game.click.x > 862 && this.game.click.x < 904 && this.game.click.y > 12 && this.game.click.y < 52) {
@@ -86,7 +109,9 @@ class UI {
             this.button1state = 1;
         }
         if (this.messageOpened && this.game.click && this.game.click.x > 632 && this.game.click.x < 655 && this.game.click.y > 250 && this.game.click.y < 274) {
+       
             this.messageOpened = false;
+
         }
 
         // if (this.game.mouse.x > 862 && this.game.mouse.x < 904 && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
@@ -120,9 +145,10 @@ class UI {
 
         if (this.game.mouse.x > 810  && this.game.mouse.x < 853  && this.game.mouse.y > 12 && this.game.mouse.y < 52) {
             this.buttonstate = 1;
+        
             if (!this.messageOpened && this.game.click && this.game.click.x > 810 && this.game.click.x < 853 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.messageOpened = true;
-               
+                ASSET_MANAGER.playAsset("./music/message.mp3");
             } else if (this.messageOpened && this.game.click && this.game.click.x > 810 && this.game.click.x < 853 && this.game.click.y > 12 && this.game.click.y < 52) {
                 this.messageOpened = false;
                 this.buttonstate = 1;
@@ -157,7 +183,7 @@ class UI {
         if (!this.stopTimer) {
             this.elapsedTime += this.game.clockTick; 
             if (Math.round(this.elapsedTime) == 60) {
-                this.minute += this.elapsedTime / 60;
+                this.minute += Math.round(this.elapsedTime) / 60;
                 this.elapsedTime = 0;
             }
         }
@@ -169,7 +195,7 @@ class UI {
         this.button1[this.button1state].drawFrame(this.game.clockTick, ctx, 860, 10, 2);
         this.button3[this.button3state].drawFrame(this.game.clockTick, ctx, 910, 10, 2);
         //this.button2[this.button2state].drawFrame(this.game.clockTick, ctx, 860, 10, 2);
-      
+        this.mutebuttonAnim[this.muteState].drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 40, PARAMS.CANVAS_HEIGHT - 40, 2);
         ctx.strokeStyle = '#f3f4e7';
         ctx.fillStyle = ctx.strokeStyle;
 
@@ -272,16 +298,16 @@ class UI {
             // this.cakeY = PARAMS.CANVAS_HEIGHT;
             // this.fontTitleY = PARAMS.CANVAS_HEIGHT;
             // this.fontArtistY = PARAMS.CANVAS_HEIGHT;
-            this.settingUI.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 244, this.settingY, 1);
+            this.settingUI.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 244 - 45, this.settingY, 1);
             //this.heartAnim.drawFrame(this.game.clockTick, ctx, 360, 190, 2);
 
-            this.cakeAnim.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 250 * 0.15 - 200, this.cakeY, 0.15);
+            this.cakeAnim.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_WIDTH - 250 * 0.15 - 200 - 45, this.cakeY, 0.15);
             ctx.strokeStyle = '#f3f4e7'
             ctx.fillStyle = ctx.strokeStyle;
             ctx.font = "16px Minecraft";
-            ctx.fillText(ASSET_MANAGER.currentSongName(), PARAMS.CANVAS_WIDTH - 190, this.fontArtistY); //280
+            ctx.fillText(ASSET_MANAGER.currentSongName(), PARAMS.CANVAS_WIDTH - 190 - 45, this.fontArtistY); //280
             ctx.font = "8px Minecraft";
-            ctx.fillText("Oneul", PARAMS.CANVAS_WIDTH - 190, this.fontTitleY); //280
+            ctx.fillText("Oneul", PARAMS.CANVAS_WIDTH - 190 - 45, this.fontTitleY); //280
            
             if (this.fontTitleY <= PARAMS.CANVAS_HEIGHT - 10) {
                 this.fontTitleY = PARAMS.CANVAS_HEIGHT - 10

@@ -4,8 +4,16 @@ class SceneManager {
     constructor(game) {
         this.game = game;
         this.game.scene = this;
+        this.mute = false;
         this.title = true;
+        this.htpTitle = false;
         this.loadGame(this.title);
+        this.buttonsheet = ASSET_MANAGER.getAsset("./sprites/buttons.png");
+        this.state = 0;
+        this.buttonAnim = [];
+        this.buttonAnim[0] = new Animator(this.buttonsheet, 448, 368, 17, 16, 1, 1, 0, false, true); 
+        this.buttonAnim[1] = new Animator(this.buttonsheet, 448+ 17, 368, 17, 16, 1, 1, 0, false, true); 
+        this.titleClick = false
     }
     
 
@@ -18,7 +26,6 @@ class SceneManager {
         }
         if (!this.title) {
             this.updateAudio();
-            this.playMusic();
             this.loadScreen();
             this.game.addEntity(new TransitionScreen(this.game));
         }
@@ -32,11 +39,9 @@ class SceneManager {
 
     updateAudio() {
         var mute = false;
-        var volume = 0.2;
-        // document.getElementById("mute").checked;
-        // var volume = document.getElementById("volume").value;
+        var volume = 0.5;
 
-        ASSET_MANAGER.muteAudio(mute);
+        ASSET_MANAGER.muteAudio(this.mute);
         ASSET_MANAGER.adjustVolume(volume);
     }
 
@@ -123,20 +128,24 @@ class SceneManager {
     }
 
     update() {
-        // added these for debugging
-        // PARAMS.DEBUG = true;
-        // this.game.title.titleStartClicked = true;
-        this.updateAudio();
+        //this.game.title.titleStartClicked = true;
+        if (this.title && !this.titleClick && this.game.click) {
+            this.playMusic();
+            this.game.click = false;
+            this.titleClick = true;
+        }
+
         if (this.game.title.titleStartClicked) { // if they click on start button
             this.title = false;
+            this.playMusic();
             this.loadGame(this.title); // load the game without title
             this.game.click = false;
-        }
+        } 
       
     }
 
     draw(ctx) {
-    
+   
     }
 }
 

@@ -148,6 +148,7 @@ class Bunny {
     }
 
     update() {
+        //console.log(this.sleep);
         this.height = this.y;
         const MIN_WALK = 100;
         const TICK = this.game.clockTick;
@@ -322,6 +323,7 @@ class Bunny {
                 if (that.BB.collide(entity.BB) && that.game.interact) {
                     that.treeInteract = true;
                     that.treeTypeInteract = entity.type;
+                    that.game.interact = false;
                 }
             }
 
@@ -333,6 +335,7 @@ class Bunny {
                 }
                 if (that.withinBlanket && that.game.interact) {
                     that.havingPicnic = true;
+                    that.game.interact =false;
                 } else {
                     
                 }
@@ -348,6 +351,7 @@ class Bunny {
                 if (that.withinRangeWaterTray && that.game.interact) {
                     that.waterTrayInteracted = entity.type;
                     that.fillWaterTray = true; 
+                    that.game.interact =false;
                 } else{
                    
                 }
@@ -359,13 +363,19 @@ class Bunny {
                 if (!entity.milkGenerated && that.game.interact) {
                     that.milkInteract = true;   
                     that.cowInteract = entity.color;
+                    that.game.interact = false;
+                    
                 }        
             } 
             if (entity instanceof Milk) {
+             
                 if (entity.milkCreated && that.topBB.collide(entity.BB)) {
+                    ASSET_MANAGER.playAsset("./music/collected.mp3");
                     that.milkCount = that.milkCount + 1;
-                    entity.removeFromWorld = true;     
+                    entity.removeFromWorld = true;  
+
                 }
+           
             }
 
             if (entity instanceof Dirt && that.BB.withinRange(entity.BB)) {
@@ -381,9 +391,11 @@ class Bunny {
                 // }
             } 
             if (entity instanceof Plant && that.topBB.collide(entity.BB)) {      
-                if (entity.animation.isDone()) {  
+                if (entity.animation.isDone()) { 
+                    ASSET_MANAGER.playAsset("./music/collected.mp3"); 
                     that.carrotCollectedCount = that.carrotCollectedCount + 1;
                     entity.removeFromWorld = true;
+
                 }
             
             }
@@ -450,9 +462,11 @@ class Bunny {
                 if (entity instanceof House && that.BB.withinRange(entity.BBbed)) {
                     that.bedVisible = true;
                     if (that.BB.withinRange(entity.BBbed) && that.game.interact) {
-                         that.sleep = true;
+                       // ASSET_MANAGER.playAsset("./music/sleeping.mp3"); 
+                        that.sleep = true;
+                    } else {
+                       
                     } 
-                   
                 } 
             }   
             

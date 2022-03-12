@@ -269,6 +269,7 @@ class Fruit {
     update() { 
 
         if (this.game.bunny.treeInteract && this.game.bunny.treeTypeInteract == this.type && this.numFruit++ == this.num) {
+            ASSET_MANAGER.playAsset("./music/collected.mp3");
             this.fruitCollected = true;
             this.game.bunny.treeInteract = false;
         }
